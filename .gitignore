@@ -3,6 +3,7 @@
 *.a
 *.so
 
+*.json
 # Folders
 _obj
 _test
@@ -22,9 +23,7 @@ _testmain.go
 *.exe
 *.test
 *.prof
-
-
-
+godobin*
 
 # Created by https://www.gitignore.io/api/go,python,osx,macos
 
