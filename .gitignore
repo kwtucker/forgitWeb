@@ -3,7 +3,7 @@
 *.a
 *.so
 
-*.json
+config.json
 # Folders
 _obj
 _test
