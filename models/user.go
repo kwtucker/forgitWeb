@@ -33,9 +33,9 @@ type Repo struct {
 
 // Setting ...
 type Setting struct {
-	ID     int
-	Name   string
-	Status int
+	ID     int    `json:"id"`
+	Name   string `json:"name"`
+	Status int    `json:"status"`
 	SettingNotifications
 	SettingAddPullCommit
 	SettingPush
@@ -44,27 +44,27 @@ type Setting struct {
 
 // SettingNotifications ...
 type SettingNotifications struct {
-	Status          int
-	TimeNoCommitMin int
-	OnCommit        int
-	OnPush          int
+	Status          int `json:"status"`
+	TimeNoCommitMin int `json:"timeNoCommitMinute"`
+	OnCommit        int `json:"onCommit"`
+	OnPush          int `json:"onPush"`
 }
 
 // SettingAddPullCommit ...
 type SettingAddPullCommit struct {
-	Status  int
-	TimeMin int
+	Status  int `json:"status"`
+	TimeMin int `json:"timeMinute"`
 }
 
 // SettingPush ...
 type SettingPush struct {
-	Status  int
-	TimeMin int
+	Status  int `json:"status"`
+	TimeMin int `json:"timeMinute"`
 }
 
 // SettingRepo ...
 type SettingRepo struct {
-	ID     int
-	Name   string
-	Status int
+	ID     int    `json:"id"`
+	Name   string `json:"name"`
+	Status int    `json:"status"`
 }
