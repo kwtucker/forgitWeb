@@ -1,18 +1,16 @@
 package models
 
-import ()
-
 // User ...
 type User struct {
-	ID         int `json:"id"`
-	LastUpdate `json:"lastUpdate"`
-	LastSync   `json:"lastSync"`
-	Login      `json:"login"`
-	Name       `json:"name"`
-	AvatarURL  `json:"avatar_url"`
-	Company    `json:"company"`
-	HTMLURL    `json:"html_url"`
-	ReposURL   `json:"repos_url"`
+	ID         int       `json:"id"`
+	LastUpdate string    `json:"lastUpdate"`
+	LastSync   string    `json:"lastSync"`
+	Login      string    `json:"login"`
+	Name       string    `json:"name"`
+	AvatarURL  string    `json:"avatar_url"`
+	Company    string    `json:"company"`
+	HTMLURL    string    `json:"html_url"`
+	ReposURL   string    `json:"repos_url"`
 	Repos      []Repo    `json:"repos"`
 	Settings   []Setting `json:"settings"`
 }
@@ -44,10 +42,10 @@ type Setting struct {
 
 // SettingNotifications ...
 type SettingNotifications struct {
-	Status          int `json:"status"`
-	TimeNoCommitMin int `json:"timeNoCommitMinute"`
-	OnCommit        int `json:"onCommit"`
-	OnPush          int `json:"onPush"`
+	Status   int `json:"status"`
+	OnError  int `json:"onError"`
+	OnCommit int `json:"onCommit"`
+	OnPush   int `json:"onPush"`
 }
 
 // SettingAddPullCommit ...
