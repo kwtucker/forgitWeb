@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"fmt"
+	"github.com/gorilla/sessions"
 	"github.com/julienschmidt/httprouter"
 	"github.com/kwtucker/forgit/db"
 	"github.com/kwtucker/forgit/system"
@@ -13,14 +14,9 @@ import (
 
 // IndexController ...
 type IndexController struct {
+	sess        *sessions.CookieStore
 	Env         system.Application
 	DataConnect *db.ConnectMongo
-}
-
-// Person structure to use when inserting and finding in mongodb
-type Person struct {
-	Name  string `json:"name"`
-	Phone string `json:"phone"`
 }
 
 // Connect will make a new copy of the main mongodb connection.
@@ -30,6 +26,16 @@ func (c *IndexController) Connect() *db.ConnectMongo {
 
 // Index ...
 func (c *IndexController) Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
+	session, err := c.sess.Get(r, "ForgitSession")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	fmt.Println(session.Values["authed"])
+	if session.Values["authed"] != 1 {
+		session.Values["authed"] = 0
+	}
+	session.Save(r, w)
+
 	// copy db pipeline and
 	// don't close session tell end of function
 	dbconnect := c.Connect()
