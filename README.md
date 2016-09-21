@@ -22,7 +22,7 @@ Targeting junior to senior level developers who always look to increase their pr
 ```
 
 ### config.json ( needs to be at root level in project
-  fill in your own values
+  * Fill in your own values
 ```json
 {
     "SessionSecret": "string",
