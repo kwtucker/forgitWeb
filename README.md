@@ -1,17 +1,17 @@
-# forgit
+# Forgit - Never forget to commit
 Targeting junior to senior level developers who always look to increase their productivity. Forgit is a workflow tool that automates basic git flow. The traditional process takes you away from your code and breaks your concentration. Forgit will add, commit, and push your code at set times automatically with custom commit messages based on your code.
-
-## Requirements
+***
+### Requirements
 * Go installed
 * Go environmental variables set
 * config.json file included
 
-## Install My Web App
+### Install My Web App
 ```
   go get github.com/kwtucker/forgit
 ```
 
-## Dependencies
+### Dependencies
 ```
   go get github.com/julienschmidt/httprouter
   go get github.com/gorilla/context
@@ -21,7 +21,7 @@ Targeting junior to senior level developers who always look to increase their pr
   go get gopkg.in/mgo.v2/bson
 ```
 
-## config.json ( needs to be at root level in project )
+### config.json ( needs to be at root level in project )
 ```json
 {
     "SessionSecret": "string",
