@@ -65,6 +65,7 @@ func (c *IndexController) Index(w http.ResponseWriter, r *http.Request, ps httpr
 		"#":          "Features",
 		"#pricing":   "Pricing",
 		"#createdby": "Created By",
+		"/auth/":     "Log In / Register",
 	}
 	// values for the view.
 	data := map[string]interface{}{
