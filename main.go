@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/gorilla/context"
 	"github.com/julienschmidt/httprouter"
+	"github.com/kwtucker/forgit/db"
 	"github.com/kwtucker/forgit/routers"
 	"github.com/kwtucker/forgit/system"
 	"log"
@@ -12,8 +13,10 @@ import (
 )
 
 func main() {
+	// Defining which config file to parse though
 	filename := flag.String("config", "config.json", "Path to configuration file")
 	flag.Parse()
+	// Setting the new application instance
 	var application = &system.Application{}
 
 	fmt.Printf("Using config %s\n", *filename)
@@ -21,21 +24,18 @@ func main() {
 	// Initialize app data
 	application.Init(filename)
 
+	// data is a new session to mongo and a database
+	var database = &db.ConnectMongo{}
+	database.ConnectDB(application.Config.DbHostString(), application.Config.DbName)
+
 	// Create router server
 	router := httprouter.New()
 
 	// Call router function and send app and router to it.
 	// Exporting router to router directory
-	routers.Init(*application, router)
+	routers.Init(*application, router, database)
 
-	/*
-	 * If HandleMethodNotAllowed is enabled, the router checks if another method is allowed for the
-	 * current route, if the current request can not be routed.
-	 * If this is the case, the request is answered with 'Method Not Allowed'
-	 * and HTTP status code 405.
-	 * If no other Method is allowed, the request is delegated to the NotFound
-	 * handler.
-	 */
+	// If route method is not allowed it will be a status erro
 	router.HandleMethodNotAllowed = false
 
 	// Starting the server with with port from the config file
