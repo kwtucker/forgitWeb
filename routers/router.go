@@ -14,4 +14,6 @@ func Init(application system.Application, router *httprouter.Router, database *d
 	router.ServeFiles("/static/*filepath", http.Dir("static"))
 	// Routes
 	router.GET("/", application.Route(&controllers.IndexController{Env: application, DataConnect: database}, "Index"))
+	router.GET("/auth/", application.NoViewRoute(&lib.Auth{Env: application}, "AuthFunc"))
+	router.GET("/terminal/", application.Route(&controllers.TerminalController{Env: application}, "Terminal"))
 }
