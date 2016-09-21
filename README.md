@@ -21,7 +21,8 @@ Targeting junior to senior level developers who always look to increase their pr
   go get gopkg.in/mgo.v2/bson
 ```
 
-### config.json ( needs to be at root level in project )
+### config.json ( needs to be at root level in project
+  fill in your own values
 ```json
 {
     "SessionSecret": "string",
