@@ -19,5 +19,5 @@ func Init(application system.Application, router *httprouter.Router, database *d
 	// Routes
 	router.GET("/", application.Route(&controllers.IndexController{Env: application, DataConnect: database, sess: Store}, "Index"))
 	router.GET("/auth/", application.NoViewRoute(&lib.Auth{Env: application}, "AuthFunc"))
-	router.GET("/terminal/", application.Route(&controllers.TerminalController{Env: application}, "Terminal"))
+	router.GET("/terminal/", application.Route(&controllers.TerminalController{Env: application, sess: Store}, "Terminal"))
 }
