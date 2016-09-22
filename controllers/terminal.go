@@ -3,12 +3,14 @@ package controllers
 import (
 	// "encoding/json"
 	"fmt"
-	// "github.com/google/go-github/github"
+	"github.com/google/go-github/github"
 	"github.com/gorilla/sessions"
 	"github.com/julienschmidt/httprouter"
-	// "github.com/kwtucker/forgit_noFrame/models"
+	"github.com/kwtucker/forgit/db"
+	"github.com/kwtucker/forgit/lib"
+	// "github.com/kwtucker/forgit/models"
 	"github.com/kwtucker/forgit/system"
-	// "golang.org/x/oauth2"
+	"golang.org/x/oauth2"
 	// "io/ioutil"
 	// "log"
 	"net/http"
@@ -16,25 +18,38 @@ import (
 
 // TerminalController ...
 type TerminalController struct {
-	Env  system.Application
-	Sess *sessions.CookieStore
+	Env         system.Application
+	Sess        *sessions.CookieStore
+	DataConnect *db.ConnectMongo
+	db          db.ConnectMongo
+}
+
+// Connect will make a new copy of the main mongodb connection.
+func (c *TerminalController) Connect() *db.ConnectMongo {
+	return &db.ConnectMongo{DBSession: c.DataConnect.DBSession.Copy(), DName: c.DataConnect.DName}
 }
 
 // Terminal ...
 func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
-	// Grab the Session
-	session, err := c.Sess.Get(r, "ForgitSession")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	// This will check if user is authed
+	var isAuth = &lib.Auth{Sess: c.Sess, Env: c.Env}
 
-	// If the person is not authed send them back to home
-	if session.Values["authed"] != 1 {
-		session.Values["authed"] = 0
-		fmt.Println("authed not term", session.Values["authed"])
-		session.Save(r, w)
-		http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/", http.StatusFound)
-	}
+	// validate the session and get the session back
+	session := isAuth.SessionCheck(w, r)
+
+	// get access token and get client.
+	tok, _ := c.Env.AuthConf.Exchange(oauth2.NoContext, session.Values["code"].(string))
+	tokc := c.Env.AuthConf.Client(oauth2.NoContext, tok)
+	client := github.NewClient(tokc)
+	fmt.Println(client.Octocat("Oh JUMMMMMM"))
+
+	// copy db pipeline and
+	// don't close session tell end of function
+	dbconnect := c.Connect()
+	defer dbconnect.DBSession.Close()
+
+	c.db.AddUser(dbconnect, client)
+
 	// Nav for this view.
 	navLinks := map[string]string{
 		"/":               "Home",
