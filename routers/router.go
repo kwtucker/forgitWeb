@@ -19,9 +19,33 @@ func Init(application system.Application, router *httprouter.Router, database *d
 	router.ServeFiles("/static/*filepath", http.Dir("static"))
 
 	// Routes
-	router.GET("/", application.Route(&controllers.IndexController{Env: application, DataConnect: database, Sess: Store}, "Index"))
-	router.GET("/auth/", application.NoViewRoute(&lib.Auth{Env: application}, "AuthFunc"))
-	router.GET("/auth/callback/", application.NoViewRoute(&lib.Auth{Env: application, Sess: Store}, "Callback"))
-	router.GET("/terminal/", application.Route(&controllers.TerminalController{Sess: Store, Env: application}, "Terminal"))
-	router.GET("/logout", application.NoViewRoute(&lib.Logout{Sess: Store, Env: application}, "Logout"))
+	router.GET("/", application.Route(
+		&controllers.IndexController{
+			Env:  application,
+			Sess: Store,
+		}, "Index"))
+
+	router.GET("/auth/", application.NoViewRoute(
+		&lib.Auth{
+			Env: application,
+		}, "AuthFunc"))
+
+	router.GET("/auth/callback/", application.NoViewRoute(
+		&lib.Auth{
+			Env:  application,
+			Sess: Store,
+		}, "Callback"))
+
+	router.GET("/terminal/", application.Route(
+		&controllers.TerminalController{
+			Sess:        Store,
+			Env:         application,
+			DataConnect: database,
+		}, "Terminal"))
+
+	router.GET("/logout", application.NoViewRoute(
+		&lib.Auth{
+			Sess: Store,
+			Env:  application,
+		}, "Logout"))
 }
