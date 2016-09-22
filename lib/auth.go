@@ -36,9 +36,9 @@ func (a *Auth) Callback(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 		// logged in
 		fmt.Println("authed")
 		session.Values["authed"] = 1
+		session.Save(r, w)
 		fmt.Println("authed", session.Values["authed"])
 		fmt.Println("http://" + a.Env.Config.HostString() + "/terminal/")
-		// http.Redirect(w, r, "http://"+a.Env.Config.HostString()+"/terminal/", http.StatusOK)
 		http.Redirect(w, r, "/terminal/", http.StatusFound)
 	}
 }
