@@ -37,6 +37,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	}
 	// Nav for this view.
 	navLinks := map[string]string{
+		"/":               "Home",
 		"/terminal/":      "Terminal",
 		"#gettingstarted": "Getting Started",
 		"/logout":         "Logout",
