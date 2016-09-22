@@ -34,6 +34,7 @@ func (c *ConnectMongo) AddUser(dbCopy *ConnectMongo, client *github.Client) {
 	if err != nil {
 		log.Println(err)
 	}
+
 	repos, _, err := client.Repositories.List("", nil)
 	if err != nil {
 		fmt.Println(err)
@@ -55,6 +56,7 @@ func (c *ConnectMongo) AddUser(dbCopy *ConnectMongo, client *github.Client) {
 		}
 		repoArr = append(repoArr, currentUserRepos)
 	}
+
 	timenow := &github.Timestamp{time.Now()}
 	currentUser := &models.User{
 		ID:         user.ID,
@@ -72,21 +74,24 @@ func (c *ConnectMongo) AddUser(dbCopy *ConnectMongo, client *github.Client) {
 
 	// select the db and collection to use
 	d := dbCopy.DBSession.DB("forgit").C("users")
-
+	// find one in db and set to struct
+	result := models.User{}
 	// Insert and handle error if any
 	err = d.Insert(currentUser)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	// find one in db and set to struct
-	result := models.User{}
-	err = d.Find(bson.M{"login": "kwtucker"}).One(&result)
+	// err = d.Find(nil).Distinct("githubID", &result)
+	err = d.Find(bson.M{"githubID": user.ID}).One(&result)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println("User Full Name:", result.Name)
+	fmt.Println("User Full Name:", *result.Name)
+}
+
+// Exists ...
+func (c *ConnectMongo) Exists() {
 
 }
 
@@ -107,10 +112,5 @@ func (c *ConnectMongo) UpdateOne() {
 
 // Remove ..
 func (c *ConnectMongo) Remove() {
-
-}
-
-// Exists ...
-func (c *ConnectMongo) Exists() {
 
 }
