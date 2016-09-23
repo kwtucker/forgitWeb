@@ -43,17 +43,17 @@ func (a *Auth) Callback(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 // SessionCheck ...
 func (a *Auth) SessionCheck(w http.ResponseWriter, r *http.Request) *sessions.Session {
 	// Grab the Session
-	session, err := a.Sess.Get(r, "ForgitSession")
+	Session, err := a.Sess.Get(r, "ForgitSession")
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 	// If the person is not authed send them back to home
-	if session.Values["authed"] != 1 {
-		session.Values["authed"] = 0
-		session.Save(r, w)
+	if Session.Values["authed"] != 1 {
+		Session.Values["authed"] = 0
+		Session.Save(r, w)
 		http.Redirect(w, r, "http://"+a.Env.Config.HostString()+"/", http.StatusFound)
 	}
-	return session
+	return Session
 }
 
 // Logout will handle the event of clicking the logout button.
