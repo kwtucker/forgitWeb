@@ -2,7 +2,7 @@ package models
 
 // User ...
 type User struct {
-	ID         *int      `bson:"githubID"`
+	GithubID   *int      `bson:"githubID"`
 	LastUpdate string    `bson:"lastUpdate"`
 	LastSync   string    `bson:"lastSync"`
 	Login      *string   `bson:"login"`
@@ -24,16 +24,16 @@ type Repo struct {
 	FullName        *string `bson:"full_name"`
 	GitCommitsURL   *string `bson:"git_commits_url"`
 	HTMLURL         *string `bson:"html_url"`
-	ID              *int    `bson:"repo_id"`
+	RepoID          *int    `bson:"repo_id"`
 	Name            *string `bson:"name"`
 	Owner           *string `bson:"owner"`
 }
 
 // Setting ...
 type Setting struct {
-	ID     int    `bson:"id"`
-	Name   string `bson:"name"`
-	Status int    `bson:"status"`
+	SettingID int    `bson:"setting_id"`
+	Name      string `bson:"name"`
+	Status    int    `bson:"status"`
 	SettingNotifications
 	SettingAddPullCommit
 	SettingPush
@@ -62,7 +62,7 @@ type SettingPush struct {
 
 // SettingRepo ...
 type SettingRepo struct {
-	ID     int    `bson:"id"`
-	Name   string `bson:"name"`
-	Status int    `bson:"status"`
+	GithubRepoID *int    `bson:"github_repo_id"`
+	Name         *string `bson:"name"`
+	Status       int     `bson:"status"`
 }
