@@ -40,7 +40,12 @@ func (c *ConnectMongo) AddUser(dbCopy *ConnectMongo, client *github.Client) {
 		fmt.Println(err)
 	}
 
-	var repoArr = []models.Repo{}
+	var (
+		repoArr      = []models.Repo{}
+		settingRepos = []models.SettingRepo{}
+		settings     = []models.Setting{}
+	)
+
 	for k, _ := range repos {
 		currentUserRepos := models.Repo{
 			URL:             repos[k].URL,
@@ -50,16 +55,45 @@ func (c *ConnectMongo) AddUser(dbCopy *ConnectMongo, client *github.Client) {
 			FullName:        repos[k].FullName,
 			GitCommitsURL:   repos[k].GitCommitsURL,
 			HTMLURL:         repos[k].HTMLURL,
-			ID:              repos[k].ID,
+			RepoID:          repos[k].ID,
 			Name:            repos[k].Name,
 			Owner:           repos[k].Owner.Login,
 		}
 		repoArr = append(repoArr, currentUserRepos)
+
+		currentUserSettingsRepo := models.SettingRepo{
+			GithubRepoID: repos[k].ID,
+			Name:         repos[k].Name,
+			Status:       0,
+		}
+		settingRepos = append(settingRepos, currentUserSettingsRepo)
 	}
+
+	currentUserSettings := models.Setting{
+		SettingID: 1,
+		Name:      "General",
+		Status:    1,
+		SettingNotifications: models.SettingNotifications{
+			Status:   1,
+			OnError:  1,
+			OnCommit: 1,
+			OnPush:   1,
+		},
+		SettingAddPullCommit: models.SettingAddPullCommit{
+			Status:  1,
+			TimeMin: 5,
+		},
+		SettingPush: models.SettingPush{
+			Status:  1,
+			TimeMin: 60,
+		},
+		Repos: settingRepos,
+	}
+	settings = append(settings, currentUserSettings)
 
 	timenow := &github.Timestamp{time.Now()}
 	currentUser := &models.User{
-		ID:         user.ID,
+		GithubID:   user.ID,
 		LastUpdate: timenow.String(),
 		LastSync:   timenow.String(),
 		Login:      user.Login,
@@ -69,7 +103,7 @@ func (c *ConnectMongo) AddUser(dbCopy *ConnectMongo, client *github.Client) {
 		HTMLURL:    user.HTMLURL,
 		ReposURL:   user.ReposURL,
 		Repos:      repoArr,
-		// Settings:   []Setting,
+		Settings:   settings,
 	}
 
 	// select the db and collection to use
