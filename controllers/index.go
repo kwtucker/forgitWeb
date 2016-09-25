@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/gorilla/sessions"
 	"github.com/julienschmidt/httprouter"
 	"github.com/kwtucker/forgit/system"
@@ -15,13 +16,17 @@ type IndexController struct {
 
 // Index ...
 func (c *IndexController) Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
+	// Get Session
 	session, err := c.Sess.Get(r, "ForgitSession")
 	if err != nil {
+		fmt.Println("damn index")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
+
 	// if the session is new make authed to 0
 	if session.IsNew {
 		session.Values["authed"] = 0
+		fmt.Println("Authed", session.Values["authed"])
 		session.Save(r, w)
 	}
 
@@ -32,6 +37,7 @@ func (c *IndexController) Index(w http.ResponseWriter, r *http.Request, ps httpr
 		"#createdby": "Created By",
 		"/auth/":     "Log In / Register",
 	}
+
 	// values for the view.
 	data := map[string]interface{}{
 		"PageName":        "Forgit",
