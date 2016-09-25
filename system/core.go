@@ -68,20 +68,25 @@ func (application *Application) Route(controller interface{}, controllerMethodFu
 		// Method returns two values. interface(data)= data about that page
 		// and int(code)= status code
 		data, code := method(w, r, ps)
-		// Parse template and pass in data values
-		contenttpl := Parse(application.Template, data["ContentTemplate"].(string), data)
-		data["Content"] = template.HTML(contenttpl)
-		tpl := Parse(application.Template, "base", data)
+		if data != nil {
+			// Parse template and pass in data values
+			contenttpl := Parse(application.Template, data["ContentTemplate"].(string), data)
+			data["Content"] = template.HTML(contenttpl)
+			tpl := Parse(application.Template, "base", data)
 
-		// if the coded is okay render,
-		// if code in not okay redirect to 404
-		switch code {
-		case http.StatusOK:
-			w.Header().Set("Content-Type", "text/html")
-			io.WriteString(w, tpl)
-		case http.StatusSeeOther, http.StatusFound:
-			http.Redirect(w, r, tpl, code)
+			// if the coded is okay render,
+			// if code in not okay redirect to 404
+
+			switch code {
+			case http.StatusOK:
+				w.Header().Set("Content-Type", "text/html")
+				io.WriteString(w, tpl)
+				return
+			case http.StatusSeeOther, http.StatusFound:
+				http.Redirect(w, r, tpl, code)
+			}
 		}
+		http.Redirect(w, r, "/", code)
 	}
 	return fn
 }
