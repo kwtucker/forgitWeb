@@ -2,7 +2,7 @@ package models
 
 // User ...
 type User struct {
-	GithubID   *int      `bson:"githubID"`
+	GithubID   int       `bson:"githubID"`
 	LastUpdate string    `bson:"lastUpdate"`
 	LastSync   string    `bson:"lastSync"`
 	Login      *string   `bson:"login"`
@@ -12,7 +12,7 @@ type User struct {
 	HTMLURL    *string   `bson:"html_url"`
 	ReposURL   *string   `bson:"repos_url"`
 	Repos      []Repo    `bson:"repos"`
-	Settings   []Setting `bson:"settings"`
+	Settings   []Setting `bson:"settings,omitempty"`
 }
 
 // Repo ...
