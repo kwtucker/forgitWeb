@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"github.com/kwtucker/forgit/models"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -58,8 +59,15 @@ func (c *ConnectMongo) FindAll() {
 }
 
 // UpdateOne ..
-func (c *ConnectMongo) UpdateOne() {
-
+func (c *ConnectMongo) UpdateOne(dbCopy *ConnectMongo, id int, user *models.User) error {
+	// Find the current user
+	userfind, err := c.FindOneUser(dbCopy, id)
+	if err != nil {
+		fmt.Println(err)
+	}
+	// update user with new github infor
+	err = dbCopy.DBSession.DB("forgit").C("users").Update(userfind, user)
+	return err
 }
 
 // Remove ..
