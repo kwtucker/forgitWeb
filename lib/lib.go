@@ -1,8 +1,10 @@
 package lib
 
 import (
+	"fmt"
 	"github.com/google/go-github/github"
 	"github.com/kwtucker/forgit/models"
+	"golang.org/x/oauth2"
 	"time"
 )
 
@@ -58,10 +60,14 @@ func CreateUser(user *github.User, repos []github.Repository) *models.User {
 		Repos: settingRepos,
 	}
 	settings = append(settings, currentUserSettings)
+	location, err := time.LoadLocation("America/New_York")
+	if err != nil {
+		fmt.Println(err)
+	}
 
-	timenow := &github.Timestamp{time.Now()}
+	timenow := &github.Timestamp{time.Now().In(location)}
 	currentUser := &models.User{
-		GithubID:   user.ID,
+		GithubID:   *user.ID,
 		LastUpdate: timenow.String(),
 		LastSync:   timenow.String(),
 		Login:      user.Login,
@@ -75,4 +81,13 @@ func CreateUser(user *github.User, repos []github.Repository) *models.User {
 	}
 
 	return currentUser
+}
+
+func GetTokenStruct(token string) *oauth2.Token {
+	// getting new
+	var tok = oauth2.Token{
+		AccessToken: token,
+	}
+	var tokpointer = &tok
+	return tokpointer
 }
