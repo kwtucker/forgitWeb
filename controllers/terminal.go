@@ -11,6 +11,7 @@ import (
 	"golang.org/x/oauth2"
 	"log"
 	"net/http"
+	"time"
 )
 
 // TerminalController ...
@@ -26,61 +27,102 @@ func (c *TerminalController) Connect() *db.ConnectMongo {
 	return &db.ConnectMongo{DBSession: c.DataConnect.DBSession.Copy(), DName: c.DataConnect.DName}
 }
 
-// Terminal ...
+// Terminal Controller
 func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
-	// copy db pipeline and
-	// don't close session tell end of function
+
+	// Grab the Session
+	session, err := c.Sess.Get(r, "ForgitSession")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+	// If the person is not authed send them back to home
+	switch session.Values["authed"] {
+	case 0, nil:
+		session.Values["authed"] = 0
+		session.Values["token"] = nil
+		session.Save(r, w)
+		return nil, http.StatusFound
+	}
+
+	// Copy db pipeline and
+	// Defer close session tell end of function
 	dbconnect := c.Connect()
 	defer dbconnect.DBSession.Close()
 
-	// This will check if user is authed
-	var isAuth = &lib.Auth{Sess: c.Sess, Env: c.Env}
+	// Get token pointer and grab client to make requests
+	tokpointer := lib.GetTokenStruct(session.Values["token"].(string))
+	tokc := c.Env.AuthConf.Client(oauth2.NoContext, tokpointer)
+	client := github.NewClient(tokc)
 
-	// validate the session and get the session back
-	// if request not valid redirected to "/""
-	session := isAuth.SessionCheck(w, r)
+	// fmt.Println(client.Octocat("Oh JUMMMMMM"))
 
-	// If the user id is set the user is logged in
-	if session.Values["userID"] == nil {
-		tok, _ := c.Env.AuthConf.Exchange(oauth2.NoContext, session.Values["code"].(string))
-		tokc := c.Env.AuthConf.Client(oauth2.NoContext, tok)
-		client := github.NewClient(tokc)
-		fmt.Println(client.Octocat("Oh JUMMMMMM"))
+	// Get logged in user
+	//Current User, *Response/ API call count, error
+	ghuser, _, err := client.Users.Get("")
+	if err != nil {
+		fmt.Println("yep")
+		log.Println(err)
+	}
 
-		// Get logged in user
-		//[]*Repository, *Response, error
-		ghuser, _, err := client.Users.Get("")
+	// Get logged in users repos
+	//[]*Repository, *Response, error
+	repos, _, err := client.Repositories.List("", nil)
+	if err != nil {
+		log.Println(err)
+	}
+
+	// Set session value of UID
+	session.Values["userID"] = *ghuser.ID
+	err = session.Save(r, w)
+	if err != nil {
+		fmt.Println("Didn't Save userID")
+		fmt.Println(err)
+	}
+
+	CheckUserExists, err := c.db.Exists(dbconnect, ghuser.ID)
+	if err != nil {
+		log.Println(err)
+	}
+
+	// If user doesn't exist create them
+	switch CheckUserExists {
+	case false:
+		user := lib.CreateUser(ghuser, repos)
+		err = c.db.AddUser(dbconnect, user)
 		if err != nil {
 			log.Println(err)
-		}
-		session.Values["userID"] = *ghuser.ID
-		session.Save(r, w)
-
-		// Get logged in users repos
-		//[]*Repository, *Response, error
-		repos, _, err := client.Repositories.List("", nil)
-		if err != nil {
-			log.Println(err)
-		}
-		//
-		CheckUserExists, err := c.db.Exists(dbconnect, ghuser.ID)
-		if err != nil {
-			log.Println(err)
-		}
-
-		switch CheckUserExists {
-		case false:
-			User := lib.CreateUser(ghuser, repos)
-			err = c.db.AddUser(dbconnect, User)
-			if err != nil {
-				log.Println(err)
-			}
 		}
 	}
 
-	User, err := c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
+	// Find user in db for update check
+	dbUser, err := c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
 	if err != nil {
-		log.Println(err)
+		fmt.Println(err)
+	}
+
+	// Get location time from timezone
+	location, err := time.LoadLocation("America/New_York")
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// Convert github UTC time to my time
+	// then check the database time with github api time
+	if ghuser.UpdatedAt.In(location).String() != dbUser.LastUpdate {
+		// fmt.Println("github updated", time.Now().In(location).String())
+		// fmt.Println("User database updated", dbUser.LastUpdate)
+		fmt.Println("Not Equal")
+
+		// update database with new data
+		createUser := lib.CreateUser(ghuser, repos)
+		c.db.UpdateOne(dbconnect, session.Values["userID"].(int), createUser)
+		fmt.Println("updated here you go")
+	}
+
+	// Grab most current user info
+	dbUser, err = c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
+	if err != nil {
+		fmt.Println(err)
 	}
 
 	// Nav for this view.
@@ -95,7 +137,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 		"PageName":        "Terminal",
 		"ContentTemplate": "terminal",
 		"NavLinks":        navLinks,
-		"User":            User,
+		"User":            dbUser,
 	}
 	return data, http.StatusOK
 }
