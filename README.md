@@ -9,6 +9,8 @@ Targeting junior to senior level developers who always look to increase their pr
 * Go installed
 * Go environmental variables set
 * config.json file included
+* NodeJS /w npm
+* Gulp - (Globally)
 
 ### Install My Web App
 ```
@@ -25,6 +27,7 @@ Targeting junior to senior level developers who always look to increase their pr
   go get github.com/google/go-github/github
   go get gopkg.in/mgo.v2
   go get gopkg.in/mgo.v2/bson
+  npm install
 ```
 
 ### config.json ( needs to be at root level in project
@@ -46,4 +49,9 @@ Targeting junior to senior level developers who always look to increase their pr
     "DbHost": "127.0.0.1",
     "StaticPath": "static"
 }
+```
+
+## Start App
+```
+gulp startup
 ```
