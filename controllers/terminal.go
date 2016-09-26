@@ -7,6 +7,7 @@ import (
 	"github.com/julienschmidt/httprouter"
 	"github.com/kwtucker/forgit/db"
 	"github.com/kwtucker/forgit/lib"
+	"github.com/kwtucker/forgit/models"
 	"github.com/kwtucker/forgit/system"
 	"golang.org/x/oauth2"
 	"log"
@@ -56,7 +57,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 
 	// fmt.Println(client.Octocat("Oh JUMMMMMM"))
 
-	// Get logged in user
+	// Get logged in user from github
 	//Current User, *Response/ API call count, error
 	ghuser, _, err := client.Users.Get("")
 	if err != nil {
@@ -64,7 +65,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 		log.Println(err)
 	}
 
-	// Get logged in users repos
+	// Get logged in users repos from github
 	//[]*Repository, *Response, error
 	repos, _, err := client.Repositories.List("", nil)
 	if err != nil {
@@ -87,7 +88,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	// If user doesn't exist create them
 	switch CheckUserExists {
 	case false:
-		user := lib.CreateUser(ghuser, repos)
+		user := lib.CreateUser(ghuser, repos, nil)
 		err = c.db.AddUser(dbconnect, user)
 		if err != nil {
 			log.Println(err)
@@ -113,8 +114,33 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 		// fmt.Println("User database updated", dbUser.LastUpdate)
 		fmt.Println("Not Equal")
 
-		// update database with new data
-		createUser := lib.CreateUser(ghuser, repos)
+		// TODO:Grab from form value once terminal is there to set these values
+		var settings = []models.Setting{}
+		set := models.Setting{
+			SettingID: 1,
+			Name:      "Work",
+			Status:    0,
+			SettingNotifications: models.SettingNotifications{
+				Status:   1,
+				OnError:  1,
+				OnCommit: 1,
+				OnPush:   1,
+			},
+			SettingAddPullCommit: models.SettingAddPullCommit{
+				Status:  1,
+				TimeMin: 5,
+			},
+			SettingPush: models.SettingPush{
+				Status:  1,
+				TimeMin: 60,
+			},
+			// Repos: settingRepos,
+		}
+		settings = append(settings, set)
+
+		// create user with structs ,update database with new data
+		// lib.CreateUser(struct, struct, newsetting or nil)
+		createUser := lib.CreateUser(ghuser, repos, settings)
 		c.db.UpdateOne(dbconnect, session.Values["userID"].(int), createUser)
 		fmt.Println("updated here you go")
 	}
@@ -140,4 +166,8 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 		"User":            dbUser,
 	}
 	return data, http.StatusOK
+}
+
+func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
+
 }
