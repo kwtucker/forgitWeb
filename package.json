@@ -1,0 +1,28 @@
+{
+  "name": "forgit",
+  "version": "1.0.0",
+  "description": "Never forgit to commit",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwtucker/forgit.git"
+  },
+  "keywords": [
+    "Go",
+    "Golang",
+    "Git"
+  ],
+  "author": "Kevin Tucker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kwtucker/forgit/issues"
+  },
+  "homepage": "https://github.com/kwtucker/forgit#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2"
+  }
+}
