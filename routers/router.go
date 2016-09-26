@@ -18,24 +18,28 @@ func Init(application system.Application, router *httprouter.Router, database *d
 	// Serve static files
 	router.ServeFiles("/static/*filepath", http.Dir("static"))
 
-	// Routes
+	// -=--=-=- Routes -=-=-=-=-=
+	// Root route for landing page
 	router.GET("/", application.Route(
 		&controllers.IndexController{
 			Env:  application,
 			Sess: Store,
 		}, "Index"))
 
+	// Redirects to github for auth
 	router.GET("/auth/", application.NoViewRoute(
 		&lib.Auth{
 			Env: application,
 		}, "AuthFunc"))
 
+	// Callback is what github goes to after auth
 	router.GET("/auth/callback/", application.NoViewRoute(
 		&lib.Auth{
 			Env:  application,
 			Sess: Store,
 		}, "Callback"))
 
+	// Terminal Route that is what the callback goes too.
 	router.GET("/terminal/", application.Route(
 		&controllers.TerminalController{
 			Sess:        Store,
@@ -43,6 +47,15 @@ func Init(application system.Application, router *httprouter.Router, database *d
 			DataConnect: database,
 		}, "Terminal"))
 
+	// Terminal Route that is what the callback goes too.
+	router.GET("/getting-started/", application.Route(
+		&controllers.GettingStartedController{
+			Sess:        Store,
+			Env:         application,
+			DataConnect: database,
+		}, "GettingStarted"))
+
+	// Logout will clear the sessions storage
 	router.GET("/logout", application.NoViewRoute(
 		&lib.Auth{
 			Sess: Store,
