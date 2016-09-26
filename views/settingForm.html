@@ -1,0 +1,50 @@
+{{define "footer"}}
+<section>
+  <h2>Settings Workspaces</h2>
+  <form class="" action="/termsetsubmit" method="post">
+    <select class="" name="workspaces">
+      {{ range $key, $value := .Workspaces }}
+      <option value="{{$value}}">{{$value}}</option>
+      {{ end }}
+    </select>
+  </form>
+
+  <form action="submit" onsubmit="/termsetsubmit" method="Post">
+    <input type="text" name="name" placeholder="Workspace Name" required>
+    <label>
+      Add-Pull-Commit
+      <input type="checkbox" name="addPullCommit">
+    </label>
+
+    <label>
+     Repeat in Minutes
+     <input type="number" name="apcMin" placeholder="5">
+    </label>
+
+    <label>
+     Notifications
+     <input type="checkbox" name="notifyStatus">
+      <label>
+        Errors Events
+        <input type="checkbox" name="notifyErrors">
+      </label>
+      <label>
+        Commit Events
+        <input type="checkbox" name="notifyCommit">
+      </label>
+      <label>
+        Push Events
+        <input type="checkbox" name="notifyPush">
+      </label>
+    </label>
+
+    <label>
+      Repos
+      <input type="checkbox" name="addPullCommit">
+    </label>
+
+    <input type="submit" name="save" value="Save">
+
+  </form>
+</section>
+{{end}}
