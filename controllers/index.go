@@ -26,7 +26,6 @@ func (c *IndexController) Index(w http.ResponseWriter, r *http.Request, ps httpr
 	// if the session is new make authed to 0
 	if session.IsNew {
 		session.Values["authed"] = 0
-		fmt.Println("Authed", session.Values["authed"])
 		session.Save(r, w)
 	}
 

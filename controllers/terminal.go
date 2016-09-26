@@ -168,6 +168,6 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	return data, http.StatusOK
 }
 
-func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
-
-}
+// func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
+//
+// }
