@@ -55,6 +55,13 @@ func Init(application system.Application, router *httprouter.Router, database *d
 			DataConnect: database,
 		}, "GettingStarted"))
 
+	// API get user.
+	router.GET("/api/user/:id/:token", application.NoViewRoute(
+		&controllers.APIController{
+			Env:         application,
+			DataConnect: database,
+		}, "API"))
+
 	// Logout will clear the sessions storage
 	router.GET("/logout", application.NoViewRoute(
 		&lib.Auth{
