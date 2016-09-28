@@ -119,7 +119,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	ghUpdateTime := time.Unix(ghuser.UpdatedAt.In(location).Unix(), 0)
 	dbDate := time.Unix(dD, 0)
 	var (
-		ghChangeSwitch            = 0
+		ghChangeSwitch            int
 		databaseLastUpdateToInt64 int64
 		repoUpdateTimeToInt64     int64
 	)
