@@ -118,14 +118,19 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	// convert to time.Unix for compare
 	ghUpdateTime := time.Unix(ghuser.UpdatedAt.In(location).Unix(), 0)
 	dbDate := time.Unix(dD, 0)
-	var ghChangeSwitch = 0
+	var (
+		ghChangeSwitch            = 0
+		databaseLastUpdateToInt64 int64
+		repoUpdateTimeToInt64     int64
+	)
 	for gr := range repos {
 		for dr := range dbUser.Repos {
-			databaseLastUpdateToInt64, err := strconv.ParseInt(dbUser.Repos[dr].LastUpdate, 10, 64)
+			databaseLastUpdateToInt64, err = strconv.ParseInt(dbUser.Repos[dr].LastUpdate, 10, 64)
+
 			if err != nil {
 				fmt.Println(err)
 			}
-			repoUpdateTimeToInt64 := repos[gr].UpdatedAt.In(location).Unix()
+			repoUpdateTimeToInt64 = repos[gr].UpdatedAt.In(location).Unix()
 			rD := time.Unix(repoUpdateTimeToInt64, 0)
 			dD := time.Unix(databaseLastUpdateToInt64, 0)
 			if rD.After(dD) {
