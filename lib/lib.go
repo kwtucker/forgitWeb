@@ -24,7 +24,7 @@ func CreateUser(user *github.User, repos []github.Repository, update []models.Se
 	}
 	// loop over all repos and set struct
 	for k := range repos {
-		ru := strconv.FormatInt(repos[k].UpdatedAt.In(location).Unix(), 10)
+		ru := strconv.FormatInt(repos[k].UpdatedAt.In(location).UTC().Unix(), 10)
 		currentUserRepos := models.Repo{
 			URL:             repos[k].URL,
 			LastUpdate:      ru,
@@ -102,7 +102,7 @@ func CreateUser(user *github.User, repos []github.Repository, update []models.Se
 	}
 
 	// get unix time and convert it to a string for storage
-	dn := time.Now().In(location).Unix()
+	dn := time.Now().In(location).UTC().Unix()
 	dateNow := strconv.FormatInt(dn, 10)
 
 	currentUser := &models.User{
