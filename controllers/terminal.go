@@ -133,6 +133,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 			rD := time.Unix(repoUpdateTimeToInt64, 0)
 			dD := time.Unix(databaseLastUpdateToInt64, 0)
 			if rD.After(dD) {
+				fmt.Println(*repos[gr].Name)
 				ghChangeSwitch = 1
 				break
 			}
