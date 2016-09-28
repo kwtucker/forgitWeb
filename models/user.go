@@ -18,6 +18,7 @@ type User struct {
 // Repo ...
 type Repo struct {
 	URL             *string `bson:"url"`
+	LastUpdate      string  `bson:"lastUpdate"`
 	CommitsURL      *string `bson:"commits_url"`
 	ContributorsURL *string `bson:"contributors_url"`
 	Description     *string `bson:"description"`

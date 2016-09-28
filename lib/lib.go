@@ -17,11 +17,17 @@ func CreateUser(user *github.User, repos []github.Repository, update []models.Se
 		settings            = []models.Setting{}
 		currentUserSettings = models.Setting{}
 	)
-
+	// set location for UTC
+	location, err := time.LoadLocation("America/New_York")
+	if err != nil {
+		fmt.Println(err)
+	}
 	// loop over all repos and set struct
 	for k := range repos {
+		ru := strconv.FormatInt(repos[k].UpdatedAt.In(location).Unix(), 10)
 		currentUserRepos := models.Repo{
 			URL:             repos[k].URL,
+			LastUpdate:      ru,
 			CommitsURL:      repos[k].CommitsURL,
 			ContributorsURL: repos[k].ContributorsURL,
 			Description:     repos[k].Description,
@@ -93,12 +99,6 @@ func CreateUser(user *github.User, repos []github.Repository, update []models.Se
 			Repos: settingRepos,
 		}
 		settings = append(settings, currentUserSettings)
-	}
-
-	// set location for UTC
-	location, err := time.LoadLocation("America/New_York")
-	if err != nil {
-		fmt.Println(err)
 	}
 
 	// get unix time and convert it to a string for storage
