@@ -12,6 +12,7 @@ import (
 	"golang.org/x/oauth2"
 	"log"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -82,7 +83,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 
 	CheckUserExists, err := c.db.Exists(dbconnect, ghuser.ID)
 	if err != nil {
-		log.Println(err)
+		log.Println("User was", err, "in the database - CheckUserExists")
 	}
 
 	// If user doesn't exist create them
@@ -109,7 +110,16 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 
 	// Convert github UTC time to my time
 	// then check the database time with github api time
-	if ghuser.UpdatedAt.In(location).String() != dbUser.LastUpdate {
+	dD, err := strconv.ParseInt(dbUser.LastUpdate, 10, 64)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	// convert to time.Unix for compare
+	ghUpdateTime := time.Unix(ghuser.UpdatedAt.In(location).Unix(), 0)
+	dbDate := time.Unix(dD, 0)
+
+	if ghUpdateTime.After(dbDate) {
 		// fmt.Println("github updated", time.Now().In(location).String())
 		// fmt.Println("User database updated", dbUser.LastUpdate)
 		fmt.Println("Not Equal")

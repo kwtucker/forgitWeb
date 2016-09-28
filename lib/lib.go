@@ -5,6 +5,7 @@ import (
 	"github.com/google/go-github/github"
 	"github.com/kwtucker/forgit/models"
 	"golang.org/x/oauth2"
+	"strconv"
 	"time"
 )
 
@@ -94,18 +95,20 @@ func CreateUser(user *github.User, repos []github.Repository, update []models.Se
 		settings = append(settings, currentUserSettings)
 	}
 
-	// set the time
+	// set location for UTC
 	location, err := time.LoadLocation("America/New_York")
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	// set time and build user struct
-	timenow := &github.Timestamp{time.Now().In(location)}
+	// get unix time and convert it to a string for storage
+	dn := time.Now().In(location).Unix()
+	dateNow := strconv.FormatInt(dn, 10)
+
 	currentUser := &models.User{
 		GithubID:   *user.ID,
-		LastUpdate: timenow.String(),
-		LastSync:   timenow.String(),
+		LastUpdate: dateNow,
+		LastSync:   dateNow,
 		Login:      user.Login,
 		Name:       user.Name,
 		AvatarURL:  user.AvatarURL,
