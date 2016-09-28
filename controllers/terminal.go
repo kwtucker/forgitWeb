@@ -126,7 +126,6 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	for gr := range repos {
 		for dr := range dbUser.Repos {
 			databaseLastUpdateToInt64, err = strconv.ParseInt(dbUser.Repos[dr].LastUpdate, 10, 64)
-
 			if err != nil {
 				fmt.Println(err)
 			}
