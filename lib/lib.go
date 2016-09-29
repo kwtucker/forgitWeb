@@ -1,7 +1,7 @@
 package lib
 
 import (
-	"fmt"
+	// "fmt"
 	"github.com/google/go-github/github"
 	"github.com/kwtucker/forgit/models"
 	"golang.org/x/oauth2"
@@ -10,24 +10,23 @@ import (
 )
 
 // CreateUser ...
-func CreateUser(user *github.User, repos []github.Repository, update []models.Setting) *models.User {
+func CreateUser(user *github.User, repos []github.Repository, settingsUpdate []models.Setting) *models.User {
 	var (
 		repoArr             = []models.Repo{}
 		settingRepos        = []models.SettingRepo{}
 		settings            = []models.Setting{}
 		currentUserSettings = models.Setting{}
+		dateNow             string
+		dn                  int64
 	)
-	// set location for UTC
-	location, err := time.LoadLocation("America/New_York")
-	if err != nil {
-		fmt.Println(err)
-	}
+	// get unix time and convert it to a string for storage
+	dn = time.Now().UTC().Unix()
+	dateNow = strconv.FormatInt(dn, 10)
+
 	// loop over all repos and set struct
 	for k := range repos {
-		ru := strconv.FormatInt(repos[k].UpdatedAt.In(location).UTC().Unix(), 10)
 		currentUserRepos := models.Repo{
 			URL:             repos[k].URL,
-			LastUpdate:      ru,
 			CommitsURL:      repos[k].CommitsURL,
 			ContributorsURL: repos[k].ContributorsURL,
 			Description:     repos[k].Description,
@@ -48,62 +47,56 @@ func CreateUser(user *github.User, repos []github.Repository, update []models.Se
 		settingRepos = append(settingRepos, currentUserSettingsRepo)
 	}
 
+	// Update is nil means new user
+	// Create user setting defualts
+	currentUserSettings = models.Setting{
+		SettingID: 1,
+		Name:      "General",
+		Status:    1,
+		SettingNotifications: models.SettingNotifications{
+			Status:   1,
+			OnError:  1,
+			OnCommit: 1,
+			OnPush:   1,
+		},
+		SettingAddPullCommit: models.SettingAddPullCommit{
+			Status:  1,
+			TimeMin: 5,
+		},
+		SettingPush: models.SettingPush{
+			Status:  1,
+			TimeMin: 60,
+		},
+		Repos: settingRepos,
+	}
+	settings = append(settings, currentUserSettings)
+
 	// if update is a value set setting struct
-	if update != nil {
-		for u := range update {
+	if settingsUpdate != nil {
+		for u := range settingsUpdate {
 			currentUserSettings = models.Setting{
-				SettingID: update[u].SettingID,
-				Name:      update[u].Name,
-				Status:    update[u].Status,
+				SettingID: settingsUpdate[u].SettingID,
+				Name:      settingsUpdate[u].Name,
+				Status:    settingsUpdate[u].Status,
 				SettingNotifications: models.SettingNotifications{
-					Status:   update[u].SettingNotifications.Status,
-					OnError:  update[u].SettingNotifications.OnError,
-					OnCommit: update[u].SettingNotifications.OnCommit,
-					OnPush:   update[u].SettingNotifications.OnPush,
+					Status:   settingsUpdate[u].SettingNotifications.Status,
+					OnError:  settingsUpdate[u].SettingNotifications.OnError,
+					OnCommit: settingsUpdate[u].SettingNotifications.OnCommit,
+					OnPush:   settingsUpdate[u].SettingNotifications.OnPush,
 				},
 				SettingAddPullCommit: models.SettingAddPullCommit{
-					Status:  update[u].SettingAddPullCommit.Status,
-					TimeMin: update[u].SettingAddPullCommit.TimeMin,
+					Status:  settingsUpdate[u].SettingAddPullCommit.Status,
+					TimeMin: settingsUpdate[u].SettingAddPullCommit.TimeMin,
 				},
 				SettingPush: models.SettingPush{
-					Status:  update[u].SettingPush.Status,
-					TimeMin: update[u].SettingPush.TimeMin,
+					Status:  settingsUpdate[u].SettingPush.Status,
+					TimeMin: settingsUpdate[u].SettingPush.TimeMin,
 				},
 				Repos: settingRepos,
 			}
 			settings = append(settings, currentUserSettings)
 		}
 	}
-
-	// Update is nil means new user
-	// Create user setting defualts
-	if update == nil {
-		currentUserSettings = models.Setting{
-			SettingID: 1,
-			Name:      "General",
-			Status:    1,
-			SettingNotifications: models.SettingNotifications{
-				Status:   1,
-				OnError:  1,
-				OnCommit: 1,
-				OnPush:   1,
-			},
-			SettingAddPullCommit: models.SettingAddPullCommit{
-				Status:  1,
-				TimeMin: 5,
-			},
-			SettingPush: models.SettingPush{
-				Status:  1,
-				TimeMin: 60,
-			},
-			Repos: settingRepos,
-		}
-		settings = append(settings, currentUserSettings)
-	}
-
-	// get unix time and convert it to a string for storage
-	dn := time.Now().In(location).UTC().Unix()
-	dateNow := strconv.FormatInt(dn, 10)
 
 	currentUser := &models.User{
 		GithubID:   *user.ID,
