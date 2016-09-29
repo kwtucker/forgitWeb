@@ -96,96 +96,11 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 		}
 	}
 
-	// Find user in db for update check
+	// Grab most current user info
 	dbUser, err := c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
 	if err != nil {
 		fmt.Println(err)
 	}
-	//
-	// // Get location time from timezone
-	// location, err := time.LoadLocation("America/New_York")
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	//
-	// // Convert github UTC time to my time
-	// // then check the database time with github api time
-	// dD, err := strconv.ParseInt(dbUser.LastUpdate, 10, 64)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
-	//
-	// // convert to time.Unix for compare
-	// ghUserUpdateTime := time.Unix(ghuser.UpdatedAt.In(location).UTC().Unix(), 0)
-	// dbDate := time.Unix(dD, 0)
-	// var (
-	// 	ghChangeSwitch            int
-	// 	databaseLastUpdateToInt64 int64
-	// 	repoPushedAtToInt64       int64
-	// )
-	// for gr := range repos {
-	// 	for dr := range dbUser.Repos {
-	// 		databaseLastUpdateToInt64, err = strconv.ParseInt(dbUser.Repos[dr].LastUpdate, 10, 64)
-	// 		if err != nil {
-	// 			fmt.Println(err)
-	// 		}
-	// 		repoPushedAtToInt64 = repos[gr].PushedAt.In(location).UTC().Unix()
-	// 		rD := time.Unix(repoPushedAtToInt64, 0)
-	// 		dD := time.Unix(databaseLastUpdateToInt64, 0)
-	// 		if rD.After(dD) {
-	// 			fmt.Println("-=-=-=-=")
-	// 			fmt.Println(*repos[gr].Name)
-	// 			fmt.Println(*repos[gr].PushedAt)
-	// 			fmt.Println("repo", rD)
-	// 			fmt.Println("db", dD)
-	// 			fmt.Println("-=-=-=-=")
-	//
-	// 			ghChangeSwitch = 1
-	// 			break
-	// 		}
-	// 	}
-	// }
-	// fmt.Println(ghChangeSwitch)
-	// if ghUserUpdateTime.After(dbDate) || ghChangeSwitch == 1 {
-	//
-	// 	fmt.Println("Not Equal")
-	//
-	// 	// TODO:Grab from form value once terminal is there to set these values
-	// 	var settings = []models.Setting{}
-	// 	set := models.Setting{
-	// 		SettingID: 1,
-	// 		Name:      "Work",
-	// 		Status:    0,
-	// 		SettingNotifications: models.SettingNotifications{
-	// 			Status:   1,
-	// 			OnError:  1,
-	// 			OnCommit: 1,
-	// 			OnPush:   1,
-	// 		},
-	// 		SettingAddPullCommit: models.SettingAddPullCommit{
-	// 			Status:  1,
-	// 			TimeMin: 5,
-	// 		},
-	// 		SettingPush: models.SettingPush{
-	// 			Status:  1,
-	// 			TimeMin: 60,
-	// 		},
-	// 		// Repos: settingRepos,
-	// 	}
-	// 	settings = append(settings, set)
-	//
-	// 	// create user with structs ,update database with new data
-	// 	// lib.CreateUser(struct, struct, newsetting or nil)
-	// 	createUser := lib.CreateUser(ghuser, repos, settings)
-	// 	c.db.UpdateOne(dbconnect, session.Values["userID"].(int), createUser)
-	// 	fmt.Println("updated here you go")
-	// }
-
-	// Grab most current user info
-	// dbUser, err = c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
-	// if err != nil {
-	// 	fmt.Println(err)
-	// }
 
 	// Nav for this view.
 	navLinks := map[string]string{
@@ -205,5 +120,35 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 }
 
 // func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
+//
+// 	// TODO:Grab from form value once terminal is there to set these values
+// 	var settings = []models.Setting{}
+// 	set := models.Setting{
+// 		SettingID: 1,
+// 		Name:      "Work",
+// 		Status:    0,
+// 		SettingNotifications: models.SettingNotifications{
+// 			Status:   1,
+// 			OnError:  1,
+// 			OnCommit: 1,
+// 			OnPush:   1,
+// 		},
+// 		SettingAddPullCommit: models.SettingAddPullCommit{
+// 			Status:  1,
+// 			TimeMin: 5,
+// 		},
+// 		SettingPush: models.SettingPush{
+// 			Status:  1,
+// 			TimeMin: 60,
+// 		},
+// 		// Repos: settingRepos,
+// 	}
+// 	settings = append(settings, set)
+//
+// 	// create user with structs ,update database with new data
+// 	// lib.CreateUser(struct, struct, newsetting or nil)
+// 	createUser := lib.CreateUser(ghuser, repos, settings)
+// 	c.db.UpdateOne(dbconnect, session.Values["userID"].(int), createUser)
+// 	fmt.Println("updated here you go")
 //
 // }
