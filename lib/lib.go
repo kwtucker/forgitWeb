@@ -1,9 +1,10 @@
 package lib
 
 import (
-	// "fmt"
+	"fmt"
 	"github.com/google/go-github/github"
 	"github.com/kwtucker/forgit/models"
+	"github.com/satori/go.uuid"
 	"golang.org/x/oauth2"
 	"strconv"
 	"time"
@@ -50,7 +51,7 @@ func CreateUser(user *github.User, repos []github.Repository, settingsUpdate []m
 	// Update is nil means new user
 	// Create user setting defualts
 	currentUserSettings = models.Setting{
-		SettingID: 1,
+		SettingID: 0,
 		Name:      "General",
 		Status:    1,
 		SettingNotifications: models.SettingNotifications{
@@ -98,8 +99,12 @@ func CreateUser(user *github.User, repos []github.Repository, settingsUpdate []m
 		}
 	}
 
+	// Creating UUIDv4
+	forgitID := uuid.NewV4()
+
 	currentUser := &models.User{
 		GithubID:   *user.ID,
+		ForgitID:   forgitID.String(),
 		LastUpdate: dateNow,
 		LastSync:   dateNow,
 		Login:      user.Login,

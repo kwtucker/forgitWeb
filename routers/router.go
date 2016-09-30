@@ -56,7 +56,7 @@ func Init(application system.Application, router *httprouter.Router, database *d
 		}, "GettingStarted"))
 
 	// API get user.
-	router.GET("/api/user/:id/:token", application.NoViewRoute(
+	router.GET("/api/users/:ghid/:fid", application.NoViewRoute(
 		&controllers.APIController{
 			Env:         application,
 			DataConnect: database,

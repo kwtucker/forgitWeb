@@ -3,6 +3,7 @@ package models
 // User ...
 type User struct {
 	GithubID   int       `bson:"githubID"`
+	ForgitID   string    `json:"forgitID"`
 	LastUpdate string    `bson:"lastUpdate"`
 	LastSync   string    `bson:"lastSync"`
 	Login      *string   `bson:"login"`
