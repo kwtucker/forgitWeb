@@ -102,18 +102,11 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 		fmt.Println(err)
 	}
 
-	// Nav for this view.
-	navLinks := map[string]string{
-		"/":               "Home",
-		"/terminal/":      "Terminal",
-		"#gettingstarted": "Getting Started",
-		"/logout":         "Logout",
-	}
 	// data for the view
 	data := map[string]interface{}{
+		"Auth":            true,
 		"PageName":        "Terminal",
 		"ContentTemplate": "terminal",
-		"NavLinks":        navLinks,
 		"User":            dbUser,
 	}
 	return data, http.StatusOK

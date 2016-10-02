@@ -29,19 +29,10 @@ func (c *IndexController) Index(w http.ResponseWriter, r *http.Request, ps httpr
 		session.Save(r, w)
 	}
 
-	// Nav for this view.
-	navLinks := map[string]string{
-		"#":          "Features",
-		"#pricing":   "Pricing",
-		"#createdby": "Created By",
-		"/auth/":     "Log In / Register",
-	}
-
 	// values for the view.
 	data := map[string]interface{}{
 		"PageName":        "Forgit",
 		"ContentTemplate": "index",
-		"NavLinks":        navLinks,
 	}
 	return data, http.StatusOK
 }
