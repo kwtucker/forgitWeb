@@ -72,6 +72,178 @@ nav {
   }
 }
 
+
+
+#cta {
+  margin: 40px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  flex-direction: column;
+  font: 700 1em $font-family;
+  // #slogan {
+  //   font: italic 700 4em $font-family;
+  //   color: $gray;
+  //   img {
+  //     height: 50px;
+  //   }
+  // }
+  p {
+    margin: 0;
+    display: block;
+    color: $gray;
+    font:500 3em $font-family;
+  }
+  // a {
+  //   color: $white;
+  //   display: block;
+  //   text-decoration: none;
+  //   &[href="/auth/"] {
+  //     width: 250px;
+  //     height: 50px;
+  //
+  //     // display: flex;
+  //     // flex: 1;
+  //
+  //     background: $gray;
+  //     font:400 1.4em $font-family;
+  //     border-radius: 4px;
+  //
+  //
+  //     &::before {
+  //       content: url('../img/gh_logo.png');
+  //       padding: 10px;
+  //       align-items: center;
+  //       position: relative;
+  //       top: 8px;
+  //     }
+  //   }
+    // &[href="/logout"] {
+    //   font: italic 300 .4em $font-family;
+    //   color: $gray;
+    //   &::after {
+    //     content: "";
+    //     display: block;
+    //     border: 1px solid $gray;
+    //     width: 100%;
+    //     align-items: center;
+    //     position: relative;
+    //     top: 3px;
+    //   }
+    // }
+  }
+  #slogan {
+    font: italic 700 4em $font-family;
+    color: $gray;
+    img {
+      height: 50px;
+    }
+  }
+
+  #authed {
+    display: flex;
+    // flex: 1;
+    text-align: center;
+    width: 40%;
+    align-items:center;
+    // justify-content:center;
+    flex-direction: column;
+    h1 {
+      font: 700 5em $font-family;
+      color: $gray;
+      margin: 0 0 10px 0;
+    }
+    a {
+      color: $white;
+      display: block;
+      text-decoration: none;
+    }
+    a[href="/logout"] {
+      font: italic 300 .4em $font-family;
+      color: $gray;
+      &::after {
+        content: "";
+        display: block;
+        border: 1px solid $gray;
+        width: 100%;
+        align-items: center;
+        position: relative;
+        top: 3px;
+      }
+    }
+  }
+
+  #landing {
+    // margin: 40px;
+    display: flex;
+    // flex: 1;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    p {
+      padding: 15px;
+    }
+    a {
+      color: $white;
+      display: block;
+      text-decoration: none;
+      &[href="/auth/"] {
+        width: 250px;
+        height: 50px;
+
+        // display: flex;
+        // flex: 1;
+
+        background: $gray;
+        font:400 1.4em $font-family;
+        border-radius: 4px;
+
+
+        &::before {
+          content: url('../img/gh_logo.png');
+          padding: 10px;
+          align-items: center;
+          position: relative;
+          top: 8px;
+        }
+      }
+  }
+
+}
+
+@media all and (max-width: 1026px) {
+  #authed {
+    width: 100%;
+  }
+}
+
+@media all and (max-width: 460px) {
+  #cta {
+    #landing {
+      p {
+        font:500 1.4em $font-family;
+      }
+    }
+    #authed {
+      width: 100%;
+
+      a[href="/logout"] {
+        margin-top: 20px;
+      }
+    }
+    #slogan {
+      font: italic 700 1.7em $font-family;
+      color: $gray;
+      margin-top: 20px;
+      img {
+        height: 20px;
+      }
+    }
+  }
+}
+
+
 @media all and (max-width: 800px) {
   nav {
     width: 100%;

@@ -52,6 +52,94 @@ nav {
         content: url("../img/gh_logo.png");
         margin: 5px; }
 
+#cta {
+  margin: 40px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  flex-direction: column;
+  font: 700 1em "Ubuntu", sans-serif; }
+  #cta p {
+    margin: 0;
+    display: block;
+    color: #5E696D;
+    font: 500 3em "Ubuntu", sans-serif; }
+
+#slogan {
+  font: italic 700 4em "Ubuntu", sans-serif;
+  color: #5E696D; }
+  #slogan img {
+    height: 50px; }
+
+#authed {
+  display: flex;
+  text-align: center;
+  width: 40%;
+  align-items: center;
+  flex-direction: column; }
+  #authed h1 {
+    font: 700 5em "Ubuntu", sans-serif;
+    color: #5E696D;
+    margin: 0 0 10px 0; }
+  #authed a {
+    color: #FFFFFF;
+    display: block;
+    text-decoration: none; }
+  #authed a[href="/logout"] {
+    font: italic 300 0.4em "Ubuntu", sans-serif;
+    color: #5E696D; }
+    #authed a[href="/logout"]::after {
+      content: "";
+      display: block;
+      border: 1px solid #5E696D;
+      width: 100%;
+      align-items: center;
+      position: relative;
+      top: 3px; }
+
+#landing {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; }
+  #landing p {
+    padding: 15px; }
+  #landing a {
+    color: #FFFFFF;
+    display: block;
+    text-decoration: none; }
+    #landing a[href="/auth/"] {
+      width: 250px;
+      height: 50px;
+      background: #5E696D;
+      font: 400 1.4em "Ubuntu", sans-serif;
+      border-radius: 4px; }
+      #landing a[href="/auth/"]::before {
+        content: url("../img/gh_logo.png");
+        padding: 10px;
+        align-items: center;
+        position: relative;
+        top: 8px; }
+
+@media all and (max-width: 1026px) {
+  #authed {
+    width: 100%; } }
+
+@media all and (max-width: 460px) {
+  #cta #landing p {
+    font: 500 1.4em "Ubuntu", sans-serif; }
+  #cta #authed {
+    width: 100%; }
+    #cta #authed a[href="/logout"] {
+      margin-top: 20px; }
+  #cta #slogan {
+    font: italic 700 1.7em "Ubuntu", sans-serif;
+    color: #5E696D;
+    margin-top: 20px; }
+    #cta #slogan img {
+      height: 20px; } }
+
 @media all and (max-width: 800px) {
   nav {
     width: 100%;
@@ -63,5 +151,3 @@ nav {
     padding: 0; }
   header > a {
     align-items: center; } }
-
-/* style | variant | weight | stretch | size/line-height | family */
