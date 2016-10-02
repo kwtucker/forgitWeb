@@ -1,3 +1,67 @@
+/* style | variant | weight | stretch | size/line-height | family */
 body {
   background: #FFFFFF;
-  font-family: "Ubuntu"; }
+  font-family: "Ubuntu", sans-serif;
+  margin: 0; }
+
+header {
+  display: flex;
+  background-color: #5E696D;
+  align-items: center;
+  padding: 0 40px 0 40px; }
+  header > a {
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    max-width: 100%;
+    padding: 10px 0;
+    display: block; }
+    header > a img {
+      height: 50px; }
+
+nav {
+  display: flex;
+  height: 80px;
+  flex: 1;
+  margin: 0;
+  flex-flow: row wrap; }
+  nav a {
+    font: 400 1.2em "Ubuntu", sans-serif;
+    text-decoration: none;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex: 1;
+    color: #FFFFFF; }
+    nav a:link {
+      color: #FFFFFF; }
+    nav a:visited {
+      color: #FFFFFF; }
+    nav a:active {
+      color: #5E696D; }
+    nav a:hover {
+      background: #7E878A;
+      -moz-transition: 0.30s;
+      -webkit-transition: 0.30s;
+      transition: 0.30s; }
+    nav a[href="/auth/"] {
+      background: #4DC4AD;
+      font: 400 0.9em "Ubuntu", sans-serif; }
+      nav a[href="/auth/"]::before {
+        content: url("../img/gh_logo.png");
+        margin: 5px; }
+
+@media all and (max-width: 800px) {
+  nav {
+    width: 100%;
+    flex: 1;
+    font: 400 1em "Ubuntu", sans-serif;
+    justify-content: space-around; }
+  header {
+    flex-direction: column;
+    padding: 0; }
+  header > a {
+    align-items: center; } }
+
+/* style | variant | weight | stretch | size/line-height | family */

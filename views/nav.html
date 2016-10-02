@@ -1,9 +1,22 @@
 {{define "nav"}}
-<nav>
-	<ul>
-		{{ range $key, $value := .NavLinks }}
-		   <li><a href="{{$key}}">{{ $value }}</a></li>
-		{{ end }}
-	</ul>
-</nav>
+<header>
+	<a href="/">
+		<img class="" src="/static/img/logoNoSloganColor.svg" alt="Forgit Logo" />
+	</a>
+	<nav>
+		<!-- {{ range $key, $value := .NavLinks }}
+		<a href="{{$key}}">{{ $value }}</a>
+		{{ end }} -->
+		{{if .Auth}}
+			<a href="/terminal/">Terminal</a>
+			<a href="#gettingstarted">Getting Started</a>
+			<!-- <a href="/logout">Logout</a> -->
+			{{else}}
+			<a href="#features">Features</a>
+			<a href="#pricing">Pricing</a>
+			<a href="#createdby">Created By</a>
+			<a href="/auth/">Log In / Register</a>
+		{{end}}
+	</nav>
+</header>
 {{end}}

@@ -1,0 +1,7 @@
+{{define "cta" }}
+  <h1>{{.PageName}}</h1>
+  <p>{{.User.Login}}</p>
+  {{if .Auth}}
+    <a href="/logout">Logout</a>
+  {{end}}
+{{end}}
