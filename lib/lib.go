@@ -1,7 +1,7 @@
 package lib
 
 import (
-	"fmt"
+	// "fmt"
 	"github.com/google/go-github/github"
 	"github.com/kwtucker/forgit/models"
 	"github.com/satori/go.uuid"

@@ -4,8 +4,7 @@ $turq: #4DC4AD;
 $gray: #5E696D;
 $white: #FFFFFF;
 
-         /* style | variant | weight | stretch | size/line-height | family */
-// font: italic small-caps bolder condensed 16px/3 cursive;
+/* style | variant | weight | stretch | size/line-height | family */
 
 body {
   background: $white;
@@ -66,22 +65,12 @@ nav {
       background: $turq;
       font:400 .9em $font-family;
       &::before {
-        content: "\f09b";
-        font: 30px/26px FontAwesome;
-        display: block;
-        vertical-align: middle;
-        color: #ffffff;
-        position: relative;
+        content: url('../img/gh_logo.png');
         margin: 5px;
-        height: 35px;
-        left: 0;
-        top: 5px;
       }
     }
   }
 }
-
-
 
 @media all and (max-width: 800px) {
   nav {
@@ -98,5 +87,3 @@ nav {
     align-items: center;
   }
 }
-
-/* style | variant | weight | stretch | size/line-height | family */
