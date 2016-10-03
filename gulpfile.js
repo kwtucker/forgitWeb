@@ -6,7 +6,7 @@ var go;
 
 gulp.task('styles', function() {
     gulp.src('scss/**/*.scss')
-        .pipe(sass({outputStyle: 'uncompressed'}).on('error', sass.logError))
+        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(gulp.dest('static/css/'))
 });
 

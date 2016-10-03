@@ -1,0 +1,153 @@
+#features {
+  display: flex;
+  // flex: 1;
+  background: $gray;
+  flex-direction: column;
+  h2 , & > a, article, #tabs{
+    padding: 0 40px;
+  }
+
+  #tabs {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    text-align: center;
+    a {
+      padding: 50px;
+      display: inline-block;
+      flex: 1;
+      color: $white;
+      // &:hover {
+      //   background: rgba(255, 255, 255, 0.03);
+      // }
+    }
+    .hov:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+  }
+  .selectedtab {
+    background: $turq;
+  }
+
+  h2 {
+    flex: 1;
+
+    font: 500 3em $font-family;
+    margin: 20px 0 10px 0;
+    color: $white;
+  }
+
+
+  h3 {
+    font: 400 2em $font-family;
+    margin: 20px 0 10px 0;
+    color: $white;
+  }
+
+  article {
+    display: none;
+    height: 350px;
+    // &:target {
+      // display: flex;
+      flex: 1;
+      background: $turq;
+    // }
+  }
+}
+
+
+
+
+// #features {
+//   display: flex;
+//   flex: 1;
+//   flex-direction: column;
+//   background: $gray;
+//
+//   h2 {
+//     font: 500 3em $font-family;
+//     margin: 20px 0 10px 0;
+//     color: $white;
+//   }
+//
+//   h3 {
+//     font: 400 2em $font-family;
+//     margin: 20px 0 10px 0;
+//     color: $white;
+//   }
+//
+//   h2 , .tabs, .content{
+//     padding: 0 40px;
+//   }
+//   .tabs {
+//     position: relative;
+//     height: 350px;
+//     display: flex;
+//   }
+//   .tab {
+//     display: flex;
+//     flex: 1;
+//   }
+//   .tab label {
+//     display: flex;
+//     flex: 1;
+//     align-items: center;
+//     justify-content: center;
+//     padding: 10px;
+//     color: $white;
+//     margin-left: -1px;
+//     position: relative;
+//     left: 1px;
+//     height: 20%;
+//   }
+//   .tab [type=radio] {
+//     display: none;
+//   }
+//   .content {
+//     p, li {
+//       font: 300 1.4em $font-family;
+//     }
+//     position: absolute;
+//     top: 25%;
+//     left: 0;
+//     background: white;
+//     right: 0;
+//     bottom: 0;
+//     color: $black;
+//   }
+//   [type=radio]:checked ~ label {
+//     background: white;
+//     // border-bottom: 1px solid white;
+//     z-index: 2;
+//     background: $turq;
+//     color: $white;
+//   }
+//   [type=radio]:checked ~ label ~ .content {
+//     z-index: 1;
+//     background: $turq;
+//     display: flex;
+//     // flex: 1;
+//     flex-direction: column;
+//     h3{
+//       display: flex;
+//       flex: 1;
+//     }
+//     .contentColumns {
+//       display: flex;
+//       flex: 1;
+//       flex-direction: row;
+//       p {
+//         // display: flex;
+//         flex: 1;
+//         // flex-direction: row;
+//       }
+//       ul {
+//         // display: flex;
+//         background: red;
+//         flex: 2;
+//       }
+//     }
+//   }
+// }

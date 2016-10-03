@@ -1,0 +1,82 @@
+
+header {
+  display: flex;
+  background-color: $gray;
+  align-items: center;
+  padding: 0 40px 0 40px;
+  & > a {
+    align-items: center;
+    justify-content:flex-start;
+    flex: 1;
+    max-width: 100%;
+    padding: 10px 0;
+    display: block;
+    img {
+      height: 50px;
+    }
+  }
+}
+
+nav {
+  display: flex;
+  height: 80px;
+  flex: 1;
+
+  margin: 0;
+  flex-flow: row wrap;
+  a {
+    font:400 1.2em $font-family;
+    text-decoration:none;
+    text-align: center;
+    justify-content:center;
+    align-items: center;
+    display: flex;
+    flex: 1;
+    color: $white;
+    &:link {
+      color: $white;
+    }
+    &:visited {
+      color: $white;
+    }
+    &:active {
+      color: $gray;
+    }
+    &:hover {
+      background: #7E878A;
+      -moz-transition: 0.30s;
+      -webkit-transition: 0.30s;
+      transition: 0.30s;
+    }
+    &[href="/auth/"] {
+      // background: $turq;
+      padding: 5px;
+      font:500 1em $font-family;
+      &::before {
+        content: url('../img/gh_logo.png');
+        margin: 5px;
+      }
+    }
+  }
+}
+
+
+
+@media all and (max-width: 800px) {
+  nav {
+    width: 100%;
+    flex: 1;
+    font: 400 1em $font-family;
+    justify-content: space-around;
+    a[href="/auth/"] {
+      display: none;
+    }
+  }
+  header {
+    flex-direction: column;
+    padding: 0;
+  }
+  header > a {
+    align-items: center;
+  }
+}
