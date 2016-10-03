@@ -1,6 +1,5 @@
 #features {
   display: flex;
-  // flex: 1;
   background: $gray;
   flex-direction: column;
   h2 , & > a, article, #tabs{
@@ -14,14 +13,14 @@
     justify-content: center;
     flex-direction: row;
     text-align: center;
-    a {
-      padding: 50px;
+    & > a {
       display: inline-block;
       flex: 1;
       color: $white;
-      // &:hover {
-      //   background: rgba(255, 255, 255, 0.03);
-      // }
+      img {
+        height: 94px;
+        margin: 20px;
+      }
     }
     .hov:hover {
       background: rgba(255, 255, 255, 0.03);
@@ -33,7 +32,6 @@
 
   h2 {
     flex: 1;
-
     font: 500 3em $font-family;
     margin: 20px 0 10px 0;
     color: $white;
@@ -41,113 +39,58 @@
 
 
   h3 {
-    font: 400 2em $font-family;
-    margin: 20px 0 10px 0;
+    font:500 2.5em $font-family;
+    margin: 40px 0 0px 0;
     color: $white;
   }
 
   article {
     display: none;
-    height: 350px;
-    // &:target {
-      // display: flex;
-      flex: 1;
-      background: $turq;
-    // }
+    flex: 1;
+    background: $turq;
+    .content {
+      display: flex;
+      flex-direction: column;
+      .twoColumn {
+        display: flex;
+        font: 300 1.8em $font-family;
+        line-height: 42px;
+        p {
+          padding-top: 9px;
+        }
+        p, ul{
+          flex: 1;
+        }
+        ul {
+          list-style:none;
+          padding-left:30px;
+        }
+        ul li:before {
+          content: "";
+          display: block;
+          border: 3px solid $gray;
+          width: 5px;
+          align-items: center;
+          position: relative;
+          top: 24px;
+          left: -20px;
+        }
+      }
+    }
+  }
+}
+// height: 350px;
+@media all and (max-width: 1000px) {
+  article {
+    .content {
+      flex-direction: row;
+      font: 300 .8em $font-family;
+    }
   }
 }
 
-
-
-
-// #features {
-//   display: flex;
-//   flex: 1;
-//   flex-direction: column;
-//   background: $gray;
-//
-//   h2 {
-//     font: 500 3em $font-family;
-//     margin: 20px 0 10px 0;
-//     color: $white;
-//   }
-//
-//   h3 {
-//     font: 400 2em $font-family;
-//     margin: 20px 0 10px 0;
-//     color: $white;
-//   }
-//
-//   h2 , .tabs, .content{
-//     padding: 0 40px;
-//   }
-//   .tabs {
-//     position: relative;
-//     height: 350px;
-//     display: flex;
-//   }
-//   .tab {
-//     display: flex;
-//     flex: 1;
-//   }
-//   .tab label {
-//     display: flex;
-//     flex: 1;
-//     align-items: center;
-//     justify-content: center;
-//     padding: 10px;
-//     color: $white;
-//     margin-left: -1px;
-//     position: relative;
-//     left: 1px;
-//     height: 20%;
-//   }
-//   .tab [type=radio] {
-//     display: none;
-//   }
-//   .content {
-//     p, li {
-//       font: 300 1.4em $font-family;
-//     }
-//     position: absolute;
-//     top: 25%;
-//     left: 0;
-//     background: white;
-//     right: 0;
-//     bottom: 0;
-//     color: $black;
-//   }
-//   [type=radio]:checked ~ label {
-//     background: white;
-//     // border-bottom: 1px solid white;
-//     z-index: 2;
-//     background: $turq;
-//     color: $white;
-//   }
-//   [type=radio]:checked ~ label ~ .content {
-//     z-index: 1;
-//     background: $turq;
-//     display: flex;
-//     // flex: 1;
-//     flex-direction: column;
-//     h3{
-//       display: flex;
-//       flex: 1;
-//     }
-//     .contentColumns {
-//       display: flex;
-//       flex: 1;
-//       flex-direction: row;
-//       p {
-//         // display: flex;
-//         flex: 1;
-//         // flex-direction: row;
-//       }
-//       ul {
-//         // display: flex;
-//         background: red;
-//         flex: 2;
-//       }
-//     }
-//   }
-// }
+@media all and (min-width: 922px) {
+  article {
+    height: 405px;
+  }
+}
