@@ -68,7 +68,7 @@
         ul li:before {
           content: "";
           display: block;
-          border: 3px solid $gray;
+          border: 3px solid $white;
           width: 5px;
           align-items: center;
           position: relative;
@@ -78,15 +78,17 @@
       }
     }
   }
+  .even {
+    background: $gray;
+    color: $white;
+  }
 }
 // height: 350px;
 @media all and (max-width: 1000px) {
-  article {
-    .content {
-      flex-direction: row;
-      font: 300 .8em $font-family;
-    }
+  #tabs a img {
+    display: none;
   }
+
 }
 
 @media all and (min-width: 922px) {
