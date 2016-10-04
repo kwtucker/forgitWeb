@@ -6,3 +6,9 @@ body {
     text-decoration: none;
   }
 }
+
+@media all and (max-width: 922px) {
+  h2, h3 {
+    text-align: center;
+  }
+}

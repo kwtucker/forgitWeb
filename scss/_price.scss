@@ -7,24 +7,24 @@
     padding: 0 40px;
   }
   #priceTitle {
+    flex: 1;
+    background: $white;
     h2 {
       font: 500 3em $font-family;
       margin: 20px 0;
       color: $black;
     }
-    display: flex;
-    flex: 1;
-    background: $white;
   }
   #priceStyleCol {
-    // display: flex;
     flex: 1;
   }
   .priceCol {
     flex: 1;
     align-items: center;
     background: $white;
-    margin-right: 40px;
+    &:first-child {
+      margin-right: 40px;
+    }
     .priceBox {
       color: $white;
       background: $gray;
@@ -44,13 +44,11 @@
         &:before {
           content: url('../img/logop.png');
           position: relative;
-          top: 10px;
+          top: 5px;
           left: -10px;
         }
       }
-
     }
-
     ul {
       margin: 20px;
       padding-left: 0;

@@ -1,0 +1,23 @@
+#createdBy {
+  display: flex;
+  flex-direction: column;
+  padding: 0 40px;
+  .fboxOne {
+    display: flex;
+    flex:1;
+    h2  {
+      flex: 1;
+      color: $black;
+      font: 500 3em $font-family;
+    }
+  }
+  .fboxTwo {
+    display: flex;
+    flex:1;
+    img {
+      flex: 1;
+      height: 250px;
+      margin-bottom: 40px;
+    }
+  }
+}
