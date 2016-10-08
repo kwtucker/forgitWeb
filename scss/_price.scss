@@ -2,13 +2,11 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  background: $white;
   #priceTitle, #priceStyleCol {
     padding: 0 40px;
   }
   #priceTitle {
     flex: 1;
-    background: $white;
     h2 {
       font: 500 3em $font-family;
       margin: 20px 0;
@@ -21,7 +19,6 @@
   .priceCol {
     flex: 1;
     align-items: center;
-    background: $white;
     &:first-child {
       margin-right: 40px;
     }

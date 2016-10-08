@@ -1,17 +1,19 @@
 {{define "cta" }}
-<section id="cta">
-  {{if .Auth}}
+{{if .Auth}}
+<section id="ctaAuthed">
   <section id="authed">
     <h1>{{.PageName}}</h1>
-    <div id="slogan"><img src="/static/img/command.svg" alt="command line symbol" /> {{.User.Login}}</div>
+    <div id="slogan"><img src="/static/img/commandRev.svg" alt="command line symbol" /> {{.User.Login}}</div>
     <p><a href="/logout">Log Out</a></p>
   </section>
-  {{else}}
+</section>
+{{else}}
+<section id="ctaLanding">
   <section id="landing">
     <div id="slogan"><img src="/static/img/command.svg" alt="command line symbol" /> Never Forget To Commit</div>
     <p>Forgit cuts out hours of Git work for you</p>
     <a href="/auth/">Log In / Register</a>
   </section>
-  {{end}}
 </section>
+{{end}}
 {{end}}

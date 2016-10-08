@@ -53,8 +53,9 @@
       flex-direction: column;
       .twoColumn {
         display: flex;
-        font: 300 1.8em $font-family;
+        font: 400 1.8em $font-family;
         line-height: 42px;
+        color: $white;
         p {
           padding-top: 9px;
         }

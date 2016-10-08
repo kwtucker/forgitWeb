@@ -1,16 +1,18 @@
 {{define "nav"}}
 <header>
+	{{if .Auth}}
+	<a href="/terminal/">
+		<img class="" src="/static/img/logoNoSloganColor.svg" alt="Forgit Logo" />
+	</a>
+	{{else}}
 	<a href="/">
 		<img class="" src="/static/img/logoNoSloganColor.svg" alt="Forgit Logo" />
 	</a>
+	{{end}}
 	<nav>
-		<!-- {{ range $key, $value := .NavLinks }}
-		<a href="{{$key}}">{{ $value }}</a>
-		{{ end }} -->
 		{{if .Auth}}
 			<a href="/terminal/">Terminal</a>
 			<a href="#gettingstarted">Getting Started</a>
-			<!-- <a href="/logout">Logout</a> -->
 			{{else}}
 			<a href="#features">Features</a>
 			<a href="#pricing">Pricing</a>

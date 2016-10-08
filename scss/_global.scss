@@ -1,9 +1,20 @@
 body {
-  background: $white;
+  // background: $white;
 	font-family: $font-family;
   margin: 0;
   a{
     text-decoration: none;
+  }
+  h2 {
+    flex: 1;
+    font: 500 3em $font-family;
+    margin: 20px 0;
+  }
+
+
+  h3 {
+    font:500 2.5em $font-family;
+    margin: 40px 0 0px 0;
   }
 }
 

@@ -30,13 +30,11 @@ $(function() {
       var tab = $(this).data('tab')
       $('.tab_'+tab).css('display','flex')
       currentTab = tab
-      console.log(currentTab);
     })
 });
 
 
 $(window).resize(function() {
-  console.log($(window).width())
   if ($(window).width() < 1000) {
     $('#features article').css('display','flex')
     $('#features article:even').addClass('even')

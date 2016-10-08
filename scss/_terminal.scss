@@ -1,0 +1,106 @@
+#termial {
+  padding: 0 40px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  #commands {
+    flex: 1;
+    .termTitle {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      & h2 {
+        flex:2;
+        color: $gray;
+      }
+      #download {
+        text-align: center;
+        justify-content: flex-end;
+        flex:1;
+        text-decoration: none;
+        display: flex;
+        & p {
+          background: $red;
+          color: $white;
+          padding: 10px;
+          font-size: 1.4em;
+        }
+      }
+    }
+    .command {
+      flex: 1;
+      background: $gray;
+      margin: 20px 0;
+      .termCommandTitle {
+        border: 1px solid $black;
+        padding: 10px;
+        background: #FFFFFF;
+        & h3 {
+          font-size: 1.3em;
+          display: inline;
+        }
+
+        & span {
+          font-style: italic;
+          font-size: 1em;
+        }
+      }
+      pre {
+        margin: 0;
+        background: $gray;
+        padding:25px;
+      }
+      code {
+        flex: 1;
+        font-size: 1.5em;
+        background: $gray;
+        color: $white;
+        margin: 10px;
+      }
+      code strong {
+        color: $turq;
+      }
+    }
+  }
+  #workspaces {
+    flex: 1;
+    .termTitle {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      & h2 {
+        flex:2;
+        color: $gray;
+      }
+      & a {
+        display: flex;
+        img {
+          height: 2.5em;
+        }
+      }
+    }
+    form {
+      flex: 1;
+      select, input, label {
+        display: flex;
+        // flex: 1;
+      }
+      label {
+        .minute{
+          display: flex;
+          flex: 1
+          // flex-direction: row;
+        }
+      }
+      & ul {
+        display: flex;
+        flex: 1;
+        list-style: none;
+        li {
+          display: flex;
+          flex: 1;
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,66 @@
 {{define "terminal" }}
 {{template "cta" .}}
+<section id="termial">
+  <section id="commands">
+    <div class="termTitle">
+      <h2>Commands</h2>
+      <a id="download" href="/static/img/git.svg" title="" download="forgit"><p>Download Forgit</p></a>
+    </div>
+    <div class="command">
+      <div class="termCommandTitle">
+        <h3>Initialize Environment</h3> - <span>only run for first download or update Forgit directory path</span>
+      </div>
+      <pre><code><strong>$</strong> fgt init</code></pre>
+    </div>
+    <div class="command">
+      <div class="termCommandTitle">
+        <h3>Start Command</h3>
+      </div>
+      <pre><code><strong>$</strong> fgt start</code></pre>
+    </div>
+    <div class="command">
+      <div class="termCommandTitle">
+        <h3>Help Command</h3>
+      </div>
+      <pre><code><strong>$</strong> fgt help</code></pre>
+    </div>
+  </section>
+  <section id="workspaces">
+    <div class="termTitle">
+      <h2>Settings Workspaces</h2>
+      <a href="#"><img src="/static/img/plus.svg" alt="plus sign" /></a>
+    </div>
+
+    <form class="" action="/" method="get">
+      <select onchange="this.form.submit()">
+        <option value="home">Home</option>
+        <option value="work">Work</option>
+        <option value="freelance">Freelance</option>
+      </select>
+    </form>
+
+    <form class="" action="" method="post">
+      <input type="text" name="workspaceName" value="" >
+      <label>
+        Add-Pull-Commit
+        <input type="number" name="apcMin" value="0">
+      </label>
+      <label>
+        Push<input type="number" name="pMin" value="0">
+      </label>
+      <div class="">
+        <p>Repos</p>
+        <ul>
+          <li><label><input type="checkbox" name="text1" value="value1" />Text 1</label></li>
+          <li><label><input type="checkbox" name="text2" value="value2" />Text 2</label></li>
+        </ul>
+        <ul>
+          <li><label><input type="checkbox" name="text3" value="value3" />Text 3</label></li>
+          <li><label><input type="checkbox" name="text4" value="value4" />Text 4</label></li>
+        </ul>
+      </div>
+      <button type="submit" name="button">Save</button>
+    </form>
+  </section>
+</section>
 {{end}}

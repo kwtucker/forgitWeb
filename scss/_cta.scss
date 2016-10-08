@@ -1,9 +1,10 @@
 
-
-#cta {
-  margin: 40px;
+#ctaAuthed {
+  padding: 40px;
+  margin-bottom: 20px;
   display: flex;
   flex: 1;
+  background: $turq;
   justify-content: center;
   flex-direction: column;
   font: 700 1em $font-family;
@@ -26,11 +27,13 @@
     display: flex;
     text-align: center;
     width: 40%;
+    background: $turq;
+    color: $white;
     align-items:center;
     flex-direction: column;
     h1 {
       font: 700 5em $font-family;
-      color: $gray;
+      color: #FFFFFF;
       margin: 0 0 10px 0;
     }
     a {
@@ -77,9 +80,67 @@
           position: relative;
           top: 8px;
         }
+        &:hover {
+          background: $gray;
+        }
       }
   }
 }
+
+#ctaLanding {
+  margin: 40px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  flex-direction: column;
+  font: 700 1em $font-family;
+  p {
+    margin: 0;
+    display: block;
+    color: $gray;
+    font:500 3em $font-family;
+  }
+  }
+  #slogan {
+    font: italic 700 4em $font-family;
+    color: $gray;
+    img {
+      height: 50px;
+    }
+  }
+
+  #landing {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    p {
+      padding: 15px;
+    }
+    a {
+      color: $white;
+      display: block;
+      &[href="/auth/"] {
+        width: 250px;
+        height: 50px;
+        background: $black;
+        font:400 1.4em $font-family;
+        border-radius: 4px;
+        &::before {
+          content: url('../img/gh_logo.png');
+          padding: 10px;
+          align-items: center;
+          position: relative;
+          top: 8px;
+        }
+        &:hover {
+          background: $gray;
+        }
+      }
+  }
+}
+
 
 
 @media all and (max-width: 1026px) {
@@ -89,7 +150,7 @@
 }
 
 @media all and (max-width: 460px) {
-  #cta {
+  #ctaAuthed, #ctaLanding {
     #landing {
       p {
         font:500 1.4em $font-family;
