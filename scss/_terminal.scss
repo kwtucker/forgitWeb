@@ -34,9 +34,12 @@
       .termCommandTitle {
         border: 1px solid $black;
         padding: 10px;
-        background: #FFFFFF;
+        // background: #FFFFFF;
+        background: $black;
+        color: $white;
         & h3 {
           font-size: 1.3em;
+          font-weight: 400;
           display: inline;
         }
 
@@ -63,33 +66,109 @@
     }
   }
   #workspaces {
+    margin: 50px 0;
     flex: 1;
     .termTitle {
       display: flex;
+      color: $gray;
       flex: 1;
       align-items: center;
+
+      & a span {
+        font-style: italic;
+        font-size: 1em;
+        line-height: 2.5;
+        color: $gray;
+        left: 280px;
+        margin-right: 20px;
+      }
       & h2 {
         flex:2;
-        color: $gray;
       }
       & a {
         display: flex;
+        flex: 1;
+        justify-content: flex-end;
         img {
           height: 2.5em;
         }
       }
     }
     form {
+      color: $black;
+      margin: 20px 0 40px;
+      display: flex;
       flex: 1;
-      select, input, label {
+      flex-direction: column;
+      input, select {
+        color: $black;
+      }
+      input[name="workspaceName"] {
+        font-size: 2em;
+        padding: .5em;
+        margin: 10px 0;
+      }
+      label {
+        margin: 10px 0;
+        font-size: 1.5em;
+        align-items: center;
         display: flex;
-        // flex: 1;
+        & input {
+          flex: 2;
+          font-size: .7em;
+          text-align: left;
+          padding: 1.5em;
+        }
+        & p {
+          flex: 1;
+          padding-right: 40px;
+          align-items: center;
+          span {
+            font-size: .6em;
+          }
+        }
+      }
+      .reposlist {
+        align-items: center;
+        & p {
+          font-size: 1.5em;
+        }
+        li {
+          align-items: center;
+          label {
+            margin: 5px 0;
+            align-items: center;
+            padding: 0;
+            font-size: 1.3em;
+            input {
+              margin-right: 20px;
+            }
+          }
+
+        }
+      }
+      button {
+        font-size: 2em;
+        background: $turq;
+        color: $gray;
+        border: 0;
+        padding: .5em;
+        margin: 1em 0;
+        font-weight: 700;
+      }
+
+      select {
+        width: 100%;
+        font-size: 2.5em;
+        border: 1px solid $black;
+        padding: 5px 0px;
+        background: transparent;
+        // -webkit-appearance: none;
       }
       label {
         .minute{
           display: flex;
-          flex: 1
-          // flex-direction: row;
+          flex: 1;
         }
       }
       & ul {
@@ -103,4 +182,36 @@
       }
     }
   }
+}
+
+
+@media all and (max-width: 922px) {
+  .termTitle {
+    flex-direction: column;
+    span {
+      display: none;
+    }
+  }
+  form {
+    ul {
+      padding: 0;
+    }
+    &>label {
+      align-items: center;
+      flex-direction: column;
+      input {
+        width: 100%;
+      }
+    }
+  }
+  .reposlist {
+    p {
+      text-align: center;
+    }
+    & li {
+      justify-content: center;
+    }
+  }
+
+
 }

@@ -8,7 +8,7 @@
     </div>
     <div class="command">
       <div class="termCommandTitle">
-        <h3>Initialize Environment</h3> - <span>only run for first download or update Forgit directory path</span>
+        <h3>Initialize Environment</h3> - <span>Only run for the first download or update Forgit directory path.</span>
       </div>
       <pre><code><strong>$</strong> fgt init</code></pre>
     </div>
@@ -28,35 +28,35 @@
   <section id="workspaces">
     <div class="termTitle">
       <h2>Settings Workspaces</h2>
-      <a href="#"><img src="/static/img/plus.svg" alt="plus sign" /></a>
+      <a href="/terminal/setNew"><span>* Add new workspace</span><img src="/static/img/plus.svg" alt="plus sign" /></a>
     </div>
-
-    <form class="" action="/" method="get">
-      <select onchange="this.form.submit()">
-        <option value="home">Home</option>
+    <form class="" action="/terminal/setSelect" method="post">
+      <select data-controller="number"  onchange="this.form.submit()" name="workspaceSelect">
+        <option  value="home">Home</option>
         <option value="work">Work</option>
         <option value="freelance">Freelance</option>
       </select>
     </form>
 
-    <form class="" action="" method="post">
-      <input type="text" name="workspaceName" value="" >
+    <form class="" action="/terminal/setValues" method="post">
+      <input data-model="number" type="text" name="workspaceName" value="" placeholder="e.g -> Work">
       <label>
-        Add-Pull-Commit
-        <input type="number" name="apcMin" value="0">
+        <p>Add, Pull, Commit <span>(Repeat Minutes)</span></p>
+        <input type="number" name="apcMin" placeholder="0" min="0" value="0">
       </label>
       <label>
-        Push<input type="number" name="pMin" value="0">
+        <p>Push <span>(Repeat Minute)</span></p>
+        <input type="number" name="pMin" placeholder="0" min="0" value="0">
       </label>
-      <div class="">
+      <div class="reposlist">
         <p>Repos</p>
         <ul>
-          <li><label><input type="checkbox" name="text1" value="value1" />Text 1</label></li>
-          <li><label><input type="checkbox" name="text2" value="value2" />Text 2</label></li>
+          <li><label><input type="checkbox" name="text1"/>Text 1</label></li>
+          <li><label><input type="checkbox" name="text2"/>Text 2</label></li>
         </ul>
         <ul>
-          <li><label><input type="checkbox" name="text3" value="value3" />Text 3</label></li>
-          <li><label><input type="checkbox" name="text4" value="value4" />Text 4</label></li>
+          <li><label><input type="checkbox" name="text3"/>Text 3</label></li>
+          <li><label><input type="checkbox" name="text4"/>Text 4</label></li>
         </ul>
       </div>
       <button type="submit" name="button">Save</button>
