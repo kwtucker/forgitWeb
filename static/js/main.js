@@ -31,7 +31,6 @@ $(function() {
     $('.tab_'+tab).css('display','flex')
     currentTab = tab
   })
-
 });
 
 $(window).resize(function() {
@@ -48,6 +47,7 @@ $(window).resize(function() {
     $('#features').css('background', '#5E696D')
   }
 });
+
 
 
 // var sb = SimpleBinder('number', function(input, model) {
