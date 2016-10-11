@@ -28,7 +28,7 @@
   <section id="workspaces">
     <div class="termTitle">
       <h2>Settings Workspaces</h2>
-      <a href="/terminal/setNew"><span>* Add new workspace</span><img src="/static/img/plus.svg" alt="plus sign" /></a>
+      <a href="/terminal/setNew/#clearForm" id="clearForm"><span>* Add new workspace</span><img src="/static/img/plus.svg" alt="plus sign" /></a>
     </div>
     <form action="/terminal/setSelect/" method="post">
       <select name="workspaceSelect" onchange="this.form.submit()">
@@ -43,9 +43,9 @@
       </select>
     </form>
 
-    <form class="" action="/terminal/setValues/" method="post">
+    <form id="formBody" class="" action="/terminal/setValues/" method="post">
       {{range $key, $value := .User.Settings}}
-      {{if eq $value.Status 1}}
+      {{if $value.Status}}
       <label><p>Setting Name</p><input type="text" name="workspaceName" value="{{$value.Name}}" placeholder="e.g -> Work" required></label>
       <label>
         <p>Add, Pull, Commit <span>(Repeat Minutes)</span></p>

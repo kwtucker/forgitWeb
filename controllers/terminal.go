@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	// "encoding/json"
-	"fmt"
 	"github.com/google/go-github/github"
 	"github.com/gorilla/sessions"
 	"github.com/julienschmidt/httprouter"
@@ -11,11 +9,9 @@ import (
 	"github.com/kwtucker/forgit/models"
 	"github.com/kwtucker/forgit/system"
 	"golang.org/x/oauth2"
-	// "gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"
 	"strconv"
-	// "time"
 )
 
 // TerminalController ...
@@ -58,13 +54,10 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	tokc := c.Env.AuthConf.Client(oauth2.NoContext, tokpointer)
 	client := github.NewClient(tokc)
 
-	// fmt.Println(client.Octocat("Oh JUMMMMMM"))
-
 	// Get logged in user from github
 	//Current User, *Response/ API call count, error
 	ghuser, _, err := client.Users.Get("")
 	if err != nil {
-		fmt.Println("yep")
 		log.Println(err)
 	}
 
@@ -79,8 +72,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	session.Values["userID"] = *ghuser.ID
 	err = session.Save(r, w)
 	if err != nil {
-		fmt.Println("Didn't Save userID")
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	CheckUserExists, err := c.db.Exists(dbconnect, ghuser.ID)
@@ -101,7 +93,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	// Grab most current user info
 	dbUser, err := c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	// data for the view
@@ -134,12 +126,12 @@ func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Reques
 	// Grab most current user info
 	dbUser, err := c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	err = r.ParseForm()
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	for _, v := range dbUser.Repos {
@@ -184,41 +176,49 @@ func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Reques
 		npush = 0
 	}
 
-	// var settings = []models.Setting{}
+	var currentSetIndex int
+
+	for i := range dbUser.Settings {
+		if dbUser.Settings[i].Status == 1 {
+			currentSetIndex = i
+			break
+		}
+	}
+
 	set := models.Setting{
-		// SettingID: 1,
 		Name:   r.Form["workspaceName"][0],
-		Status: 0,
+		Status: 1,
 		SettingNotifications: models.SettingNotifications{
-			// Status:   1,
 			OnError:  nerr,
 			OnCommit: ncom,
 			OnPush:   npush,
 		},
 		SettingAddPullCommit: models.SettingAddPullCommit{
-			// Status:  1,
 			TimeMin: apc,
 		},
 		SettingPush: models.SettingPush{
-			// Status:  1,
 			TimeMin: p,
 		},
 		Repos: settingRepos,
 	}
-	setExists, err := c.db.SettingExists(dbconnect, session.Values["userID"].(int), r.Form["workspaceName"][0])
+	setExists, err := c.db.SettingExists(dbconnect, session.Values["userID"].(int), dbUser.Settings[currentSetIndex].Name)
 	if err != nil {
 		log.Println(err)
 	}
 
 	// add setting
-	if setExists == false {
+	if setExists {
 		// Add setting group to user settings
-		dbUser.Settings = append(dbUser.Settings, set)
+		dbUser.Settings[currentSetIndex] = set
 		// Update user in db
 		c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
 	} else {
+		// Add setting group to user settings
+		dbUser.Settings = append(dbUser.Settings, set)
+		// Update user in db
+		// c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
 		for i := range dbUser.Settings {
-			if dbUser.Settings[i].Name == set.Name {
+			if dbUser.Settings[i].Name == r.Form["workspaceName"][0] {
 				dbUser.Settings[i] = set
 				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
 				break
@@ -245,15 +245,13 @@ func (c *TerminalController) SettingSelect(w http.ResponseWriter, r *http.Reques
 	// Grab most current user info
 	dbUser, err := c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 
 	err = r.ParseForm()
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
-
-	fmt.Println(*dbUser.Login)
 
 	for v := range dbUser.Settings {
 		if dbUser.Settings[v].Status == 1 {
@@ -263,6 +261,82 @@ func (c *TerminalController) SettingSelect(w http.ResponseWriter, r *http.Reques
 		if dbUser.Settings[v].Name == r.Form["workspaceSelect"][0] {
 			dbUser.Settings[v].Status = 1
 			c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+		}
+	}
+
+	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal", http.StatusFound)
+}
+
+// SettingNew when the user pushes the new button on the terminal form
+// Creates a new setting group
+func (c *TerminalController) SettingNew(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	// Grab the Session
+	session, err := c.Sess.Get(r, "ForgitSession")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	// Copy db pipeline
+	dbconnect := c.Connect()
+	defer dbconnect.DBSession.Close()
+
+	var (
+		settingRepos []models.SettingRepo
+	)
+
+	// Grab most current user info
+	dbUser, err := c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
+	if err != nil {
+		log.Println(err)
+	}
+
+	for _, v := range dbUser.Repos {
+		setrep := models.SettingRepo{
+			GithubRepoID: v.RepoID,
+			Name:         v.Name,
+			Status:       0,
+		}
+		settingRepos = append(settingRepos, setrep)
+	}
+
+	set := models.Setting{
+		Name:   "New (Change me)",
+		Status: 1,
+		SettingNotifications: models.SettingNotifications{
+			OnError:  1,
+			OnCommit: 1,
+			OnPush:   1,
+		},
+		SettingAddPullCommit: models.SettingAddPullCommit{
+			TimeMin: 5,
+		},
+		SettingPush: models.SettingPush{
+			TimeMin: 60,
+		},
+		Repos: settingRepos,
+	}
+	setExists, err := c.db.SettingExists(dbconnect, session.Values["userID"].(int), "New (Change me)")
+	if err != nil {
+		log.Println(err)
+	}
+
+	// add setting
+	if setExists == false {
+		// Add setting group to user settings
+		dbUser.Settings = append(dbUser.Settings, set)
+		// Update user in db
+		c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+
+		for v := range dbUser.Settings {
+			if dbUser.Settings[v].Status == 1 {
+				dbUser.Settings[v].Status = 0
+				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+			}
+			if dbUser.Settings[v].Name == set.Name {
+				dbUser.Settings[v].Status = 1
+				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+			}
 		}
 	}
 
