@@ -32,7 +32,6 @@
     </div>
     <form action="/terminal/setSelect/" method="post">
       <select name="workspaceSelect" onchange="this.form.submit()">
-        <option disabled value>-- Choose One --</option>
         {{range $key, $value := .User.Settings}}
         {{if $value.Status}}
         <option value='{{$value.Name}}' selected>{{$value.Name}}</option>
@@ -76,7 +75,9 @@
           {{end}}
         </ul>
       </div>
-      <button type="submit">Save</button>
+      <div id="buttonSubmit">
+        <button type="submit">Save</button><a id="removeSetting" href="/terminal/setRemove/">Remove</a>
+      </div>
       {{end}}
       {{end}}
     </form>

@@ -69,6 +69,13 @@ func Init(application system.Application, router *httprouter.Router, database *d
 			DataConnect: database,
 		}, "SettingNew"))
 
+	router.GET("/terminal/setRemove/", application.NoViewRoute(
+		&controllers.TerminalController{
+			Sess:        Store,
+			Env:         application,
+			DataConnect: database,
+		}, "SettingRemove"))
+
 	// Terminal Route that is what the callback goes too.
 	router.GET("/getting-started/", application.Route(
 		&controllers.GettingStartedController{

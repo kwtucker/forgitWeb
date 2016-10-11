@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"github.com/google/go-github/github"
 	"github.com/gorilla/sessions"
 	"github.com/julienschmidt/httprouter"
@@ -335,6 +336,37 @@ func (c *TerminalController) SettingNew(w http.ResponseWriter, r *http.Request, 
 			}
 			if dbUser.Settings[v].Name == set.Name {
 				dbUser.Settings[v].Status = 1
+				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+			}
+		}
+	}
+
+	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal", http.StatusFound)
+}
+
+//SettingRemove ...
+func (c *TerminalController) SettingRemove(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	// Grab the Session
+	session, err := c.Sess.Get(r, "ForgitSession")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	// Copy db pipeline
+	dbconnect := c.Connect()
+	defer dbconnect.DBSession.Close()
+
+	// Grab most current user info
+	dbUser, err := c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Println(len(dbUser.Settings))
+	if len(dbUser.Settings) > 1 {
+		for i, v := range dbUser.Settings {
+			if v.Status == 1 {
+				dbUser.Settings = append(dbUser.Settings[:i], dbUser.Settings[i+1:]...)
+				dbUser.Settings[0].Status = 1
 				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
 			}
 		}
