@@ -47,6 +47,21 @@ func Init(application system.Application, router *httprouter.Router, database *d
 			DataConnect: database,
 		}, "Terminal"))
 
+	//
+	router.POST("/terminal/setValues/", application.NoViewRoute(
+		&controllers.TerminalController{
+			Sess:        Store,
+			Env:         application,
+			DataConnect: database,
+		}, "SettingSubmit"))
+
+	router.POST("/terminal/setSelect/", application.NoViewRoute(
+		&controllers.TerminalController{
+			Sess:        Store,
+			Env:         application,
+			DataConnect: database,
+		}, "SettingSelect"))
+
 	// Terminal Route that is what the callback goes too.
 	router.GET("/getting-started/", application.Route(
 		&controllers.GettingStartedController{

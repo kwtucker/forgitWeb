@@ -1,18 +1,20 @@
 package controllers
 
 import (
+	// "encoding/json"
 	"fmt"
 	"github.com/google/go-github/github"
 	"github.com/gorilla/sessions"
 	"github.com/julienschmidt/httprouter"
 	"github.com/kwtucker/forgit/db"
 	"github.com/kwtucker/forgit/lib"
-	// "github.com/kwtucker/forgit/models"
+	"github.com/kwtucker/forgit/models"
 	"github.com/kwtucker/forgit/system"
 	"golang.org/x/oauth2"
+	// "gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"
-	// "strconv"
+	"strconv"
 	// "time"
 )
 
@@ -112,36 +114,157 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	return data, http.StatusOK
 }
 
-// func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
-//
-// 	// TODO:Grab from form value once terminal is there to set these values
-// 	var settings = []models.Setting{}
-// 	set := models.Setting{
-// 		SettingID: 1,
-// 		Name:      "Work",
-// 		Status:    0,
-// 		SettingNotifications: models.SettingNotifications{
-// 			Status:   1,
-// 			OnError:  1,
-// 			OnCommit: 1,
-// 			OnPush:   1,
-// 		},
-// 		SettingAddPullCommit: models.SettingAddPullCommit{
-// 			Status:  1,
-// 			TimeMin: 5,
-// 		},
-// 		SettingPush: models.SettingPush{
-// 			Status:  1,
-// 			TimeMin: 60,
-// 		},
-// 		// Repos: settingRepos,
-// 	}
-// 	settings = append(settings, set)
-//
-// 	// create user with structs ,update database with new data
-// 	// lib.CreateUser(struct, struct, newsetting or nil)
-// 	createUser := lib.CreateUser(ghuser, repos, settings)
-// 	c.db.UpdateOne(dbconnect, session.Values["userID"].(int), createUser)
-// 	fmt.Println("updated here you go")
-//
-// }
+// SettingSubmit ...
+func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	// Grab the Session
+	session, err := c.Sess.Get(r, "ForgitSession")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	// Copy db pipeline and
+	dbconnect := c.Connect()
+	defer dbconnect.DBSession.Close()
+
+	var (
+		nerr, ncom, npush, rval int
+		settingRepos            []models.SettingRepo
+	)
+
+	// Grab most current user info
+	dbUser, err := c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = r.ParseForm()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	for _, v := range dbUser.Repos {
+		if r.Form.Get(*v.Name) != "" {
+			rval = 1
+		} else {
+			rval = 0
+		}
+
+		setrep := models.SettingRepo{
+			GithubRepoID: v.RepoID,
+			Name:         v.Name,
+			Status:       rval,
+		}
+		settingRepos = append(settingRepos, setrep)
+	}
+
+	apc, err := strconv.Atoi(r.Form.Get("apcMin"))
+	if err != nil {
+		log.Println(err)
+	}
+	p, err := strconv.Atoi(r.Form.Get("pMin"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	if r.Form.Get("notifyErrors") != "" {
+		nerr = 1
+	} else {
+		nerr = 0
+	}
+
+	if r.Form.Get("notifyCommit") != "" {
+		ncom = 1
+	} else {
+		ncom = 0
+	}
+
+	if r.Form.Get("notifyPush") != "" {
+		npush = 1
+	} else {
+		npush = 0
+	}
+
+	// var settings = []models.Setting{}
+	set := models.Setting{
+		// SettingID: 1,
+		Name:   r.Form["workspaceName"][0],
+		Status: 0,
+		SettingNotifications: models.SettingNotifications{
+			// Status:   1,
+			OnError:  nerr,
+			OnCommit: ncom,
+			OnPush:   npush,
+		},
+		SettingAddPullCommit: models.SettingAddPullCommit{
+			// Status:  1,
+			TimeMin: apc,
+		},
+		SettingPush: models.SettingPush{
+			// Status:  1,
+			TimeMin: p,
+		},
+		Repos: settingRepos,
+	}
+	setExists, err := c.db.SettingExists(dbconnect, session.Values["userID"].(int), r.Form["workspaceName"][0])
+	if err != nil {
+		log.Println(err)
+	}
+
+	// add setting
+	if setExists == false {
+		// Add setting group to user settings
+		dbUser.Settings = append(dbUser.Settings, set)
+		// Update user in db
+		c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+	} else {
+		for i := range dbUser.Settings {
+			if dbUser.Settings[i].Name == set.Name {
+				dbUser.Settings[i] = set
+				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+				break
+			}
+		}
+	}
+
+	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal", http.StatusFound)
+}
+
+// SettingSelect ...
+func (c *TerminalController) SettingSelect(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+
+	// Grab the Session
+	session, err := c.Sess.Get(r, "ForgitSession")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	// Copy db pipeline and
+	dbconnect := c.Connect()
+	defer dbconnect.DBSession.Close()
+
+	// Grab most current user info
+	dbUser, err := c.db.FindOneUser(dbconnect, session.Values["userID"].(int))
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = r.ParseForm()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println(*dbUser.Login)
+
+	for v := range dbUser.Settings {
+		if dbUser.Settings[v].Status == 1 {
+			dbUser.Settings[v].Status = 0
+			c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+		}
+		if dbUser.Settings[v].Name == r.Form["workspaceSelect"][0] {
+			dbUser.Settings[v].Status = 1
+			c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+		}
+	}
+
+	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal", http.StatusFound)
+}

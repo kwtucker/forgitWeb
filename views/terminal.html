@@ -30,36 +30,55 @@
       <h2>Settings Workspaces</h2>
       <a href="/terminal/setNew"><span>* Add new workspace</span><img src="/static/img/plus.svg" alt="plus sign" /></a>
     </div>
-    <form class="" action="/terminal/setSelect" method="post">
-      <select data-controller="number"  onchange="this.form.submit()" name="workspaceSelect">
-        <option  value="home">Home</option>
-        <option value="work">Work</option>
-        <option value="freelance">Freelance</option>
+    <form action="/terminal/setSelect/" method="post">
+      <select name="workspaceSelect" onchange="this.form.submit()">
+        <option disabled value>-- Choose One --</option>
+        {{range $key, $value := .User.Settings}}
+        {{if $value.Status}}
+        <option value='{{$value.Name}}' selected>{{$value.Name}}</option>
+        {{else}}
+        <option value='{{$value.Name}}'>{{$value.Name}}</option>
+        {{end}}
+        {{end}}
       </select>
     </form>
 
-    <form class="" action="/terminal/setValues" method="post">
-      <input data-model="number" type="text" name="workspaceName" value="" placeholder="e.g -> Work">
+    <form class="" action="/terminal/setValues/" method="post">
+      {{range $key, $value := .User.Settings}}
+      {{if eq $value.Status 1}}
+      <label><p>Setting Name</p><input type="text" name="workspaceName" value="{{$value.Name}}" placeholder="e.g -> Work" required></label>
       <label>
         <p>Add, Pull, Commit <span>(Repeat Minutes)</span></p>
-        <input type="number" name="apcMin" placeholder="0" min="0" value="0">
+        <input type="number" name="apcMin" placeholder="0" min="0" value="{{$value.SettingAddPullCommit.TimeMin}}">
       </label>
       <label>
         <p>Push <span>(Repeat Minute)</span></p>
-        <input type="number" name="pMin" placeholder="0" min="0" value="0">
+        <input type="number" name="pMin" placeholder="0" min="0" value="{{$value.SettingPush.TimeMin}}">
       </label>
+      <div class="notify">
+        <p>Notifications</p>
+        <ul>
+          <li><label><input type="checkbox" name="notifyErrors" {{if $value.OnError}}checked{{end}}>Errors Events</label></li>
+          <li><label><input type="checkbox" name="notifyCommit"{{if $value.OnCommit}}checked{{end}}>Commit Events</label></li>
+          <li><label><input type="checkbox" name="notifyPush"{{if $value.OnPush}}checked{{end}}>Push Events</label></li>
+        </ul>
+      </div>
+
       <div class="reposlist">
         <p>Repos</p>
         <ul>
-          <li><label><input type="checkbox" name="text1"/>Text 1</label></li>
-          <li><label><input type="checkbox" name="text2"/>Text 2</label></li>
-        </ul>
-        <ul>
-          <li><label><input type="checkbox" name="text3"/>Text 3</label></li>
-          <li><label><input type="checkbox" name="text4"/>Text 4</label></li>
+          {{range $key, $v := $value.Repos}}
+          {{if $v.Status}}
+          <li><label><input type="checkbox" name='{{$v.Name}}'checked>{{$v.Name}}</label></li>
+          {{else}}
+          <li><label><input type="checkbox" name='{{$v.Name}}'>{{$v.Name}}</label></li>
+          {{end}}
+          {{end}}
         </ul>
       </div>
-      <button type="submit" name="button">Save</button>
+      <button type="submit">Save</button>
+      {{end}}
+      {{end}}
     </form>
   </section>
 </section>

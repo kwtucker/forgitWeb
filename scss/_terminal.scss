@@ -121,32 +121,19 @@
         }
         & p {
           flex: 1;
+          font-weight: bold;
           padding-right: 40px;
           align-items: center;
           span {
             font-size: .6em;
           }
         }
-      }
-      .reposlist {
-        align-items: center;
-        & p {
-          font-size: 1.5em;
+        .minute{
+          display: flex;
+          flex: 1;
         }
-        li {
-          align-items: center;
-          label {
-            margin: 5px 0;
-            align-items: center;
-            padding: 0;
-            font-size: 1.3em;
-            input {
-              margin-right: 20px;
-            }
-          }
+      }
 
-        }
-      }
       button {
         font-size: 2em;
         background: $turq;
@@ -159,26 +146,51 @@
       }
 
       select {
-        width: 100%;
+        // width: 50%;
         font-size: 2.5em;
         border: 1px solid $black;
         padding: 5px 0px;
         background: transparent;
+        justify-content: center;
         // -webkit-appearance: none;
       }
-      label {
-        .minute{
-          display: flex;
-          flex: 1;
-        }
-      }
+
+
+
       & ul {
-        display: flex;
-        flex: 1;
-        list-style: none;
         li {
           display: flex;
-          flex: 1;
+          // flex: 0 50%;
+        }
+      }
+      .reposlist, .notify  {
+        & p {
+          font-size: 1.5em;
+          font-weight: bold;
+        }
+        label {
+          font-size: 1.3em;
+          input {
+            margin-right: 20px;
+          }
+        }
+      }
+      .reposlist {
+        ul {
+          display: flex;
+          flex-wrap: wrap;
+        }
+        li {
+          flex: 0 50%;
+        }
+      }
+
+      .notify {
+        ul {
+          display: block;
+          input {
+            margin-right: 20px;
+          }
         }
       }
     }
@@ -196,6 +208,9 @@
   form {
     ul {
       padding: 0;
+      li {
+        flex: 0 100%;
+      }
     }
     &>label {
       align-items: center;
@@ -205,14 +220,9 @@
       }
     }
   }
-  .reposlist {
+  .reposlist, .notify {
     p {
       text-align: center;
     }
-    & li {
-      justify-content: center;
-    }
   }
-
-
 }

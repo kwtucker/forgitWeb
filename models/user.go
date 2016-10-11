@@ -32,9 +32,9 @@ type Repo struct {
 
 // Setting ...
 type Setting struct {
-	SettingID int    `bson:"setting_id"`
-	Name      string `bson:"name"`
-	Status    int    `bson:"status"`
+	// SettingID int    `bson:"setting_id"`
+	Name   string `bson:"name"`
+	Status int    `bson:"status"`
 	SettingNotifications
 	SettingAddPullCommit
 	SettingPush
@@ -43,7 +43,7 @@ type Setting struct {
 
 // SettingNotifications ...
 type SettingNotifications struct {
-	Status   int `bson:"status"`
+	// Status   int `bson:"status"`
 	OnError  int `bson:"onError"`
 	OnCommit int `bson:"onCommit"`
 	OnPush   int `bson:"onPush"`
@@ -51,13 +51,13 @@ type SettingNotifications struct {
 
 // SettingAddPullCommit ...
 type SettingAddPullCommit struct {
-	Status  int `bson:"status"`
+	// Status  int `bson:"status"`
 	TimeMin int `bson:"timeMinute"`
 }
 
 // SettingPush ...
 type SettingPush struct {
-	Status  int `bson:"status"`
+	// Status  int `bson:"status"`
 	TimeMin int `bson:"timeMinute"`
 }
 

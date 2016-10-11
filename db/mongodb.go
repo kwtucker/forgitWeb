@@ -43,6 +43,23 @@ func (c *ConnectMongo) Exists(dbCopy *ConnectMongo, userID *int) (bool, error) {
 	return true, err
 }
 
+// Exists ...
+func (c *ConnectMongo) SettingExists(dbCopy *ConnectMongo, userID int, setName string) (bool, error) {
+	d := dbCopy.DBSession.DB("forgit").C("users")
+	result := models.User{}
+	err := d.Find(bson.M{"githubID": userID}).One(&result)
+	if err != nil {
+		return false, err
+	}
+	var r = false
+	for v := range result.Settings {
+		if result.Settings[v].Name == setName {
+			r = true
+		}
+	}
+	return r, err
+}
+
 // FindOneUser ..
 func (c *ConnectMongo) FindOneUser(dbCopy *ConnectMongo, userID int) (models.User, error) {
 	// select the db and collection to use
