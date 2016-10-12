@@ -8,6 +8,7 @@ import (
 	"github.com/kwtucker/forgit/db"
 	"github.com/kwtucker/forgit/routers"
 	"github.com/kwtucker/forgit/system"
+	"github.com/rs/cors"
 	"log"
 	"net/http"
 )
@@ -38,7 +39,8 @@ func main() {
 	// If route method is not allowed it will be a status erro
 	router.HandleMethodNotAllowed = false
 
+	handler := cors.Default().Handler(context.ClearHandler(router))
 	// Starting the server with with port from the config file
 	log.Printf("Listening on: %s", application.Config.HostString())
-	log.Fatal(http.ListenAndServe(application.Config.WebPortString(), context.ClearHandler(router)))
+	log.Fatal(http.ListenAndServe(application.Config.WebPortString(), handler))
 }

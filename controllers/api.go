@@ -1,13 +1,15 @@
 package controllers
 
 import (
-	// "fmt"
-	// "github.com/julienschmidt/httprouter"
+	"github.com/julienschmidt/httprouter"
 	"github.com/kwtucker/forgit/db"
 	// "github.com/kwtucker/forgit/lib"
-	// "github.com/kwtucker/forgit/models"
-	"github.com/kwtucker/forgit/system" // "log"
-	// "net/http"
+	"encoding/json"
+	"github.com/kwtucker/forgit/models"
+	"github.com/kwtucker/forgit/system"
+	"log"
+	"net/http"
+	"strconv"
 	// "time"
 )
 
@@ -18,10 +20,93 @@ type APIController struct {
 	db          db.ConnectMongo
 }
 
-// API ...
-// func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-//
-// }
+// Connect will make a new copy of the main mongodb connection.
+func (c *APIController) Connect() *db.ConnectMongo {
+	return &db.ConnectMongo{DBSession: c.DataConnect.DBSession.Copy(), DName: c.DataConnect.DName}
+}
+
+//API ...
+func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	dbconnect := c.Connect()
+	defer dbconnect.DBSession.Close()
+
+	var (
+		err      error
+		dbUser   models.User
+		response []byte
+		settings []models.APISetting
+		resp     []models.APIError
+	)
+
+	ghid, err := strconv.Atoi(ps.ByName("ghid"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	CheckUserExists, err := c.db.Exists(dbconnect, &ghid)
+	if err != nil {
+		log.Println("User was", err, "in the database - CheckUserExists")
+	}
+
+	switch CheckUserExists {
+	case true:
+		// Grab most current user info
+		dbUser, err = c.db.FindOneUser(dbconnect, ghid)
+		if err != nil {
+			log.Println(err)
+		}
+
+		if dbUser.ForgitID == ps.ByName("fid") {
+
+			for _, s := range dbUser.Settings {
+				set := models.APISetting{
+					Name:                 s.Name,
+					Status:               s.Status,
+					SettingNotifications: s.SettingNotifications,
+					SettingAddPullCommit: s.SettingAddPullCommit,
+					SettingPush:          s.SettingPush,
+					Repos:                s.Repos,
+				}
+				json.Marshal(set)
+				settings = append(settings, set)
+			}
+			response, err = json.Marshal(settings)
+			if err != nil {
+				log.Println(err)
+			}
+			w.Header().Set("Content-Type", "application/json")
+			w.Write(response)
+		} else {
+			res := models.APIError{
+				Message: "bad credentials",
+				Status:  http.StatusUnauthorized,
+			}
+			json.Marshal(res)
+			resp = append(resp, res)
+			response, err = json.Marshal(resp)
+			if err != nil {
+				log.Println(err)
+			}
+			w.Header().Set("Content-Type", "application/json")
+			w.Write(response)
+		}
+
+	case false:
+
+		res := models.APIError{
+			Message: "bad credentials",
+			Status:  http.StatusUnauthorized,
+		}
+		json.Marshal(res)
+		resp = append(resp, res)
+		response, err = json.Marshal(resp)
+		if err != nil {
+			log.Println(err)
+		}
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(response)
+	}
+}
 
 //
 //

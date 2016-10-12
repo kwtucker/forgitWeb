@@ -227,7 +227,7 @@ func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Reques
 		}
 	}
 
-	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal", http.StatusFound)
+	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal/", http.StatusFound)
 }
 
 // SettingSelect ...
@@ -265,7 +265,7 @@ func (c *TerminalController) SettingSelect(w http.ResponseWriter, r *http.Reques
 		}
 	}
 
-	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal", http.StatusFound)
+	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal/", http.StatusFound)
 }
 
 // SettingNew when the user pushes the new button on the terminal form
@@ -341,7 +341,7 @@ func (c *TerminalController) SettingNew(w http.ResponseWriter, r *http.Request, 
 		}
 	}
 
-	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal", http.StatusFound)
+	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal/", http.StatusFound)
 }
 
 //SettingRemove ...
@@ -372,5 +372,5 @@ func (c *TerminalController) SettingRemove(w http.ResponseWriter, r *http.Reques
 		}
 	}
 
-	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal", http.StatusFound)
+	http.Redirect(w, r, "http://"+c.Env.Config.HostString()+"/terminal/", http.StatusFound)
 }
