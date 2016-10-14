@@ -43,6 +43,19 @@ func (c *ConnectMongo) Exists(dbCopy *ConnectMongo, userID *int) (bool, error) {
 	return true, err
 }
 
+func (c *ConnectMongo) ExistsFID(dbCopy *ConnectMongo, userID string) (bool, error) {
+
+	d := dbCopy.DBSession.DB("forgit").C("users")
+	result := models.User{}
+	// err := d.Find(bson.M{"githubID": userID}).One(&result)
+	err := d.Find(bson.M{"forgitid": userID}).One(&result)
+
+	if err != nil {
+		return false, err
+	}
+	return true, err
+}
+
 // Exists ...
 func (c *ConnectMongo) SettingExists(dbCopy *ConnectMongo, userID int, setName string) (bool, error) {
 	d := dbCopy.DBSession.DB("forgit").C("users")

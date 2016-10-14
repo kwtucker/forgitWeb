@@ -207,6 +207,7 @@ func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Reques
 		log.Println(err)
 	}
 
+	dbUser.LastUpdate = "1"
 	// add setting
 	if setExists {
 		// Add setting group to user settings

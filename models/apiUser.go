@@ -6,6 +6,11 @@ type APIError struct {
 	Status  int    `json:"status"`
 }
 
+//UpdateStatus ...
+type UpdateStatus struct {
+	Update string `json:"update"`
+}
+
 // APIUser ..
 type APIUser struct {
 	GithubID   int       `json:"githubID"`
