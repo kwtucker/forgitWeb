@@ -1,17 +1,14 @@
 package controllers
 
 import (
+	"encoding/json"
 	"github.com/julienschmidt/httprouter"
 	"github.com/kwtucker/forgit/db"
-	// "github.com/kwtucker/forgit/lib"
-	"encoding/json"
 	"github.com/kwtucker/forgit/models"
 	"github.com/kwtucker/forgit/system"
 	"gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"
-	// "strconv"
-	// "time"
 )
 
 // APIController ...
@@ -40,12 +37,6 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 		resp     []models.APIError
 	)
 
-	// ghid, err := strconv.Atoi(ps.ByName("ghid"))
-	// if err != nil {
-	// 	log.Println(err)
-	// }
-
-	// CheckUserExists, err := c.db.Exists(dbconnect, &ghid)
 	CheckUserExists, err := c.db.ExistsFID(dbconnect, ps.ByName("fid"))
 
 	if err != nil {
@@ -82,12 +73,11 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 			dbUser.LastUpdate = "0"
 			d := dbconnect.DBSession.DB("forgit").C("users")
 			userfind := models.User{}
-			// err := d.Find(bson.M{"githubID": userID}).One(&result)
-			err := d.Find(bson.M{"forgitid": ps.ByName("fid")}).One(&userfind)
+
+			err = d.Find(bson.M{"forgitid": ps.ByName("fid")}).One(&userfind)
 			if err != nil {
 				log.Println(err)
 			}
-			// c.db.UpdateOne(dbconnect, ghid, &dbUser)
 			// update user with new github infor
 			err = dbconnect.DBSession.DB("forgit").C("users").Update(userfind, dbUser)
 			w.Header().Set("Content-Type", "application/json")
@@ -120,7 +110,6 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 		}
 
 	case false:
-
 		res := models.APIError{
 			Message: "bad credentials",
 			Status:  http.StatusUnauthorized,
@@ -135,30 +124,3 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 		w.Write(response)
 	}
 }
-
-//
-//
-// -=-=-=-=-=-= Covert times -=-=-=-=-=
-// // Converts string Unix time stamp of UTC to int64
-// dD, err := strconv.ParseInt(dbUser.LastUpdate, 10, 64)
-// if err != nil {
-// 	fmt.Println(err)
-// }
-// // conver to time.Time for compare
-// dbUserUpdateDate := time.Unix(dD, 0)
-// fmt.Println(dbUserUpdateDate)
-// -=-=-=-=-=-= End Covert times -=-=-=-=-=
-
-//
-//
-// =-=-=-=-API LOGIC =-=-=-=-
-
-// if the local env update time is after the db update time, then take settings from local
-
-// call update on user settings to db
-
-// else send server user settings to the local env
-
-// respond with the server settings
-
-// =-=-=-=- END API LOGIC =-=-=-=-

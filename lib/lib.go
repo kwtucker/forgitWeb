@@ -51,21 +51,17 @@ func CreateUser(user *github.User, repos []github.Repository, settingsUpdate []m
 	// Update is nil means new user
 	// Create user setting defualts
 	currentUserSettings = models.Setting{
-		// SettingID: 0,
 		Name:   "General",
 		Status: 1,
 		SettingNotifications: models.SettingNotifications{
-			// Status:   1,
 			OnError:  1,
 			OnCommit: 1,
 			OnPush:   1,
 		},
 		SettingAddPullCommit: models.SettingAddPullCommit{
-			// Status:  1,
 			TimeMin: 5,
 		},
 		SettingPush: models.SettingPush{
-			// Status:  1,
 			TimeMin: 60,
 		},
 		Repos: settingRepos,
@@ -76,21 +72,17 @@ func CreateUser(user *github.User, repos []github.Repository, settingsUpdate []m
 	if settingsUpdate != nil {
 		for u := range settingsUpdate {
 			currentUserSettings = models.Setting{
-				// SettingID: settingsUpdate[u].SettingID,
 				Name:   settingsUpdate[u].Name,
 				Status: settingsUpdate[u].Status,
 				SettingNotifications: models.SettingNotifications{
-					// Status:   settingsUpdate[u].SettingNotifications.Status,
 					OnError:  settingsUpdate[u].SettingNotifications.OnError,
 					OnCommit: settingsUpdate[u].SettingNotifications.OnCommit,
 					OnPush:   settingsUpdate[u].SettingNotifications.OnPush,
 				},
 				SettingAddPullCommit: models.SettingAddPullCommit{
-					// Status:  settingsUpdate[u].SettingAddPullCommit.Status,
 					TimeMin: settingsUpdate[u].SettingAddPullCommit.TimeMin,
 				},
 				SettingPush: models.SettingPush{
-					// Status:  settingsUpdate[u].SettingPush.Status,
 					TimeMin: settingsUpdate[u].SettingPush.TimeMin,
 				},
 				Repos: settingRepos,

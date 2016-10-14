@@ -43,11 +43,11 @@ func (c *ConnectMongo) Exists(dbCopy *ConnectMongo, userID *int) (bool, error) {
 	return true, err
 }
 
+// ExistsFID ...
 func (c *ConnectMongo) ExistsFID(dbCopy *ConnectMongo, userID string) (bool, error) {
 
 	d := dbCopy.DBSession.DB("forgit").C("users")
 	result := models.User{}
-	// err := d.Find(bson.M{"githubID": userID}).One(&result)
 	err := d.Find(bson.M{"forgitid": userID}).One(&result)
 
 	if err != nil {
@@ -56,7 +56,7 @@ func (c *ConnectMongo) ExistsFID(dbCopy *ConnectMongo, userID string) (bool, err
 	return true, err
 }
 
-// Exists ...
+// SettingExists ...
 func (c *ConnectMongo) SettingExists(dbCopy *ConnectMongo, userID int, setName string) (bool, error) {
 	d := dbCopy.DBSession.DB("forgit").C("users")
 	result := models.User{}
@@ -83,11 +83,6 @@ func (c *ConnectMongo) FindOneUser(dbCopy *ConnectMongo, userID int) (models.Use
 	return result, err
 }
 
-// FindAll ..
-func (c *ConnectMongo) FindAll() {
-
-}
-
 // UpdateOne ..
 func (c *ConnectMongo) UpdateOne(dbCopy *ConnectMongo, id int, user *models.User) error {
 	// Find the current user
@@ -98,9 +93,4 @@ func (c *ConnectMongo) UpdateOne(dbCopy *ConnectMongo, id int, user *models.User
 	// update user with new github infor
 	err = dbCopy.DBSession.DB("forgit").C("users").Update(userfind, user)
 	return err
-}
-
-// Remove ..
-func (c *ConnectMongo) Remove() {
-
 }
