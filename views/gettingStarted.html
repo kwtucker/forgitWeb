@@ -1,0 +1,38 @@
+{{define "gettingStarted"}}
+{{template "cta" .}}
+<section id="gettingStarted">
+  <article>
+    <div class="row1">
+      <div class="left">
+        <div class="getcmd">
+          <img src="/static/img/cmdRed.svg" alt="CommandLine symbol" />
+        </div>
+        <p class="number">1</p>
+        <p class="getTitle">Download</p>
+      </div>
+    </div>
+    <div class="row2">
+      <a id="getdownload" href="/static/img/git.svg" title="" download="forgit"><p>Download Forgit</p></a>
+      <p>
+        After you click download, go through the application install process. Will give you the ability to run the command forgit start anywhere in your shell. I will also place a config file named “.forgitconfig” in your home directory with all the rest of the config files.
+      </p>
+    </div>
+  </article>
+  <article>
+    <div class="row1">
+      <div class="left">
+        <div class="getcmd">
+          <img src="/static/img/cmdRed.svg" alt="CommandLine symbol" />
+        </div>
+        <p class="number">2</p>
+        <p class="getTitle">Settings</p>
+      </div>
+    </div>
+    <div class="row2">
+      <p>
+        When you logged in you were on the Terminal page. In the sceond section you will have a default setting workspace. This is where you can set your preferred settings. You can also create multiple workspaces with different settings. You can only choose one group at a time.
+      </p>
+    </div>
+  </article>
+</section>
+{{end}}

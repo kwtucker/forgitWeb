@@ -1,0 +1,81 @@
+#gettingStarted {
+  font:500 1em $font-family;
+  article {
+    // margin: 0;
+    min-height: 490px;
+    padding: 20px 40px;
+    align-content: center;
+    .row1{
+      .left {
+        flex:1;
+        display: flex;
+        align-items: baseline;
+        .getcmd {
+          flex:1;
+          img {
+            height: 50px;
+          }
+        }
+        .number {
+          flex:1;
+          font-weight: 700;
+          font-size: 5em;
+          margin: 0;
+        }
+        .getTitle {
+          flex:8;
+          font-weight: 500;
+          font-size: 3em;
+          margin: 0;
+        }
+      }
+      align-items: center;
+      display: flex;
+      flex: 1 100%;
+
+    }
+    .row2{
+      flex: 1;
+      justify-content: center;
+      font-weight: 300;
+      font-size: 1.5em;
+      margin: 0;
+      line-height: 1.4;
+      #getdownload {
+        font-weight: 500;
+        font-size: 1em;
+        text-align: center;
+        justify-content: flex-start;
+        text-decoration: none;
+
+        & p {
+          margin: 20px 0;
+          background: $red;
+          color: $white;
+          padding: 10px;
+          font-size: 1.4em;
+        }
+      }
+    }
+  }
+  article:nth-child(odd) {
+      background: #FFFFFF;
+    .row1{
+      // background: #FFFFFF;
+      .number, .getTitle {
+        color: $gray;
+      }
+    }
+  }
+  article:nth-child(even) {
+      background: $gray;
+    .row1{
+      .number, .getTitle {
+        color: $white;
+      }
+    }
+    .row2 {
+      color: $white;
+    }
+  }
+}
