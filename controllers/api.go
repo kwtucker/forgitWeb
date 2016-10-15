@@ -34,14 +34,9 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 		dbUser   models.User
 		response []byte
 		settings []models.APISetting
-		resp     []models.APIError
 	)
 
-	CheckUserExists, err := c.db.ExistsFID(dbconnect, ps.ByName("fid"))
-
-	if err != nil {
-		log.Println("User was", err, "in the database - CheckUserExists")
-	}
+	CheckUserExists, _ := c.db.ExistsFID(dbconnect, ps.ByName("fid"))
 
 	switch CheckUserExists {
 	case true:
@@ -99,9 +94,7 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 				Message: "bad credentials",
 				Status:  http.StatusUnauthorized,
 			}
-			json.Marshal(res)
-			resp = append(resp, res)
-			response, err = json.Marshal(resp)
+			response, err = json.Marshal(res)
 			if err != nil {
 				log.Println(err)
 			}
@@ -114,9 +107,7 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 			Message: "bad credentials",
 			Status:  http.StatusUnauthorized,
 		}
-		json.Marshal(res)
-		resp = append(resp, res)
-		response, err = json.Marshal(resp)
+		response, err = json.Marshal(res)
 		if err != nil {
 			log.Println(err)
 		}
