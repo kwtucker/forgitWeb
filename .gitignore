@@ -4,6 +4,7 @@
 *.so
 
 config.json
+Supfile
 # Folders
 _obj
 _test
