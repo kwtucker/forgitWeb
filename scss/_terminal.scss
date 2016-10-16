@@ -19,11 +19,21 @@
         flex:1;
         text-decoration: none;
         display: flex;
+        & p:hover {
+          background: $gray;
+          color: $turq;
+        }
         & p {
           background: $red;
           color: $white;
           padding: 10px;
           font-size: 1.4em;
+        }
+        img {
+          position: relative;
+          top: 3px;
+          height: 25px;
+          margin-right: 20px;
         }
       }
     }
@@ -100,8 +110,9 @@
       display: flex;
       flex: 1;
       flex-direction: column;
-      input, select {
+      input, select, label {
         color: $black;
+        cursor: pointer;
       }
       input[name="workspaceName"] {
         font-size: 2em;

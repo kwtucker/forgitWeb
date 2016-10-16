@@ -1,11 +1,14 @@
 #gettingStarted {
   font:500 1em $font-family;
-  article {
+  .gstartArt {
     // margin: 0;
-    min-height: 490px;
+    min-height: 500px;
     padding: 20px 40px;
     align-content: center;
     .row1{
+      align-items: center;
+      // display: flex;
+      flex: 1 100%;
       .left {
         flex:1;
         display: flex;
@@ -23,51 +26,105 @@
           margin: 0;
         }
         .getTitle {
-          flex:8;
+          flex:7;
           font-weight: 500;
           font-size: 3em;
           margin: 0;
         }
-      }
-      align-items: center;
-      display: flex;
-      flex: 1 100%;
 
+      }
     }
     .row2{
-      flex: 1;
-      justify-content: center;
-      font-weight: 300;
-      font-size: 1.5em;
-      margin: 0;
-      line-height: 1.4;
-      #getdownload {
-        font-weight: 500;
-        font-size: 1em;
+      font-size: 2em;
+      padding: 20px 0;
+      .commandTitle {
+        flex:4;
         text-align: center;
-        justify-content: flex-start;
-        text-decoration: none;
-
-        & p {
-          margin: 20px 0;
-          background: $red;
-          color: $white;
-          padding: 10px;
-          font-size: 1.4em;
+        font-weight: 500;
+        font-size: 2em;
+        margin: 0;
+        color: $turq;
+        span {
+          color: $red;
+        }
+      }
+      #getdownloadbox {
+        display: flex;
+        justify-content: center;
+        #getdownload {
+          & p:hover {
+            background: $gray;
+            color: $turq;
+          }
+          font-weight: 500;
+          font-size: 1em;
+          text-align: center;
+          text-decoration: none;
+          width: 75%;
+          & p {
+            margin: 20px 0;
+            background: $red;
+            color: #FFFFFF;
+            padding: 10px;
+            font-size: 1.4em;
+            font-weight: 500;
+          }
+          img {
+            height: 40px;
+            margin-right: 40px;
+          }
+        }
+      }
+      &  p {
+        color: $black;
+        font-weight: 300;
+        font-size: 1.1em;
+        line-height: 1.4;
+      }
+      #init {
+        text-align: center;
+        & span {
+          color: $turq;
+          font-weight: 700;
+        }
+      }
+      #startdocs {
+        display: flex;
+        .colOne {
+          flex: 1 50%;
+        }
+        .colTwo {
+          margin-left: 20px;
+          flex: 1 50%;
+          font-size: .8em;
+          & strong {
+            color: $turq;
+          }
+          & span {
+            color: $gray;
+          }
+          & code {
+            background: $turq;
+            // padding: 10px;
+            margin: 10px 0;
+          }
+          & pre {
+            background: $turq;
+            padding: 20px;
+          }
         }
       }
     }
   }
-  article:nth-child(odd) {
+  .gstartArt:nth-child(odd) {
       background: #FFFFFF;
     .row1{
-      // background: #FFFFFF;
       .number, .getTitle {
         color: $gray;
       }
     }
   }
-  article:nth-child(even) {
+  .gstartArt:nth-child(even) {
       background: $gray;
     .row1{
       .number, .getTitle {
@@ -75,7 +132,16 @@
       }
     }
     .row2 {
-      color: $white;
+      p {
+        color: $white;
+      }
+      .commandTitle {
+        color: $turq;
+        span {
+          color: $white;
+        }
+      }
+
     }
   }
 }

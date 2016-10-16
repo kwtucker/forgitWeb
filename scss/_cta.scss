@@ -18,6 +18,7 @@
   #slogan {
     font: italic 700 4em $font-family;
     color: $gray;
+    margin: 0 0 10px 0;
     img {
       height: 50px;
     }
@@ -41,8 +42,11 @@
       display: block;
     }
     a[href="/logout"] {
-      font: italic 300 .4em $font-family;
+      font: italic 700 .4em $font-family;
       color: $gray;
+      &:hover {
+        color: $white;
+      }
       &::after {
         content: "";
         display: block;

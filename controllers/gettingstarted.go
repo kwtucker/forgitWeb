@@ -36,6 +36,15 @@ func (c *GettingStartedController) GettingStarted(w http.ResponseWriter, r *http
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
+	// If the person is not authed send them back to home
+	switch session.Values["authed"] {
+	case 0, nil:
+		session.Values["authed"] = 0
+		session.Values["token"] = nil
+		session.Save(r, w)
+		return nil, http.StatusFound
+	}
+
 	// Copy db pipeline and
 	dbconnect := c.Connect()
 	defer dbconnect.DBSession.Close()
