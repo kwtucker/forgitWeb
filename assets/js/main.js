@@ -47,9 +47,3 @@ $(window).resize(function() {
     $('#features').css('background', '#5E696D')
   }
 });
-
-
-
-// var sb = SimpleBinder('number', function(input, model) {
-//   console.log(input.value);
-// });
