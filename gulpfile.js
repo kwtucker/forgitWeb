@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     uglify = require('gulp-uglify');
 
-var go,
+var go;
 
 gulp.task('styles', function() {
     gulp.src('assets/scss/**/*.scss')
