@@ -11,7 +11,7 @@ import (
 )
 
 // CreateUser ...
-func CreateUser(user *github.User, repos []github.Repository, settingsUpdate []models.Setting) *models.User {
+func CreateUser(user *github.User, repos []*github.Repository, settingsUpdate []models.Setting) *models.User {
 	var (
 		repoArr             = []models.Repo{}
 		settingRepos        = []models.SettingRepo{}
