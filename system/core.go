@@ -43,6 +43,7 @@ func (application *Application) LoadTemplates() error {
 	return nil
 }
 
+//AuthConfig ...
 func (application *Application) AuthConfig() error {
 	application.AuthConf = &oauth2.Config{
 		ClientID:     application.Config.GithubClientID,

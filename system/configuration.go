@@ -29,6 +29,10 @@ type Configuration struct {
 // Init reads the config file and sets all values to config struct
 func (c *Configuration) Init(filename *string) {
 
+	if ecp := os.Getenv("FORGIT_CONFIG_PATH"); ecp != "" {
+		filename = &ecp
+	}
+
 	file, err := os.Open(*filename)
 	if err != nil {
 		if len(*filename) > 1 {
