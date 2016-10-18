@@ -16,7 +16,7 @@ func Init(application system.Application, router *httprouter.Router, database *d
 	var Store = sessions.NewCookieStore([]byte(sessionSecret))
 
 	// Serve static files
-	router.ServeFiles("/static/*filepath", http.Dir("static"))
+	router.ServeFiles("/static/*filepath", http.Dir(application.Config.StaticPath))
 
 	// -=--=-=- Routes -=-=-=-=-=
 	// Root route for landing page
