@@ -10,7 +10,6 @@ Targeting junior to senior level developers who always look to increase their pr
 ### Requirements
 * Go installed
 * Go environmental variables set
-* config.json file included
 * NodeJS /w npm
 * Gulp - (Globally)
 
@@ -29,10 +28,12 @@ Targeting junior to senior level developers who always look to increase their pr
   go get github.com/google/go-github/github
   go get gopkg.in/mgo.v2
   go get gopkg.in/mgo.v2/bson
+  go get github.com/satori/go.uuid
+  npm install -g gulp
   npm install
 ```
 
-### config.json ( needs to be at root level in project
+### config.json ( Needs to be at root level in project )  
   * Fill in your own values
 ```json
 {
@@ -49,11 +50,68 @@ Targeting junior to senior level developers who always look to increase their pr
     "GoogleAnalyticsTrackingID": "UA-(your GA id)",
     "WebHost": "127.0.0.1",
     "DbHost": "127.0.0.1",
-    "StaticPath": "static"
+    "StaticPath": "static path"
 }
 ```
 
-## Start App
+### Start App
 ```
 gulp startup
+```
+
+___
+
+## API Endpoints
+
+##### GET User Settings
+```
+/api/users/:forgitId/:init
+```
+###### Sample
+```json
+[
+  {
+    "name": "General",
+    "status": 1,
+    "notifications": {
+      "OnError": 1,
+      "OnCommit": 1,
+      "OnPush": 1
+    },
+    "addPullCommit": {
+      "TimeMin": 1
+    },
+    "push": {
+      "TimeMin": 2
+    },
+    "repos": [
+      {
+        "GithubRepoID": 0,
+        "Name": "repo_name",
+        "Status": 0
+      },
+    ]
+  }
+]
+```
+
+##### GET Update Check User Settings
+
+```
+/api/users/:forgitId/:no
+```
+
+```json
+{
+  "update": "0"
+}
+```
+
+##### GET If Bad UUID
+
+```json
+{
+  "message": "bad credentials",
+  "status": 401
+}
 ```
