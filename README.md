@@ -101,6 +101,7 @@ ___
 /api/users/:forgitId/:no
 ```
 
+###### Sample
 ```json
 {
   "update": "0"
@@ -109,6 +110,7 @@ ___
 
 ##### GET If Bad UUID
 
+###### Sample
 ```json
 {
   "message": "bad credentials",
