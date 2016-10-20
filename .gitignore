@@ -4,6 +4,7 @@
 *.so
 
 config.json
+config_dev.json
 Supfile
 # Folders
 _obj
