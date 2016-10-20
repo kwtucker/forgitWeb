@@ -49,7 +49,6 @@ nav {
       transition: 0.30s;
     }
     &[href="/auth/"] {
-      // background: $turq;
       padding: 5px;
       font:500 1em $font-family;
       &::before {

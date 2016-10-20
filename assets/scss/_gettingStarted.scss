@@ -1,13 +1,11 @@
 #gettingStarted {
   font:500 1em $font-family;
   .gstartArt {
-    // margin: 0;
     min-height: 500px;
     padding: 20px 40px;
     align-content: center;
     .row1{
       align-items: center;
-      // display: flex;
       flex: 1 100%;
       .left {
         flex:1;
@@ -49,7 +47,6 @@
         }
       }
       #getdownloadbox {
-        // display: flex;
         justify-content: center;
         .getdownload {
           & p:hover {
@@ -63,7 +60,6 @@
           text-decoration: none;
           & p {
             margin: 0;
-            // margin: 20px 0;
             background: $red;
             color: #FFFFFF;
             padding: 10px;
@@ -106,7 +102,6 @@
           }
           & code {
             background: $turq;
-            // padding: 10px;
             margin: 10px 0;
           }
           & pre {

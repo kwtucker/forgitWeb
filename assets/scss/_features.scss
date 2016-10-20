@@ -57,7 +57,7 @@
         line-height: 42px;
         color: $white;
         p {
-          padding-top: 9px;
+          padding: 9px 40px 0 40px;
         }
         p, ul{
           flex: 1;
@@ -79,11 +79,14 @@
       }
     }
   }
+
   .even {
     background: $gray;
     color: $white;
   }
 }
+
+
 // height: 350px;
 @media all and (max-width: 1000px) {
   #tabs a img {

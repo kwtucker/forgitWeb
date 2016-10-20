@@ -35,7 +35,7 @@
     h1 {
       font: 700 5em $font-family;
       color: #FFFFFF;
-      margin: 0 0 10px 0;
+      margin: 0 ;
     }
     a {
       color: $white;
@@ -106,6 +106,7 @@
   }
   }
   #slogan {
+    margin-bottom: 0;
     font: italic 700 4em $font-family;
     color: $gray;
     img {
