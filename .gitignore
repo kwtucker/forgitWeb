@@ -2,7 +2,7 @@
 *.o
 *.a
 *.so
-
+Supfile.yml
 config.json
 config_dev.json
 Supfile
