@@ -43,3 +43,4 @@ gulp.task('js', function() {
 });
 
 gulp.task('startup', ['devs', 'styles', 'styles:watch', 'js', 'js:watch']);
+gulp.task('compile', ['styles', 'js']);
