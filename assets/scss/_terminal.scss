@@ -66,7 +66,13 @@
         margin: 0;
         background: $gray;
         padding:25px;
+        white-space: pre-wrap; /* Since CSS 2.1 */
+        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
       }
+
       code {
         flex: 1;
         font-size: 1.5em;
@@ -213,8 +219,8 @@
       }
       .reposlist {
         ul {
-          display: flex;
-          flex-wrap: wrap;
+          // display: flex;
+          // flex-wrap: wrap;
         }
         li {
           flex: 0 50%;
@@ -233,6 +239,14 @@
   }
 }
 
+@media all and (min-width: 582px) {
+  .reposlist {
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+}
 
 @media all and (max-width: 922px) {
   .termTitle {
@@ -259,6 +273,12 @@
   .reposlist, .notify {
     p {
       text-align: center;
+    }
+  }
+  .reposlist {
+
+    ul {
+      font-size: .9em;
     }
   }
 }
