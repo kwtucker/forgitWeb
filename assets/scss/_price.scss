@@ -10,7 +10,7 @@
     h2 {
       font: 500 3em $font-family;
       margin: 20px 0;
-      color: $black;
+      color: $gray;
     }
   }
   #priceStyleCol {
@@ -20,7 +20,7 @@
     flex: 1;
     align-items: center;
     &:first-child {
-      margin-right: 40px;
+      // margin-right: 40px;
     }
     .priceBox {
       color: $white;
@@ -53,6 +53,7 @@
     }
     li p {
       margin: 0;
+      color: $gray;
       font: 400 1.5em/42px $font-family;
     }
     ul li:before {
@@ -72,4 +73,13 @@
   #priceStyleCol {
     display:flex;
   }
+}
+
+@media all and (min-width: 922px) {
+  .priceCol {
+    &:first-child {
+      margin-right: 40px;
+    }
+  }
+
 }
