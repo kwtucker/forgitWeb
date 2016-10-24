@@ -1,7 +1,15 @@
 {{define "footer"}}
 <section id="footer">
   <div id="logo">
-    <a href="/"><img src="/static/img/logo.svg" alt="forgit logo" /></a>
+    {{if .Auth}}
+    <a href="/terminal/">
+      <img src="/static/img/logo.svg" alt="Forgit Logo" />
+    </a>
+    {{else}}
+    <a href="/">
+      <img src="/static/img/logo.svg" alt="Forgit Logo" />
+    </a>
+    {{end}}
   </div>
   <div id="social">
     <a href="https://github.com/kwtucker" target="_blank"><img src="/static/img/gh_logo_1.svg" alt="github logo" /></a>
