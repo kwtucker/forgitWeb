@@ -1,5 +1,7 @@
 #gettingStarted {
   font:500 1em $font-family;
+  // padding: 20px 40px;
+
   .gstartArt {
     min-height: 500px;
     padding: 20px 40px;
@@ -24,7 +26,7 @@
           margin: 0;
         }
         .getTitle {
-          flex:7;
+          flex:12;
           font-weight: 500;
           font-size: 3em;
           margin: 0;
@@ -86,7 +88,7 @@
         }
       }
       #startdocs {
-        display: flex;
+        // display: flex;
         .colOne {
           flex: 1 50%;
         }
@@ -106,6 +108,11 @@
           }
           & pre {
             background: $turq;
+            white-space: pre-wrap; /* Since CSS 2.1 */
+            white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+            white-space: -pre-wrap; /* Opera 4-6 */
+            white-space: -o-pre-wrap; /* Opera 7 */
+            word-wrap: break-word; /* Internet Explorer 5.5+ */
             padding: 20px;
           }
         }
@@ -140,4 +147,11 @@
 
     }
   }
+}
+
+@media all and (max-width: 582px) {
+ .gstartArt {
+   font-size: .8em;
+ }
+
 }
