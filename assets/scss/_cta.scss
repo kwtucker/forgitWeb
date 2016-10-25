@@ -1,7 +1,6 @@
 
 #ctaAuthed {
   padding: 40px;
-  // margin-bottom: 20px;
   display: flex;
   flex: 1;
   background: $turq;
@@ -40,22 +39,6 @@
     a {
       color: $white;
       display: block;
-    }
-    a[href="/logout"] {
-      font: italic 700 .4em $font-family;
-      color: $gray;
-      &:hover {
-        color: $white;
-      }
-      &::after {
-        content: "";
-        display: block;
-        border: 1px solid $gray;
-        width: 100%;
-        align-items: center;
-        position: relative;
-        top: 3px;
-      }
     }
   }
 
