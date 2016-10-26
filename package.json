@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kwtucker/forgit.git"
+    "url": "git+https://github.com/kwtucker/forgitWeb.git"
   },
   "keywords": [
     "Go",
