@@ -14,10 +14,24 @@
   .fboxTwo {
     display: flex;
     flex:1;
-    img {
+    p {
+      justify-content: center;
       flex: 1;
-      height: 250px;
-      margin-bottom: 40px;
+      align-items: center;
+      display: flex;
+      img {
+        height: auto;
+        width: 50%;
+        margin-bottom: 40px;
+      }
     }
+  }
+}
+
+@media all and (max-width: 922px) {
+  #createdBy .fboxTwo p img {
+
+      width: 100%;
+
   }
 }
