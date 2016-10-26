@@ -1,7 +1,5 @@
 #gettingStarted {
   font:500 1em $font-family;
-  // padding: 20px 40px;
-
   .gstartArt {
     min-height: 500px;
     padding: 20px 40px;
@@ -62,7 +60,7 @@
           text-decoration: none;
           & p {
             margin: 0;
-            background: $red;
+            background: rgba(83, 94, 98, 0.7);
             color: #FFFFFF;
             padding: 10px;
             font-size: 1.4em;
@@ -74,7 +72,7 @@
           }
         }
       }
-      &  p {
+      & p {
         color: $black;
         font-weight: 300;
         font-size: 1.1em;
@@ -88,7 +86,6 @@
         }
       }
       #startdocs {
-        // display: flex;
         .colOne {
           flex: 1 50%;
         }
@@ -153,5 +150,4 @@
  .gstartArt {
    font-size: .8em;
  }
-
 }
