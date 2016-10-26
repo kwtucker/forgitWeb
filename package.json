@@ -18,9 +18,9 @@
   "author": "Kevin Tucker",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/kwtucker/forgit/issues"
+    "url": "https://github.com/kwtucker/forgitWeb/issues"
   },
-  "homepage": "https://github.com/kwtucker/forgit#readme",
+  "homepage": "https://github.com/kwtucker/forgitWeb#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.0",
