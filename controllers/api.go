@@ -23,7 +23,7 @@ func (c *APIController) Connect() *db.ConnectMongo {
 	return &db.ConnectMongo{DBSession: c.DataConnect.DBSession.Copy(), DName: c.DataConnect.DName}
 }
 
-//API ...
+//API Controller will validate the request to see if the user exists or not.
 func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	dbconnect := c.Connect()
@@ -45,6 +45,8 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 		// find one in db and set to struct
 		err = d.Find(bson.M{"forgitid": ps.ByName("fid")}).One(&dbUser)
 
+		// Validate params. If the user object is updated or init is in the request.
+		// Respond with user data.
 		if dbUser.ForgitID == ps.ByName("fid") && dbUser.LastUpdate == "1" ||
 			dbUser.ForgitID == ps.ByName("fid") && ps.ByName("i") == "init" {
 
@@ -78,6 +80,7 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 			w.Header().Set("Content-Type", "application/json")
 			w.Write(response)
 
+			// If user object was not updated send back update 0
 		} else if dbUser.ForgitID == ps.ByName("fid") && dbUser.LastUpdate == "0" {
 			upd := models.UpdateStatus{
 				Update: "0",
@@ -89,6 +92,8 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 
 			w.Header().Set("Content-Type", "application/json")
 			w.Write(response)
+
+			// else it was a bad request.
 		} else {
 			res := models.APIError{
 				Message: "bad credentials",
@@ -101,7 +106,6 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 			w.Header().Set("Content-Type", "application/json")
 			w.Write(response)
 		}
-
 	case false:
 		res := models.APIError{
 			Message: "bad credentials",

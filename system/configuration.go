@@ -28,7 +28,7 @@ type Configuration struct {
 
 // Init reads the config file and sets all values to config struct
 func (c *Configuration) Init(filename *string) {
-
+	// For the server to link to the config file.
 	if ecp := os.Getenv("FORGIT_CONFIG_PATH"); ecp != "" {
 		filename = &ecp
 	}
@@ -76,8 +76,5 @@ func (c *Configuration) String() string {
 	s += fmt.Sprintf("   DB: %s,\n", c.DbHostString())
 	s += fmt.Sprintf("   TemplatePath: %s,\n", c.TemplateDir)
 	s += fmt.Sprintf("   StaticPath: %s,\n", c.StaticPath)
-	s += fmt.Sprintf("   TemplatePreCompile: %v,\n", c.TemplatePreCompile)
-	s += fmt.Sprintf("   Debug: %v\n", c.Debug)
-	s += fmt.Sprintf("   GoogleAnalyticsTrackingID: %v\n", c.GoogleAnalyticsTrackingID)
 	return s
 }

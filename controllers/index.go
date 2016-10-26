@@ -14,7 +14,7 @@ type IndexController struct {
 	Env  system.Application
 }
 
-// Index ...
+// Index landing view
 func (c *IndexController) Index(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
 	// Get Session
 	session, err := c.Sess.Get(r, "ForgitSession")

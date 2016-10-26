@@ -1,7 +1,6 @@
 package system
 
 import (
-	// "fmt"
 	"github.com/julienschmidt/httprouter"
 	"golang.org/x/oauth2"
 	"golang.org/x/oauth2/github"
@@ -77,7 +76,6 @@ func (application *Application) Route(controller interface{}, controllerMethodFu
 
 			// if the coded is okay render,
 			// if code in not okay redirect to 404
-
 			switch code {
 			case http.StatusOK:
 				w.Header().Set("Content-Type", "text/html")

@@ -1,21 +1,15 @@
 package controllers
 
 import (
-	// "fmt"
-	// "github.com/google/go-github/github"
 	"github.com/gorilla/sessions"
 	"github.com/julienschmidt/httprouter"
 	"github.com/kwtucker/forgit/db"
-	// "github.com/kwtucker/forgit/lib"
-	// "github.com/kwtucker/forgit/models"
 	"github.com/kwtucker/forgit/system"
-	// "golang.org/x/oauth2"
 	"log"
 	"net/http"
-	// "time"
 )
 
-// GettingStartedController ...
+// GettingStartedController  (Env, Sess, DataConnect, db)
 type GettingStartedController struct {
 	Env         system.Application
 	Sess        *sessions.CookieStore

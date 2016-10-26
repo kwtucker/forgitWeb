@@ -21,7 +21,7 @@ func (a *Auth) AuthFunc(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 	http.Redirect(w, r, loginString, http.StatusTemporaryRedirect)
 }
 
-// Callback ...
+// Callback is what github sends the user back too after authing them on github.
 func (a *Auth) Callback(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// Grab the Session
 	session, err := a.Sess.Get(r, "ForgitSession")

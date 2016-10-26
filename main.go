@@ -15,7 +15,6 @@ import (
 
 func main() {
 	// Defining which config file to parse though
-	//filename := flag.String("config_dev", "config_dev.json", "Path to configuration file")
 	filename := flag.String("config", "config.json", "Path to configuration file")
 	flag.Parse()
 	// Setting the new application instance
@@ -40,6 +39,7 @@ func main() {
 	// If route method is not allowed it will be a status erro
 	router.HandleMethodNotAllowed = false
 
+	// middleware
 	handler := cors.Default().Handler(context.ClearHandler(router))
 	// Starting the server with with port from the config file
 	log.Printf("Listening on: %s", application.Config.HostString())

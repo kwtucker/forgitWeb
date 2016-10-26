@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-// CreateUser ...
+// CreateUser creates the user when loging in for the first time.
 func CreateUser(user *github.User, repos []*github.Repository, settingsUpdate []models.Setting) *models.User {
 	var (
 		repoArr             = []models.Repo{}
@@ -112,7 +112,7 @@ func CreateUser(user *github.User, repos []*github.Repository, settingsUpdate []
 	return currentUser
 }
 
-// GetTokenStruct will create a new token struct and return a pointer to it
+// GetTokenStruct will create a new token struct and return a pointer to it.
 func GetTokenStruct(token string) *oauth2.Token {
 	// getting new
 	var tok = oauth2.Token{

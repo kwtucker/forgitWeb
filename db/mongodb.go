@@ -23,7 +23,7 @@ func (c *ConnectMongo) ConnectDB(dburl, dbname string) {
 	c.DName = session.DB(dbname)
 }
 
-// AddUser ...
+// AddUser adds a user to the forgit DB and users Collection
 func (c *ConnectMongo) AddUser(dbCopy *ConnectMongo, newuser *models.User) error {
 	// select the db and collection to use
 	d := dbCopy.DBSession.DB("forgit").C("users")
@@ -32,7 +32,7 @@ func (c *ConnectMongo) AddUser(dbCopy *ConnectMongo, newuser *models.User) error
 	return err
 }
 
-// Exists ...
+// Exists looks for the githubID of the user in the forgit DB and users Collection.
 func (c *ConnectMongo) Exists(dbCopy *ConnectMongo, userID *int) (bool, error) {
 	d := dbCopy.DBSession.DB("forgit").C("users")
 	result := models.User{}
@@ -43,7 +43,7 @@ func (c *ConnectMongo) Exists(dbCopy *ConnectMongo, userID *int) (bool, error) {
 	return true, err
 }
 
-// ExistsFID ...
+// ExistsFID looks in the db for the requests forgitid and returns booleen.
 func (c *ConnectMongo) ExistsFID(dbCopy *ConnectMongo, userID string) (bool, error) {
 
 	d := dbCopy.DBSession.DB("forgit").C("users")
@@ -56,7 +56,7 @@ func (c *ConnectMongo) ExistsFID(dbCopy *ConnectMongo, userID string) (bool, err
 	return true, err
 }
 
-// SettingExists ...
+// SettingExists finds the user with githubID and looks for the setting group.
 func (c *ConnectMongo) SettingExists(dbCopy *ConnectMongo, userID int, setName string) (bool, error) {
 	d := dbCopy.DBSession.DB("forgit").C("users")
 	result := models.User{}
@@ -73,7 +73,7 @@ func (c *ConnectMongo) SettingExists(dbCopy *ConnectMongo, userID int, setName s
 	return r, err
 }
 
-// FindOneUser ..
+// FindOneUser finds one user using the githubID.
 func (c *ConnectMongo) FindOneUser(dbCopy *ConnectMongo, userID int) (models.User, error) {
 	// select the db and collection to use
 	d := dbCopy.DBSession.DB("forgit").C("users")
@@ -83,7 +83,7 @@ func (c *ConnectMongo) FindOneUser(dbCopy *ConnectMongo, userID int) (models.Use
 	return result, err
 }
 
-// UpdateOne ..
+// UpdateOne ...
 func (c *ConnectMongo) UpdateOne(dbCopy *ConnectMongo, id int, user *models.User) error {
 	// Find the current user
 	userfind, err := c.FindOneUser(dbCopy, id)
