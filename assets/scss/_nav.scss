@@ -33,6 +33,7 @@ nav {
     display: flex;
     flex: 1;
     color: $white;
+
     &:link {
       color: $white;
     }
@@ -54,6 +55,13 @@ nav {
       &::before {
         content: url('../img/gh_logo.png');
         margin: 5px;
+      }
+    }
+    &[href="/logout"] {
+      font: italic 700 1.2em $font-family;
+      color: $turq;
+      &:hover {
+        color: $white;
       }
     }
   }
