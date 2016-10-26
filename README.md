@@ -16,6 +16,10 @@ Forgit is a workflow tool that automates basic git flow. The traditional process
 ### Install My Web App
 ```
   go get github.com/kwtucker/forgitWeb
+
+  or
+
+  git clone https://github.com/kwtucker/forgitWeb.git
 ```
 
 ### Dependencies
