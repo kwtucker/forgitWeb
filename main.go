@@ -17,6 +17,7 @@ func main() {
 	// Defining which config file to parse though
 	filename := flag.String("config", "config.json", "Path to configuration file")
 	flag.Parse()
+
 	// Setting the new application instance
 	var application = &system.Application{}
 
