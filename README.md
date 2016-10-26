@@ -15,7 +15,7 @@ Forgit is a workflow tool that automates basic git flow. The traditional process
 
 ### Install My Web App
 ```
-  go get github.com/kwtucker/forgit
+  go get github.com/kwtucker/forgitWeb
 ```
 
 ### Dependencies
@@ -29,6 +29,7 @@ Forgit is a workflow tool that automates basic git flow. The traditional process
   go get gopkg.in/mgo.v2
   go get gopkg.in/mgo.v2/bson
   go get github.com/satori/go.uuid
+  go get github.com/rs/cors
   npm install -g gulp
   npm install
 ```

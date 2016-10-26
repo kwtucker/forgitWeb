@@ -3,8 +3,8 @@ package controllers
 import (
 	"github.com/gorilla/sessions"
 	"github.com/julienschmidt/httprouter"
-	"github.com/kwtucker/forgit/db"
-	"github.com/kwtucker/forgit/system"
+	"github.com/kwtucker/forgitWeb/db"
+	"github.com/kwtucker/forgitWeb/system"
 	"log"
 	"net/http"
 )

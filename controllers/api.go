@@ -3,9 +3,9 @@ package controllers
 import (
 	"encoding/json"
 	"github.com/julienschmidt/httprouter"
-	"github.com/kwtucker/forgit/db"
-	"github.com/kwtucker/forgit/models"
-	"github.com/kwtucker/forgit/system"
+	"github.com/kwtucker/forgitWeb/db"
+	"github.com/kwtucker/forgitWeb/models"
+	"github.com/kwtucker/forgitWeb/system"
 	"gopkg.in/mgo.v2/bson"
 	"log"
 	"net/http"

@@ -3,7 +3,7 @@ package lib
 import (
 	// "fmt"
 	"github.com/google/go-github/github"
-	"github.com/kwtucker/forgit/models"
+	"github.com/kwtucker/forgitWeb/models"
 	"github.com/satori/go.uuid"
 	"golang.org/x/oauth2"
 	"strconv"

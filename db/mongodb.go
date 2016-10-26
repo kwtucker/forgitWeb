@@ -2,7 +2,7 @@ package db
 
 import (
 	"fmt"
-	"github.com/kwtucker/forgit/models"
+	"github.com/kwtucker/forgitWeb/models"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )

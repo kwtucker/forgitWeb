@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/gorilla/sessions"
 	"github.com/julienschmidt/httprouter"
-	"github.com/kwtucker/forgit/system"
+	"github.com/kwtucker/forgitWeb/system"
 	"golang.org/x/oauth2"
 	"net/http"
 )
