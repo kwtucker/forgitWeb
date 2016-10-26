@@ -14,6 +14,7 @@
       & h2 {
         flex:2;
         color: $gray;
+        margin: 20px 0;
       }
       & .download {
         text-align: center;
@@ -51,6 +52,9 @@
 
     & .command:nth-child(2) {
       margin-top: 0;
+    }
+    & .command:nth-child(4) {
+      margin-bottom: 0;
     }
 
     .command {
@@ -97,7 +101,7 @@
     }
   }
   #workspaces {
-    margin: 50px 0;
+    margin: 40px 0 0;
     flex: 1;
     .termTitle {
       display: flex;
@@ -115,6 +119,7 @@
       }
       & h2 {
         flex:2;
+        margin: 20px 0;
       }
       & a {
         display: flex;

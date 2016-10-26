@@ -32,8 +32,6 @@
 
   h2 {
     flex: 1;
-    font: 500 3em $font-family;
-    margin: 20px 0;
     color: $white;
   }
 
@@ -57,9 +55,6 @@
         font: 400 1.8em $font-family;
         line-height: 42px;
         color: $white;
-        p {
-          // padding: 9px 40px 0 40px;
-        }
         p, ul{
           flex: 1;
         }

@@ -8,8 +8,6 @@
   #priceTitle {
     flex: 1;
     h2 {
-      font: 500 3em $font-family;
-      margin: 20px 0;
       color: $gray;
     }
   }
@@ -20,7 +18,6 @@
     flex: 1;
     align-items: center;
     &:first-child {
-      // margin-right: 40px;
     }
     .priceBox {
       color: $white;
