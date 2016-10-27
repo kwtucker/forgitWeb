@@ -22,6 +22,14 @@ Forgit is a workflow tool that automates basic git flow. The traditional process
   git clone https://github.com/kwtucker/forgitWeb.git
 ```
 
+To install:
+- For the forgitWeb you don't really need to install the app if you are running the gulp command. If you prefer to install you can use this:
+```
+$ cd /path/to/github.com/kwtucker/forgitWeb
+$ go install
+$ forgitWeb
+```
+
 ### Dependencies
 ```
   go get github.com/julienschmidt/httprouter
@@ -60,8 +68,19 @@ Forgit is a workflow tool that automates basic git flow. The traditional process
 ```
 
 ### Start App
+- Must be in root of the ForgitWeb directory.
+- The gulp command will:
+  - Compile js and scss assets.
+  - Watch Go files for changes and restart app.
+  - Watch HTML files for changes and restarts app.
+  
 ```
 gulp startup
+
+or
+
+go run main.go
+
 ```
 
 ___
