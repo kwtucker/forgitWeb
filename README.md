@@ -14,6 +14,7 @@ Forgit is a workflow tool that automates basic git flow. The traditional process
 * Gulp - (Globally)
 
 ### Install My Web App
+- Since this is a private repo, the go get command won't work. Until the repo is public use the git clone.
 ```
   go get github.com/kwtucker/forgitWeb
 
@@ -73,7 +74,7 @@ $ forgitWeb
   - Compile js and scss assets.
   - Watch Go files for changes and restart app.
   - Watch HTML files for changes and restarts app.
-  
+
 ```
 gulp startup
 
