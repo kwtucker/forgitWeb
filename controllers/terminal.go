@@ -83,7 +83,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 		log.Println(err)
 	}
 
-	CheckUserExists, err := c.db.Exists(dbconnect, ghuser.ID)
+	CheckUserExists, err := c.db.UserExistsCheck(dbconnect, ghuser.ID)
 	if err != nil {
 		log.Println("User was", err, "in the database - CheckUserExists")
 	}
@@ -211,7 +211,7 @@ func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Reques
 		},
 		Repos: settingRepos,
 	}
-	setExists, err := c.db.SettingExists(dbconnect, session.Values["userID"].(int), dbUser.Settings[currentSetIndex].Name)
+	setExists, err := c.db.SettingUserExistsCheck(dbconnect, session.Values["userID"].(int), dbUser.Settings[currentSetIndex].Name)
 	if err != nil {
 		log.Println(err)
 	}
@@ -222,16 +222,16 @@ func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Reques
 		// Add setting group to user settings
 		dbUser.Settings[currentSetIndex] = set
 		// Update user in db
-		c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+		c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 	} else {
 		// Add setting group to user settings
 		dbUser.Settings = append(dbUser.Settings, set)
 		// Update user in db
-		// c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+		// c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 		for i := range dbUser.Settings {
 			if dbUser.Settings[i].Name == r.Form["settingGroupName"][0] {
 				dbUser.Settings[i] = set
-				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+				c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 				break
 			}
 		}
@@ -267,11 +267,11 @@ func (c *TerminalController) SettingSelect(w http.ResponseWriter, r *http.Reques
 	for v := range dbUser.Settings {
 		if dbUser.Settings[v].Status == 1 {
 			dbUser.Settings[v].Status = 0
-			c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+			c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 		}
 		if dbUser.Settings[v].Name == r.Form["settingGroupSelect"][0] {
 			dbUser.Settings[v].Status = 1
-			c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+			c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 		}
 	}
 
@@ -327,7 +327,7 @@ func (c *TerminalController) SettingNew(w http.ResponseWriter, r *http.Request, 
 		},
 		Repos: settingRepos,
 	}
-	setExists, err := c.db.SettingExists(dbconnect, session.Values["userID"].(int), "New (Change me)")
+	setExists, err := c.db.SettingUserExistsCheck(dbconnect, session.Values["userID"].(int), "New (Change me)")
 	if err != nil {
 		log.Println(err)
 	}
@@ -337,16 +337,16 @@ func (c *TerminalController) SettingNew(w http.ResponseWriter, r *http.Request, 
 		// Add setting group to user settings
 		dbUser.Settings = append(dbUser.Settings, set)
 		// Update user in db
-		c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+		c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 
 		for v := range dbUser.Settings {
 			if dbUser.Settings[v].Status == 1 {
 				dbUser.Settings[v].Status = 0
-				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+				c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 			}
 			if dbUser.Settings[v].Name == set.Name {
 				dbUser.Settings[v].Status = 1
-				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+				c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 			}
 		}
 	}
@@ -377,7 +377,7 @@ func (c *TerminalController) SettingRemove(w http.ResponseWriter, r *http.Reques
 			if v.Status == 1 {
 				dbUser.Settings = append(dbUser.Settings[:i], dbUser.Settings[i+1:]...)
 				dbUser.Settings[0].Status = 1
-				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
+				c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 			}
 		}
 	}

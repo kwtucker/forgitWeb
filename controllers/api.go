@@ -36,7 +36,7 @@ func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httproute
 		settings []models.APISetting
 	)
 
-	CheckUserExists, _ := c.db.ExistsFID(dbconnect, ps.ByName("fid"))
+	CheckUserExists, _ := c.db.UserExistsFIDCheck(dbconnect, ps.ByName("fid"))
 
 	switch CheckUserExists {
 	case true:
