@@ -31,6 +31,13 @@ func (c *TerminalController) Connect() *db.ConnectMongo {
 // Terminal Controller
 func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
 
+	var (
+		template string
+		pageName string
+	)
+	pageName = "Terminal"
+	template = "terminal"
+
 	// Grab the Session
 	session, err := c.Sess.Get(r, "ForgitSession")
 	if err != nil {
@@ -81,7 +88,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 		log.Println("User was", err, "in the database - CheckUserExists")
 	}
 
-	// If user doesn't exist create them
+	// If user doesn't exist create them.
 	switch CheckUserExists {
 	case false:
 		user := lib.CreateUser(ghuser, repos, nil)
@@ -89,6 +96,8 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 		if err != nil {
 			log.Println(err)
 		}
+		pageName = "Getting Started"
+		template = "gettingStarted"
 	}
 
 	// Grab most current user info
@@ -100,8 +109,8 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 	// data for the view
 	data := map[string]interface{}{
 		"Auth":            true,
-		"PageName":        "Terminal",
-		"ContentTemplate": "terminal",
+		"PageName":        pageName,
+		"ContentTemplate": template,
 		"User":            dbUser,
 	}
 	return data, http.StatusOK
