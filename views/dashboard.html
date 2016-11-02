@@ -1,38 +1,38 @@
-{{define "terminal" }}
+{{define "dashboard" }}
 {{template "cta" .}}
-<section id="termial">
+<section id="dashboard">
   <section id="commands">
-    <div class="termTitle">
+    <div class="dashTitle">
       <h2>Commands</h2>
       <a class="download" href="/static/Forgit_CLI_Linux.tar.gz" title="" download="forgit"><img src="/static/img/download.svg" alt="Linux Forgit FGT CLI download" /><p>Linux (beta)</p></a>
       <a class="download" href="/static/Forgit_CLI.zip" title="" download="forgit"><img src="/static/img/download.svg" alt="Mac Forgit FGT CLI download" /><p>Mac</p></a>
     </div>
     <div class="command">
-      <div class="termCommandTitle">
+      <div class="dashCommandTitle">
         <h3>Initialize Environment</h3> - <span>Only run for the first download or update Forgit directory path.</span>
       </div>
       <pre><code><strong>$</strong> forgit init</code></pre>
       <pre><code><strong>UUID:</strong> {{.User.ForgitID}}</code></pre>
     </div>
     <div class="command">
-      <div class="termCommandTitle">
+      <div class="dashCommandTitle">
         <h3>Start Command</h3>
       </div>
       <pre><code><strong>$</strong> forgit start</code></pre>
     </div>
     <div class="command">
-      <div class="termCommandTitle">
+      <div class="dashCommandTitle">
         <h3>Help Command</h3>
       </div>
       <pre><code><strong>$</strong> forgit help</code></pre>
     </div>
   </section>
   <section id="settingGroups">
-    <div class="termTitle">
+    <div class="dashTitle">
       <h2>Setting Groups</h2>
-      <a href="/terminal/setNew/#clearForm" id="clearForm"><span>Add new setting group</span><img src="/static/img/plus.svg" alt="plus sign" /></a>
+      <a href="/dashboard/setNew/#clearForm" id="clearForm"><span>Add new setting group</span><img src="/static/img/plus.svg" alt="plus sign" /></a>
     </div>
-    <form action="/terminal/setSelect/" method="post">
+    <form action="/dashboard/setSelect/" method="post">
       <select name="settingGroupSelect" onchange="this.form.submit()">
         {{range $key, $value := .User.Settings}}
         {{if $value.Status}}
@@ -44,7 +44,7 @@
       </select>
     </form>
 
-    <form id="formBody" class="" action="/terminal/setValues/" method="post">
+    <form id="formBody" class="" action="/dashboard/setValues/" method="post">
       {{range $key, $value := .User.Settings}}
       {{if $value.Status}}
       <label><p>Setting Name</p><input type="text" name="settingGroupName" value="{{$value.Name}}" placeholder="e.g -> Work" required></label>
@@ -78,7 +78,7 @@
         </ul>
       </div>
       <div id="buttonSubmit">
-        <button type="submit">Save</button><a id="removeSetting" href="/terminal/setRemove/">Remove</a>
+        <button type="submit">Save</button><a id="removeSetting" href="/dashboard/setRemove/">Remove</a>
       </div>
       {{end}}
       {{end}}

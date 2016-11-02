@@ -1,11 +1,11 @@
-#termial {
+#dashboard {
   padding: 0 40px;
   display: flex;
   flex: 1;
   flex-direction: column;
   #commands {
     flex: 1;
-    .termTitle {
+    .dashTitle {
       margin: 40px 0 10px;
       display: flex;
       flex: 1;
@@ -61,7 +61,7 @@
       flex: 1;
       background: $gray;
       margin: 20px 0;
-      .termCommandTitle {
+      .dashCommandTitle {
         border: 1px solid $black;
         padding: 10px;
         background: $black;
@@ -103,7 +103,7 @@
   #settingGroups {
     margin: 40px 0 0;
     flex: 1;
-    .termTitle {
+    .dashTitle {
       display: flex;
       color: $gray;
       flex: 1;
@@ -252,10 +252,10 @@
 }
 
 @media all and (min-width: 582px) {
-  .termTitle .download:nth-child(3) {
+  .dashTitle .download:nth-child(3) {
     margin-right:40px;
   }
-  .termTitle {
+  .dashTitle {
     & p {
       font-size: 2em;
     }
@@ -269,7 +269,7 @@
 }
 
 @media all and (max-width: 1119px) {
-  .termTitle {
+  .dashTitle {
     flex-direction: column;
     & .download {
       width: 70%;

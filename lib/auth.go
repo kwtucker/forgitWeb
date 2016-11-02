@@ -44,7 +44,7 @@ func (a *Auth) Callback(w http.ResponseWriter, r *http.Request, ps httprouter.Pa
 		session.Values["authed"] = 1
 		session.Save(r, w)
 
-		http.Redirect(w, r, "/terminal/", http.StatusFound)
+		http.Redirect(w, r, "/dashboard/", http.StatusFound)
 	}
 }
 

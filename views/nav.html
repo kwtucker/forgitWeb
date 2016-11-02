@@ -1,7 +1,7 @@
 {{define "nav"}}
 <header>
 	{{if .Auth}}
-	<a href="/terminal/">
+	<a href="/dashboard/">
 		<img class="" src="/static/img/logoNoSloganColor.svg" alt="Forgit Logo" />
 	</a>
 	{{else}}
@@ -11,7 +11,7 @@
 	{{end}}
 	<nav>
 		{{if .Auth}}
-			<a href="/terminal/">Terminal</a>
+			<a href="/dashboard/">Dashboard</a>
 			<a href="/getting-started/">Getting Started</a>
 			<a href="/logout">Log Out</a>
 			{{else}}

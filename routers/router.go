@@ -39,44 +39,43 @@ func Init(application system.Application, router *httprouter.Router, database *d
 			Sess: Store,
 		}, "Callback"))
 
-	// Terminal Route that is what the callback goes too.
-	router.GET("/terminal/", application.Route(
-		&controllers.TerminalController{
+	// Dashboard Route that is what the callback goes too.
+	router.GET("/dashboard/", application.Route(
+		&controllers.DashboardController{
 			Sess:        Store,
 			Env:         application,
 			DataConnect: database,
-		}, "Terminal"))
+		}, "Dashboard"))
 
 	//
-	router.POST("/terminal/setValues/", application.NoViewRoute(
-		&controllers.TerminalController{
+	router.POST("/dashboard/setValues/", application.NoViewRoute(
+		&controllers.DashboardController{
 			Sess:        Store,
 			Env:         application,
 			DataConnect: database,
 		}, "SettingSubmit"))
 
-	router.POST("/terminal/setSelect/", application.NoViewRoute(
-		&controllers.TerminalController{
+	router.POST("/dashboard/setSelect/", application.NoViewRoute(
+		&controllers.DashboardController{
 			Sess:        Store,
 			Env:         application,
 			DataConnect: database,
 		}, "SettingSelect"))
 
-	router.GET("/terminal/setNew/", application.NoViewRoute(
-		&controllers.TerminalController{
+	router.GET("/dashboard/setNew/", application.NoViewRoute(
+		&controllers.DashboardController{
 			Sess:        Store,
 			Env:         application,
 			DataConnect: database,
 		}, "SettingNew"))
 
-	router.GET("/terminal/setRemove/", application.NoViewRoute(
-		&controllers.TerminalController{
+	router.GET("/dashboard/setRemove/", application.NoViewRoute(
+		&controllers.DashboardController{
 			Sess:        Store,
 			Env:         application,
 			DataConnect: database,
 		}, "SettingRemove"))
 
-	// Terminal Route that is what the callback goes too.
 	router.GET("/getting-started/", application.Route(
 		&controllers.GettingStartedController{
 			Sess:        Store,

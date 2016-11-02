@@ -15,8 +15,8 @@ import (
 	"strconv"
 )
 
-// TerminalController ...
-type TerminalController struct {
+// DashboardController ...
+type DashboardController struct {
 	Env         system.Application
 	Sess        *sessions.CookieStore
 	DataConnect *db.ConnectMongo
@@ -24,19 +24,19 @@ type TerminalController struct {
 }
 
 // ConnectMongoDBStream will make a new copy of the main mongodb connection.
-func (c *TerminalController) ConnectMongoDBStream() *db.ConnectMongo {
+func (c *DashboardController) ConnectMongoDBStream() *db.ConnectMongo {
 	return &db.ConnectMongo{DBSession: c.DataConnect.DBSession.Copy(), DName: c.DataConnect.DName}
 }
 
-// Terminal Controller
-func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
+// Dashboard Controller
+func (c *DashboardController) Dashboard(w http.ResponseWriter, r *http.Request, ps httprouter.Params) (map[string]interface{}, int) {
 
 	var (
 		template string
 		pageName string
 	)
-	pageName = "Terminal"
-	template = "terminal"
+	pageName = "Dashboard"
+	template = "dashboard"
 
 	// Grab the Session
 	session, err := c.Sess.Get(r, "ForgitSession")
@@ -117,7 +117,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 }
 
 // SettingSubmit ...
-func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (c *DashboardController) SettingSubmit(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// Grab the Session
 	session, err := c.Sess.Get(r, "ForgitSession")
 	if err != nil {
@@ -237,11 +237,11 @@ func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Reques
 		}
 	}
 
-	http.Redirect(w, r, "/terminal/", http.StatusFound)
+	http.Redirect(w, r, "/dashboard/", http.StatusFound)
 }
 
 // SettingSelect ...
-func (c *TerminalController) SettingSelect(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (c *DashboardController) SettingSelect(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	// Grab the Session
 	session, err := c.Sess.Get(r, "ForgitSession")
@@ -275,12 +275,12 @@ func (c *TerminalController) SettingSelect(w http.ResponseWriter, r *http.Reques
 		}
 	}
 
-	http.Redirect(w, r, "/terminal/", http.StatusFound)
+	http.Redirect(w, r, "/dashboard/", http.StatusFound)
 }
 
-// SettingNew when the user pushes the new button on the terminal form
+// SettingNew when the user pushes the new button on the dashboard form
 // Creates a new setting group
-func (c *TerminalController) SettingNew(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (c *DashboardController) SettingNew(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
 	// Grab the Session
 	session, err := c.Sess.Get(r, "ForgitSession")
@@ -351,11 +351,11 @@ func (c *TerminalController) SettingNew(w http.ResponseWriter, r *http.Request, 
 		}
 	}
 
-	http.Redirect(w, r, "/terminal/", http.StatusFound)
+	http.Redirect(w, r, "/dashboard/", http.StatusFound)
 }
 
 //SettingRemove ...
-func (c *TerminalController) SettingRemove(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+func (c *DashboardController) SettingRemove(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// Grab the Session
 	session, err := c.Sess.Get(r, "ForgitSession")
 	if err != nil {
@@ -382,5 +382,5 @@ func (c *TerminalController) SettingRemove(w http.ResponseWriter, r *http.Reques
 		}
 	}
 
-	http.Redirect(w, r, "/terminal/", http.StatusFound)
+	http.Redirect(w, r, "/dashboard/", http.StatusFound)
 }
