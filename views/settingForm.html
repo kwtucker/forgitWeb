@@ -1,16 +1,16 @@
 {{define "settingForm"}}
 <section>
-  <h2>Settings Workspaces</h2>
+  <h2>Setting Groups</h2>
   <form class="" action="/termsetsubmit" method="post">
-    <select class="" name="workspaces">
-      {{ range $key, $value := .Workspaces }}
+    <select class="" name="groups">
+      {{ range $key, $value := .SettingGroups }}
       <option value="{{$value}}">{{$value}}</option>
       {{ end }}
     </select>
   </form>
 
   <form action="submit" onsubmit="/termsetsubmit" method="Post">
-    <input type="text" name="name" placeholder="Workspace Name" required>
+    <input type="text" name="name" placeholder="Setting Group Name" required>
     <label>
       Add-Pull-Commit
       <input type="checkbox" name="addPullCommit">

@@ -27,13 +27,13 @@
       <pre><code><strong>$</strong> forgit help</code></pre>
     </div>
   </section>
-  <section id="workspaces">
+  <section id="settingGroups">
     <div class="termTitle">
-      <h2>Settings Workspaces</h2>
-      <a href="/terminal/setNew/#clearForm" id="clearForm"><span>Add new workspace</span><img src="/static/img/plus.svg" alt="plus sign" /></a>
+      <h2>Setting Groups</h2>
+      <a href="/terminal/setNew/#clearForm" id="clearForm"><span>Add new setting group</span><img src="/static/img/plus.svg" alt="plus sign" /></a>
     </div>
     <form action="/terminal/setSelect/" method="post">
-      <select name="workspaceSelect" onchange="this.form.submit()">
+      <select name="settingGroupSelect" onchange="this.form.submit()">
         {{range $key, $value := .User.Settings}}
         {{if $value.Status}}
         <option value='{{$value.Name}}' selected>{{$value.Name}}</option>
@@ -47,7 +47,7 @@
     <form id="formBody" class="" action="/terminal/setValues/" method="post">
       {{range $key, $value := .User.Settings}}
       {{if $value.Status}}
-      <label><p>Setting Name</p><input type="text" name="workspaceName" value="{{$value.Name}}" placeholder="e.g -> Work" required></label>
+      <label><p>Setting Name</p><input type="text" name="settingGroupName" value="{{$value.Name}}" placeholder="e.g -> Work" required></label>
       <label>
         <p>Add, Pull, Commit <span>(Repeat Minutes)</span></p>
         <input type="number" name="apcMin" placeholder="0" min="0" value="{{$value.SettingAddPullCommit.TimeMin}}">

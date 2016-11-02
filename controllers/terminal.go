@@ -187,7 +187,7 @@ func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Reques
 	}
 
 	set := models.Setting{
-		Name:   r.Form["workspaceName"][0],
+		Name:   r.Form["settingGroupName"][0],
 		Status: 1,
 		SettingNotifications: models.SettingNotifications{
 			OnError:  nerr,
@@ -220,7 +220,7 @@ func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Reques
 		// Update user in db
 		// c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
 		for i := range dbUser.Settings {
-			if dbUser.Settings[i].Name == r.Form["workspaceName"][0] {
+			if dbUser.Settings[i].Name == r.Form["settingGroupName"][0] {
 				dbUser.Settings[i] = set
 				c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
 				break
@@ -260,7 +260,7 @@ func (c *TerminalController) SettingSelect(w http.ResponseWriter, r *http.Reques
 			dbUser.Settings[v].Status = 0
 			c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
 		}
-		if dbUser.Settings[v].Name == r.Form["workspaceSelect"][0] {
+		if dbUser.Settings[v].Name == r.Form["settingGroupSelect"][0] {
 			dbUser.Settings[v].Status = 1
 			c.db.UpdateOne(dbconnect, session.Values["userID"].(int), &dbUser)
 		}
