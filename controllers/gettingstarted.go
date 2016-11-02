@@ -17,8 +17,8 @@ type GettingStartedController struct {
 	db          db.ConnectMongo
 }
 
-// Connect will make a new copy of the main mongodb connection.
-func (c *GettingStartedController) Connect() *db.ConnectMongo {
+// ConnectMongoDBStream will make a new copy of the main mongodb connection.
+func (c *GettingStartedController) ConnectMongoDBStream() *db.ConnectMongo {
 	return &db.ConnectMongo{DBSession: c.DataConnect.DBSession.Copy(), DName: c.DataConnect.DName}
 }
 
@@ -40,7 +40,7 @@ func (c *GettingStartedController) GettingStarted(w http.ResponseWriter, r *http
 	}
 
 	// Copy db pipeline and
-	dbconnect := c.Connect()
+	dbconnect := c.ConnectMongoDBStream()
 	defer dbconnect.DBSession.Close()
 
 	// Grab most current user info

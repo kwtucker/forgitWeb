@@ -23,8 +23,8 @@ type TerminalController struct {
 	db          db.ConnectMongo
 }
 
-// Connect will make a new copy of the main mongodb connection.
-func (c *TerminalController) Connect() *db.ConnectMongo {
+// ConnectMongoDBStream will make a new copy of the main mongodb connection.
+func (c *TerminalController) ConnectMongoDBStream() *db.ConnectMongo {
 	return &db.ConnectMongo{DBSession: c.DataConnect.DBSession.Copy(), DName: c.DataConnect.DName}
 }
 
@@ -54,7 +54,7 @@ func (c *TerminalController) Terminal(w http.ResponseWriter, r *http.Request, ps
 
 	// Copy db pipeline and
 	// Defer close session tell end of function
-	dbconnect := c.Connect()
+	dbconnect := c.ConnectMongoDBStream()
 	defer dbconnect.DBSession.Close()
 
 	// Get token pointer and grab client to make requests
@@ -125,7 +125,7 @@ func (c *TerminalController) SettingSubmit(w http.ResponseWriter, r *http.Reques
 	}
 
 	// Copy db pipeline and
-	dbconnect := c.Connect()
+	dbconnect := c.ConnectMongoDBStream()
 	defer dbconnect.DBSession.Close()
 
 	var (
@@ -250,7 +250,7 @@ func (c *TerminalController) SettingSelect(w http.ResponseWriter, r *http.Reques
 	}
 
 	// Copy db pipeline and
-	dbconnect := c.Connect()
+	dbconnect := c.ConnectMongoDBStream()
 	defer dbconnect.DBSession.Close()
 
 	// Grab most current user info
@@ -289,7 +289,7 @@ func (c *TerminalController) SettingNew(w http.ResponseWriter, r *http.Request, 
 	}
 
 	// Copy db pipeline
-	dbconnect := c.Connect()
+	dbconnect := c.ConnectMongoDBStream()
 	defer dbconnect.DBSession.Close()
 
 	var (
@@ -363,7 +363,7 @@ func (c *TerminalController) SettingRemove(w http.ResponseWriter, r *http.Reques
 	}
 
 	// Copy db pipeline
-	dbconnect := c.Connect()
+	dbconnect := c.ConnectMongoDBStream()
 	defer dbconnect.DBSession.Close()
 
 	// Grab most current user info

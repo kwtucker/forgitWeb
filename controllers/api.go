@@ -18,15 +18,15 @@ type APIController struct {
 	db          db.ConnectMongo
 }
 
-// Connect will make a new copy of the main mongodb connection.
-func (c *APIController) Connect() *db.ConnectMongo {
+// ConnectMongoDBStream will make a new copy of the main mongodb connection.
+func (c *APIController) ConnectMongoDBStream() *db.ConnectMongo {
 	return &db.ConnectMongo{DBSession: c.DataConnect.DBSession.Copy(), DName: c.DataConnect.DName}
 }
 
 //API Controller will validate the request to see if the user exists or not.
 func (c *APIController) API(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 
-	dbconnect := c.Connect()
+	dbconnect := c.ConnectMongoDBStream()
 	defer dbconnect.DBSession.Close()
 
 	var (
