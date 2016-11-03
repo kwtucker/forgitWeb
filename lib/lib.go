@@ -51,7 +51,7 @@ func CreateUser(user *github.User, repos []*github.Repository, settingsUpdate []
 	// Update is nil means new user
 	// Create user setting defualts
 	currentUserSettings = models.Setting{
-		Name:   "General",
+		Name:   "general",
 		Status: 1,
 		SettingNotifications: models.SettingNotifications{
 			OnError:  1,

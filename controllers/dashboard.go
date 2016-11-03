@@ -13,6 +13,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 // DashboardController ...
@@ -196,7 +197,7 @@ func (c *DashboardController) SettingSubmit(w http.ResponseWriter, r *http.Reque
 	}
 
 	set := models.Setting{
-		Name:   r.Form["settingGroupName"][0],
+		Name:   strings.ToLower(r.Form["settingGroupName"][0]),
 		Status: 1,
 		SettingNotifications: models.SettingNotifications{
 			OnError:  nerr,
@@ -229,7 +230,7 @@ func (c *DashboardController) SettingSubmit(w http.ResponseWriter, r *http.Reque
 		// Update user in db
 		// c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 		for i := range dbUser.Settings {
-			if dbUser.Settings[i].Name == r.Form["settingGroupName"][0] {
+			if dbUser.Settings[i].Name == strings.ToLower(r.Form["settingGroupName"][0]) {
 				dbUser.Settings[i] = set
 				c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 				break
