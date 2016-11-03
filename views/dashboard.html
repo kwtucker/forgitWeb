@@ -2,35 +2,16 @@
 {{template "cta" .}}
 {{template "uuidBar" .}}
 <section id="dashboard">
-  <section id="commands">
-    <div class="dashTitle">
-      <h2>Commands</h2>
-      <a class="download" href="/static/Forgit_CLI_Linux.tar.gz" title="" download="forgit"><img src="/static/img/download.svg" alt="Linux Forgit FGT CLI download" /><p>Linux (beta)</p></a>
-      <a class="download" href="/static/Forgit_CLI.zip" title="" download="forgit"><img src="/static/img/download.svg" alt="Mac Forgit FGT CLI download" /><p>Mac</p></a>
-    </div>
-    <div class="command">
-      <div class="dashCommandTitle">
-        <h3>Initialize Environment</h3> - <span>Only run for the first download or update Forgit directory path.</span>
-      </div>
-      <pre><code><strong>$</strong> forgit init</code></pre>
-      <!-- <pre><code><strong>UUID:</strong> {{.User.ForgitID}}</code></pre> -->
-    </div>
-    <div class="command">
-      <div class="dashCommandTitle">
-        <h3>Start Command</h3>
-      </div>
-      <pre><code><strong>$</strong> forgit start</code></pre>
-    </div>
-    <div class="command">
-      <div class="dashCommandTitle">
-        <h3>Help Command</h3>
-      </div>
-      <pre><code><strong>$</strong> forgit help</code></pre>
+  <section id=dashDownloads>
+    <h2>1. Downloads</h2>
+    <div class="downloadsButtonsSection">
+      <a class="d" href="/static/Forgit_CLI_Linux.tar.gz" title="" download="forgit"><img src="/static/img/download.svg" alt="Linux Forgit FGT CLI download" /><p>Linux (beta)</p></a>
+      <a class="d" href="/static/Forgit_CLI.zip" title="" download="forgit"><img src="/static/img/download.svg" alt="Mac Forgit FGT CLI download" /><p>Mac</p></a>
     </div>
   </section>
   <section id="settingGroups">
     <div class="dashTitle">
-      <h2>Setting Groups</h2>
+      <h2>2. Setting Groups</h2>
       <a href="/dashboard/setNew/#clearForm" id="clearForm"><span>Add new setting group</span><img src="/static/img/plus.svg" alt="plus sign" /></a>
     </div>
     <form action="/dashboard/setSelect/" method="post">
@@ -84,6 +65,30 @@
       {{end}}
       {{end}}
     </form>
+  </section>
+  <section id="commands">
+    <div class="dashTitle">
+      <h2>3. Commands</h2>
+    </div>
+    <div class="command">
+      <div class="dashCommandTitle">
+        <h3>Initialize Environment</h3> - <span>Only run for the first download or update Forgit directory path.</span>
+      </div>
+      <pre><code><strong>$</strong> forgit init</code></pre>
+      <pre><code><strong>Your UUID:</strong> {{.User.ForgitID}}</code></pre>
+    </div>
+    <div class="command">
+      <div class="dashCommandTitle">
+        <h3>Start Command</h3>
+      </div>
+      <pre><code><strong>$</strong> forgit start</code></pre>
+    </div>
+    <div class="command">
+      <div class="dashCommandTitle">
+        <h3>Help Command</h3>
+      </div>
+      <pre><code><strong>$</strong> forgit help</code></pre>
+    </div>
   </section>
 </section>
 {{end}}

@@ -3,6 +3,43 @@
   display: flex;
   flex: 1;
   flex-direction: column;
+  #dashDownloads {
+    align-items: center;
+    color: $gray;
+    .downloadsButtonsSection {
+      display: flex;
+      flex: 1;
+      & h2 {
+        flex: 1;
+      }
+      & .d {
+        display: flex;
+        flex: 1;
+        margin: 40px 0 10px 0;
+        align-items: center;
+        color: $white;
+        background: rgba(83, 94, 98, 0.7);
+        text-decoration: none;
+        justify-content: center;
+        cursor: pointer;
+        padding: 20px;
+        height: 40px;
+        p {
+          align-self: center;
+          font-size: 2em;
+        }
+        & img {
+          position: relative;
+          height: 25px;
+          margin-right: 20px;
+        }
+        &:nth-child(2) {
+          margin-right:0;
+          margin-left: 40px;;
+        }
+      }
+    }
+  }
   #commands {
     flex: 1;
     .dashTitle {
@@ -132,7 +169,7 @@
     }
     form {
       color: $black;
-      margin: 20px 0 40px;
+      margin: 20px 0 0;
       display: flex;
       flex: 1;
       flex-direction: column;
@@ -175,7 +212,7 @@
       #buttonSubmit {
         flex:1;
         display: flex;
-        margin: 1em 0 .5em 0;
+        margin: 1em 0 0;
         button {
           font-size: 2em;
           background: $turq;
@@ -215,7 +252,7 @@
         padding: 5px 0px;
         background: transparent;
         justify-content: center;
-		text-transform:uppercase;
+		    text-transform:uppercase;
       }
 
       & ul {
@@ -271,7 +308,10 @@
 }
 
 @media all and (max-width: 1119px) {
-  .dashTitle {
+  .dashDownloads {
+    text-align: center;
+  }
+  #settingGroups > .dashTitle {
     flex-direction: column;
     & .download {
       width: 70%;
