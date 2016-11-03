@@ -29,7 +29,7 @@
     width: 100%;
     background: $turq;
     color: $white;
-    align-items:center;
+    align-items:flex-start;
     flex-direction: column;
     h1 {
       font: 700 5em $font-family;
@@ -152,11 +152,11 @@
       }
     }
     #slogan {
-      font: italic 700 1.7em $font-family;
+      font: italic 700 3em $font-family;
       color: $gray;
       margin-top: 20px;
       img {
-        height: 20px;
+        height: 40px;
       }
     }
   }

@@ -1,0 +1,19 @@
+#uuidBar {
+  background: $gray;
+  padding: 5px 0 5px 40px;
+  color: $white;
+  font-size: 1.2em;
+  span {
+    color: $turq;
+    font-weight: 700;
+    font-size: 1.2em;
+    margin-right: 10px;
+  }
+}
+
+
+@media all and (max-width: 1119px) {
+  #uuidBar {
+    text-align: center;
+  }
+}

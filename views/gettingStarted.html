@@ -1,5 +1,6 @@
 {{define "gettingStarted"}}
 {{template "cta" .}}
+{{template "uuidBar" .}}
 <section id="gettingStarted">
   <div class="gstartArt">
     <div class="row1">
@@ -57,7 +58,7 @@
     <div class="row2">
       <p class="commandTitle"><span>$</span> forgit init</p>
       <p id="init">
-        <code><span>UUID:</span> {{.User.ForgitID}}</code>
+        <code><span>Your UUID:</span> {{.User.ForgitID}}</code>
       </p>
       <p>
         If this is the first setup on this computer <strong>forgit init</strong> will be required.
