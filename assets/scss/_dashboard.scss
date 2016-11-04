@@ -4,18 +4,12 @@
   flex: 1;
   flex-direction: column;
   #dashDownloads {
-    align-items: center;
+    flex-direction: column;
     color: $gray;
     .downloadsButtonsSection {
-      display: flex;
-      flex: 1;
-      & h2 {
-        flex: 1;
-      }
-      & .d {
+      & .download {
         display: flex;
-        flex: 1;
-        margin: 40px 0 10px 0;
+        margin: 0 0 10px 0;
         align-items: center;
         color: $white;
         background: rgba(83, 94, 98, 0.7);
@@ -28,14 +22,9 @@
           align-self: center;
           font-size: 2em;
         }
-        & img {
-          position: relative;
-          height: 25px;
-          margin-right: 20px;
-        }
-        &:nth-child(2) {
-          margin-right:0;
-          margin-left: 40px;;
+        &:hover {
+          background: $gray;
+          color: $turq;
         }
       }
     }
@@ -43,7 +32,7 @@
   #commands {
     flex: 1;
     .dashTitle {
-      margin: 40px 0 10px;
+      margin: 40px 0 0;
       display: flex;
       flex: 1;
       align-items: center;
@@ -53,38 +42,6 @@
         color: $gray;
         margin: 20px 0;
       }
-      & .download {
-        text-align: center;
-        color: $white;
-        background: rgba(83, 94, 98, 0.7);
-        text-decoration: none;
-        justify-content: center;
-        display: flex;
-        flex: 1;
-        cursor: pointer;
-        padding: 20px;
-        height: 40px;
-        margin-left: 20px;
-        margin-right: 20px;
-        &:nth-child(3) {
-          margin-right:0;
-          margin-left: 0;
-        }
-        p {
-          align-self: center;
-        }
-        & img {
-          position: relative;
-          top: 7px;
-          height: 25px;
-          margin-right: 20px;
-        }
-      }
-      & .download:hover {
-        background: $gray;
-        color: $turq;
-      }
-
     }
 
     & .command:nth-child(2) {
@@ -181,7 +138,7 @@
         font-size: 2em;
         padding: .5em;
         margin: 10px 0;
-		text-transform:uppercase;
+		    text-transform:uppercase;
       }
       label {
         margin: 10px 0;
@@ -273,6 +230,10 @@
         }
       }
       .reposlist {
+        & ul {
+          display: flex;
+          flex-wrap: wrap;
+        }
         li {
           flex: 0 50%;
         }
@@ -290,38 +251,43 @@
   }
 }
 
-@media all and (min-width: 582px) {
-  .dashTitle .download:nth-child(3) {
-    margin-right:40px;
+
+@media all and (min-width: 628px) {
+
+
+}
+
+@media all and (max-width: 628px) {
+
+  .downloadsButtonsSection {
+     flex-direction: column;
   }
+  // #dashDownloads:nth-child(1) &.downloadsButtonsSection a.download:last-child {
+  //   margin-left: 0;
+  //   margin-right: 0;
+  // }
+
   .dashTitle {
     & p {
       font-size: 2em;
     }
   }
   .reposlist {
-    ul {
-      display: flex;
-      flex-wrap: wrap;
+    & ul {
+      flex-direction: column;
     }
   }
 }
 
 @media all and (max-width: 1119px) {
-  .dashDownloads {
+
+  #dashDownloads {
     text-align: center;
+    align-items: center;;
   }
+
   #settingGroups > .dashTitle {
     flex-direction: column;
-    & .download {
-      width: 70%;
-      display: flex;
-      flex: 1;
-      margin: 10px 0;
-      & p {
-        font-size: 1.6em;
-      }
-    }
 
     span {
       display: none;
