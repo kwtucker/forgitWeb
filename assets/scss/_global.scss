@@ -1,5 +1,6 @@
 body {
 	font-family: $font-family;
+	font-size: .7em;
   margin: 0;
   a{
     text-decoration: none;
@@ -7,18 +8,17 @@ body {
   }
   h2 {
     flex: 1;
-    font: 500 3em $font-family;
-    margin: 40px 0 20px;
+    font: 500 2.9em $font-family;
+    margin: 20px 0 10px;
   }
 
   input {
     outline: none
   }
 
-
   h3 {
     font:500 2.5em $font-family;
-    margin: 40px 0 0px 0;
+    margin: 20px 0 0px 0;
   }
 }
 

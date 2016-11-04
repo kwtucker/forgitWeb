@@ -1,8 +1,8 @@
 #gettingStarted {
   font:500 1em $font-family;
   .gstartArt {
-    min-height: 500px;
-    padding: 20px 40px;
+    // min-height: 200px;
+    padding: 40px 150px;
     align-content: center;
     .row1{
       align-items: center;
@@ -33,7 +33,7 @@
       }
     }
     .row2{
-      font-size: 2em;
+      font-size: 1.5em;
       padding: 20px 0;
       .commandTitle {
         flex:4;
@@ -90,7 +90,6 @@
           flex: 1 50%;
         }
         .colTwo {
-          margin-left: 20px;
           flex: 1 50%;
           font-size: .8em;
           & strong {
@@ -147,7 +146,8 @@
 }
 
 @media all and (max-width: 582px) {
- .gstartArt {
+ #gettingStarted  .gstartArt {
    font-size: .8em;
+   padding: 40px 40px;
  }
 }

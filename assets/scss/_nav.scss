@@ -25,7 +25,7 @@ nav {
   margin: 0;
   flex-flow: row wrap;
   a {
-    font:400 1.2em $font-family;
+    font:400 1.4em $font-family;
     text-decoration:none;
     text-align: center;
     justify-content:center;
@@ -51,14 +51,14 @@ nav {
     }
     &[href="/auth/"] {
       padding: 5px;
-      font:500 1em $font-family;
+      font:500 1.4em $font-family;
       &::before {
         content: url('../img/gh_logo.png');
         margin: 5px;
       }
     }
     &[href="/logout"] {
-      font: italic 700 1.2em $font-family;
+      font: italic 500 1.4em $font-family;
       color: $turq;
       &:hover {
         color: $white;

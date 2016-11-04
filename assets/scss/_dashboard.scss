@@ -1,9 +1,10 @@
 #dashboard {
-  padding: 0 40px;
   display: flex;
   flex: 1;
   flex-direction: column;
+  padding: 40px 150px;
   #dashDownloads {
+    margin-top: 20px;
     flex-direction: column;
     color: $gray;
     .downloadsButtonsSection {
@@ -128,28 +129,25 @@
       color: $black;
       margin: 20px 0 0;
       display: flex;
-      flex: 1;
       flex-direction: column;
       input, select, label {
         color: $black;
         cursor: pointer;
       }
       input[name="settingGroupName"] {
-        font-size: 2em;
-        padding: .5em;
-        margin: 10px 0;
 		    text-transform:uppercase;
       }
       label {
-        margin: 10px 0;
+        color: $gray;
+        margin: 5px 0;
         font-size: 1.5em;
         align-items: center;
         display: flex;
         & input {
           flex: 2;
           font-size: .7em;
-          text-align: left;
-          padding: 1.5em;
+          text-align: center;
+          padding: .5em 0;
         }
         & p {
           flex: 1;
@@ -220,6 +218,7 @@
       .reposlist, .notify  {
         & p {
           font-size: 1.5em;
+          color:$gray;
           font-weight: bold;
         }
         label {
@@ -253,30 +252,34 @@
 
 
 @media all and (min-width: 628px) {
-
-
+  form {
+    &>label {
+      input {
+        width: 100%;
+      }
+    }
+  }
 }
 
 @media all and (max-width: 628px) {
+  #dashboard {
+    padding: 40px 40px;
+    .downloadsButtonsSection {
+       flex-direction: column;
+    }
 
-  .downloadsButtonsSection {
-     flex-direction: column;
-  }
-  // #dashDownloads:nth-child(1) &.downloadsButtonsSection a.download:last-child {
-  //   margin-left: 0;
-  //   margin-right: 0;
-  // }
-
-  .dashTitle {
-    & p {
-      font-size: 2em;
+    .dashTitle {
+      & p {
+        font-size: 2em;
+      }
+    }
+    .reposlist {
+      & ul {
+        flex-direction: column;
+      }
     }
   }
-  .reposlist {
-    & ul {
-      flex-direction: column;
-    }
-  }
+
 }
 
 @media all and (max-width: 1119px) {
