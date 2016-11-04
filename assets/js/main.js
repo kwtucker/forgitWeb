@@ -1,6 +1,16 @@
 var currentArticle = "tab_1"
 var currentTab = 1
+var edit = 0
 $(function() {
+  // formBody
+  // formOverview
+  // editButton
+  $('#formBody').hide()
+  $('#editButton').on('click', function(){
+    $('#formOverview').hide()
+    $('#formBody').show()
+  })
+
   if ($(window).width() < 1000) {
     $('#features article').css('display','flex')
     $('#features article:even').addClass('even')

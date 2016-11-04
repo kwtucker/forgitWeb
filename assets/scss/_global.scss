@@ -15,6 +15,10 @@ body {
   input {
     outline: none
   }
+	
+	ul {
+		list-style: none;
+	}
 
   h3 {
     font:500 2.5em $font-family;

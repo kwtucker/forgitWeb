@@ -21,10 +21,41 @@
         <option value='{{$value.Name}}' selected>{{$value.Name}}</option>
         {{else}}
         <option value='{{$value.Name}}'>{{$value.Name}}</option>
-        {{end}}
-        {{end}}
+        {{end}} <!-- End If -->
+        {{end}} <!-- End Loop -->
       </select>
     </form>
+
+    <section id="formOverview">
+      {{range $key, $value := .User.Settings}}
+      {{if $value.Status}}
+      <div><p>Add, Pull, Commit:</p><span>{{$value.SettingAddPullCommit.TimeMin}}</span></div>
+      <div><p>Push:</p> <span>{{$value.SettingPush.TimeMin}}</span></div>
+      {{if $value.OnError}}
+      <div><p>Error Events:</p> <span>Yes</span></div>
+      {{else}}
+      <div><p>Error Events:</p> <span>No</span></div>
+      {{end}}<!-- End If -->
+      {{if $value.OnCommit}}
+      <div><p>Commit Events:</p> <span>Yes</span></div>
+      {{else}}
+      <div><p>Commit Events:</p> <span>No</span></div>
+      {{end}}<!-- End If -->
+      {{if $value.OnPush}}
+      <div><p>Push Events:</p> <span>Yes</span></div>
+      {{else}}
+      <div><p>Push Events:</p> <span>No</span></div>
+      {{end}}<!-- End If -->
+
+      {{range $key, $v := $value.Repos}}
+      {{if $v.Status}}
+      <div><p>{{$v.Name}}:</p> <span>Yes</span></div>
+      {{end}} <!-- End If -->
+      {{end}} <!-- End of loop -->
+      {{end}} <!-- End If -->
+      {{end}} <!-- End of loop -->
+      <button id="editButton">Edit</button>
+    </section>
 
     <form id="formBody" class="" action="/dashboard/setValues/" method="post">
       {{range $key, $value := .User.Settings}}
