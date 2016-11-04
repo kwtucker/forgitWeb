@@ -24,30 +24,31 @@
     }
     .hov:hover {
       background: rgba(255, 255, 255, 0.2);
-	  cursor: pointer;
+	    cursor: pointer;
     }
   }
   .selectedtab {
     background: $turq;
-	cursor: pointer;
+	  cursor: pointer;
   }
 
-  h2 {
+  & h2 {
     flex: 1;
     color: $white;
   }
 
 
-  h3 {
+  & h3 {
     font:500 2.5em $font-family;
-    margin: 40px 0 0px 0;
+    margin: 40px 0 0 0;
+    text-align: center;
     color: $white;
   }
 
   article {
     flex: 1;
     background: $turq;
-    height: 405px;
+    height: 450px;
     .content {
       display: flex;
       flex-direction: column;
@@ -56,13 +57,21 @@
         font: 400 1.8em $font-family;
         line-height: 42px;
         color: $white;
+
         p, ul{
           flex: 1;
+          // margin-left: 40px;
+          // margin: 20px;
         }
-        ul {
+        &:first-child {
+          margin-left: 0;
+        }
+        & ul {
           list-style:none;
+          margin-left: 70px;
+
         }
-        ul li:before {
+        & ul li:before {
           content: "";
           display: block;
           border: 3px solid $white;
@@ -98,7 +107,7 @@
   }
   .twoColumn ul {
       margin-top: 0;
-      margin-left:0;
+      margin-left: 0;
   }
 
 }
