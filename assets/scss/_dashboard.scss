@@ -276,6 +276,9 @@
     .reposlist {
       & ul {
         flex-direction: column;
+        li {
+          display: flex;
+        }
       }
     }
   }
