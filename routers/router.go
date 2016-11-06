@@ -22,8 +22,9 @@ func Init(application system.Application, router *httprouter.Router, database *d
 	// Root route for landing page
 	router.GET("/", application.Route(
 		&controllers.IndexController{
-			Env:  application,
-			Sess: Store,
+			Env:         application,
+			Sess:        Store,
+			DataConnect: database,
 		}, "Index"))
 
 	// Redirects to github for auth
