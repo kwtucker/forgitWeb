@@ -7,6 +7,7 @@
   justify-content: center;
   flex-direction: column;
   font: 700 1em $font-family;
+  min-height: 200px;
   p {
     margin: 0;
     display: block;
@@ -81,6 +82,7 @@
   justify-content: center;
   flex-direction: column;
   font: 700 1em $font-family;
+  min-height: 200px;
   p {
     margin: 0;
     display: block;
@@ -90,7 +92,7 @@
   }
   #slogan {
     margin-bottom: 0;
-    font: italic 700 4em $font-family;
+    font: italic 700 5em $font-family;
     color: $gray;
     img {
       height: 50px;
@@ -139,9 +141,10 @@
 
 @media all and (max-width: 460px) {
   #ctaAuthed, #ctaLanding {
+    min-height: auto;
     #landing {
       p {
-        font:500 1.4em $font-family;
+        font:500 2em $font-family;
       }
     }
     #authed {
@@ -152,12 +155,16 @@
       }
     }
     #slogan {
-      font: italic 700 3em $font-family;
+      font: italic 700 4em $font-family;
       color: $gray;
       margin-top: 20px;
       img {
         height: 40px;
       }
     }
+  }
+  #ctaLanding #slogan {
+    font-size: 3em;
+
   }
 }
