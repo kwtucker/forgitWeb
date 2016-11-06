@@ -24,7 +24,6 @@ $(function() {
       "border-top": 0,
       "padding": "0 20px 20px"
     })
-    $('#newFormBody').find("input").val("");
   })
 
   if ($(window).width() < 1000) {

@@ -62,13 +62,6 @@ func Init(application system.Application, router *httprouter.Router, database *d
 			DataConnect: database,
 		}, "SettingSelect"))
 
-	router.GET("/dashboard/setNew/", application.NoViewRoute(
-		&controllers.DashboardController{
-			Sess:        Store,
-			Env:         application,
-			DataConnect: database,
-		}, "SettingNew"))
-
 	router.GET("/dashboard/setRemove/", application.NoViewRoute(
 		&controllers.DashboardController{
 			Sess:        Store,
