@@ -7,7 +7,6 @@ $(function() {
   $('#formBody').hide()
   $('#editButton').on('click', function(){
     $('#formOverview').hide()
-    $('#clearForm').show()
     $('#formBody').show()
     $('#formBody').css({
       "border": "2px solid #535E62",
