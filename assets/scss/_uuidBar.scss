@@ -1,11 +1,9 @@
-#uuidBar {
+#subnav {
   display: flex;
   flex: 1;
-  background: $gray;
-  padding: 5px 40px 5px 40px;
+  padding: 0 40px;
   color: $white;
-  font-size: 1.2em;
-  margin-top: 2px;
+  background: $black;
   align-items: center;
   & p {
     a {
@@ -58,7 +56,7 @@
 
 
 @media all and (max-width: 922px) {
-  #uuidBar {
+  #subnav {
     text-align: center;
     flex-direction: column;
     & p, & a {

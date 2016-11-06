@@ -11,6 +11,9 @@
 <section id="ctaAuthed">
   <section id="authed">
     <div id="slogan"><img src="/static/img/commandRev.svg" alt="command line symbol" /> {{.User.Login}}</div>
+    <p>
+      Your UUID: <span>{{.User.ForgitID}}</span>
+    </p>
   </section>
 </section>
 {{end}}

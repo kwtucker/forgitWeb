@@ -12,7 +12,10 @@
     margin: 0;
     display: block;
     color: $gray;
-    font:500 3em $font-family;
+    font:500 2em $font-family;
+    span {
+      color:$black;
+    }
   }
   }
   #slogan {
