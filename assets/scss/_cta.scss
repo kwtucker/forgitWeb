@@ -17,15 +17,6 @@
       color:$black;
     }
   }
-  }
-  #slogan {
-    font: italic 700 4em $font-family;
-    color: $gray;
-    margin: 0 0 10px 0;
-    img {
-      height: 50px;
-    }
-  }
 
   #authed {
     display: flex;
@@ -45,37 +36,6 @@
       display: block;
     }
   }
-
-  #landing {
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    p {
-      padding: 15px;
-    }
-    a {
-      color: $white;
-      display: block;
-      &[href="/auth/"] {
-        width: 250px;
-        height: 50px;
-        background: $black;
-        font:400 1.4em $font-family;
-        border-radius: 4px;
-        &::before {
-          content: url('../img/gh_logo.png');
-          padding: 10px;
-          align-items: center;
-          position: relative;
-          top: 8px;
-        }
-        &:hover {
-          background: $gray;
-        }
-      }
-  }
 }
 
 #ctaLanding {
@@ -92,45 +52,50 @@
     color: $gray;
     font:500 3em $font-family;
   }
+}
+#slogan {
+  margin-bottom: 0;
+  font: italic 700 5em $font-family;
+  color: $gray;
+  img {
+    height: 50px;
   }
-  #slogan {
-    margin-bottom: 0;
-    font: italic 700 5em $font-family;
-    color: $gray;
-    img {
-      height: 50px;
-    }
-  }
+}
 
-  #landing {
+#landing {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  & p {
+    padding: 15px;
+  }
+  & a {
+    color: $white;
+    flex: 1;
     display: flex;
-    text-align: center;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    p {
-      padding: 15px;
-    }
-    a {
-      color: $white;
-      display: block;
-      &[href="/auth/"] {
-        width: 250px;
-        height: 50px;
-        background: $black;
-        font:400 1.4em $font-family;
-        border-radius: 4px;
-        &::before {
-          content: url('../img/gh_logo.png');
-          padding: 10px;
-          align-items: center;
-          position: relative;
-          top: 8px;
-        }
-        &:hover {
-          background: $gray;
-        }
+    &[href="/auth/"] {
+      justify-content: center;
+      width: 250px;
+      height: 50px;
+      background: $black;
+      font:400 1.4em $font-family;
+      border-radius: 4px;
+      & img {
+        height: 30px;
+        flex: 1;
       }
+      & p {
+        flex: 2;
+        color: $white;
+        font: 500 1em $font-family;
+      }
+      &:hover {
+        background: $gray;
+      }
+    }
   }
 }
 
@@ -146,8 +111,19 @@
   #ctaAuthed, #ctaLanding {
     min-height: auto;
     #landing {
-      p {
+      & p {
         font:500 2em $font-family;
+      }
+      & a[href="/auth/"] {
+        & img {
+          height: 30px;
+          flex: 1;
+        }
+        & p {
+          flex: 2;
+          color: $white;
+          font: 500 1em $font-family;
+        }
       }
     }
     #authed {
@@ -161,7 +137,7 @@
       font: italic 700 4em $font-family;
       color: $gray;
       margin-top: 20px;
-      img {
+      & img {
         height: 40px;
       }
     }
@@ -170,4 +146,5 @@
     font-size: 3em;
 
   }
+
 }

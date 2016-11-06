@@ -52,9 +52,14 @@ nav {
     &[href="/auth/"] {
       padding: 5px;
       font:500 1.4em $font-family;
-      &::before {
-        content: url('../img/gh_logo.png');
-        margin: 5px;
+      & img {
+        height: 30px;
+        flex: 1;
+      }
+      & p {
+        flex: 2;
+        color: $white;
+        font: 500 1em $font-family;
       }
     }
     &[href="/logout"] {
