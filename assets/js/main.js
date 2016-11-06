@@ -24,7 +24,8 @@ $(function() {
       "border-top": 0,
       "padding": "0 20px 20px"
     })
-  })
+  });
+
 
   if ($(window).width() < 1000) {
     $('#features article').css('display','flex')

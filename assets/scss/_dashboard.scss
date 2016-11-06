@@ -150,7 +150,7 @@
       flex: 1;
       align-items: center;
 
-      & a span {
+      & span {
         font-style: italic;
         font-size: 1em;
         line-height: 2.5;
@@ -162,13 +162,8 @@
         flex:2;
         margin: 20px 0;
       }
-      & a {
-        display: flex;
-        flex: 1;
-        justify-content: flex-end;
-        img {
-          height: 2.5em;
-        }
+      & img {
+        height: 2.5em;
       }
     }
     form {
