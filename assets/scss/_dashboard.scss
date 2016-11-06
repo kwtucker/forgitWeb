@@ -100,6 +100,17 @@
     flex: 1;
     #formOverview {
       text-align: center;
+      margin-top: 20px;
+      border: 2px solid $gray;
+      border-top: 0;
+      padding-bottom: 20px;
+      .overviewTitle {
+        text-align: center;
+        margin-bottom: 5px;
+        font-weight: 600;
+        color: $gray;
+        font-size: 1.8em;
+      }
       & button {
         font-size: 2em;
         background: $turq;
@@ -108,6 +119,7 @@
         padding: .5em;
         font-weight: 700;
         width: 50%;
+        margin-top: 20px;
         cursor: pointer;
       }
       & div {
@@ -118,12 +130,16 @@
           text-align: right;
           padding-right: 10px;
           flex: 1;
-          font-size: 1.4em;
+          margin: 5px 0;
+          color: $gray;
+          font-size: 1.6em;
+
         }
         & span {
           flex: 1;
           text-align: left;
           font-size: 1.4em;
+          font-weight: 500;
           align-self: center;
         }
       }
@@ -291,7 +307,7 @@
   }
 }
 
-@media all and (max-width: 628px) {
+@media all and (max-width: 740px) {
   #dashboard {
     padding: 40px 40px;
     .downloadsButtonsSection {
@@ -303,6 +319,26 @@
         font-size: 2em;
       }
     }
+    form {
+      ul {
+        padding: 0;
+        li {
+          flex: 0 100%;
+        }
+      }
+      &>label {
+        align-items: center;
+        flex-direction: column;
+        input {
+          width: 100%;
+        }
+      }
+    }
+    .reposlist, .notify {
+      p {
+        text-align: center;
+      }
+    }
     .reposlist {
       & ul {
         flex-direction: column;
@@ -312,7 +348,6 @@
       }
     }
   }
-
 }
 
 @media all and (max-width: 1119px) {
@@ -327,26 +362,6 @@
 
     span {
       display: none;
-    }
-  }
-  form {
-    ul {
-      padding: 0;
-      li {
-        flex: 0 100%;
-      }
-    }
-    &>label {
-      align-items: center;
-      flex-direction: column;
-      input {
-        width: 100%;
-      }
-    }
-  }
-  .reposlist, .notify {
-    p {
-      text-align: center;
     }
   }
   .reposlist {

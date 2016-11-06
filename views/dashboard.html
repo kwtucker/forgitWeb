@@ -12,8 +12,11 @@
   <section id="settingGroups">
     <div class="dashTitle">
       <h2>2. Setting Groups</h2>
-      <a href="/dashboard/setNew/#clearForm" id="clearForm"><span>Add new setting group</span><img src="/static/img/plus.svg" alt="plus sign" /></a>
+      <!-- <a href="/dashboard/setNew/#clearForm"> -->
+        <span>Add new setting group</span><img src="/static/img/plus.svg" id="newForm" alt="plus sign" />
+      <!-- </a> -->
     </div>
+
     <form action="/dashboard/setSelect/" method="post">
       <select name="settingGroupSelect" onchange="this.form.submit()">
         {{range $key, $value := .User.Settings}}
@@ -26,11 +29,15 @@
       </select>
     </form>
 
+    {{ template "newSettingForm" .}}
+
     <section id="formOverview">
       {{range $key, $value := .User.Settings}}
       {{if $value.Status}}
+      <p class="overviewTitle">Git Command Minute Intervals</p>
       <div><p>Add, Pull, Commit:</p><span>{{$value.SettingAddPullCommit.TimeMin}}</span></div>
       <div><p>Push:</p> <span>{{$value.SettingPush.TimeMin}}</span></div>
+      <p class="overviewTitle">Notifications</p>
       {{if $value.OnError}}
       <div><p>Error Events:</p> <span>Yes</span></div>
       {{else}}
@@ -46,7 +53,7 @@
       {{else}}
       <div><p>Push Events:</p> <span>No</span></div>
       {{end}}<!-- End If -->
-
+      <p class="overviewTitle">Automated Repos</p>
       {{range $key, $v := $value.Repos}}
       {{if $v.Status}}
       <div><p>{{$v.Name}}:</p> <span>Yes</span></div>

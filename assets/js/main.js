@@ -2,13 +2,29 @@ var currentArticle = "tab_1"
 var currentTab = 1
 var edit = 0
 $(function() {
-  // formBody
-  // formOverview
-  // editButton
+  // Show hide form when not edit
+  $('#newFormBody').hide()
   $('#formBody').hide()
   $('#editButton').on('click', function(){
     $('#formOverview').hide()
+    $('#clearForm').show()
     $('#formBody').show()
+    $('#formBody').css({
+      "border": "2px solid #535E62",
+      "border-top": 0,
+      "padding": "0 20px 20px"
+    })
+  })
+
+  $('#newForm').on('click', function(){
+    $('#formOverview').hide()
+    $('#newFormBody').show()
+    $('#newFormBody').css({
+      "border": "2px solid #535E62",
+      "border-top": 0,
+      "padding": "0 20px 20px"
+    })
+    $('#newFormBody').find("input").val("");
   })
 
   if ($(window).width() < 1000) {

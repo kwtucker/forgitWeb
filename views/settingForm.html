@@ -1,50 +1,33 @@
-{{define "settingForm"}}
-<section>
-  <h2>Setting Groups</h2>
-  <form class="" action="/termsetsubmit" method="post">
-    <select class="" name="groups">
-      {{ range $key, $value := .SettingGroups }}
-      <option value="{{$value}}">{{$value}}</option>
-      {{ end }}
-    </select>
-  </form>
+{{define "newSettingForm"}}
+<form id="newFormBody" class="" action="/dashboard/setValues/" method="post">
+  <label><p>Setting Name</p><input type="text" name="settingGroupName" required value="" placeholder="e.g -> Work" ></label>
+  <label>
+    <p>Add, Pull, Commit <span>(Repeat Minutes)</span></p>
+    <input type="number" name="apcMin" placeholder="0" min="0" value="5">
+  </label>
+  <label>
+    <p>Push <span>(Repeat Minute)</span></p>
+    <input type="number" name="pMin" placeholder="0" min="0" value="60">
+  </label>
+  <div class="notify">
+    <p>Notifications</p>
+    <ul>
+      <li><label><input type="checkbox" name="notifyErrors" checked>Errors Events</label></li>
+      <li><label><input type="checkbox" name="notifyCommit" checked>Commit Events</label></li>
+      <li><label><input type="checkbox" name="notifyPush" checked>Push Events</label></li>
+    </ul>
+  </div>
 
-  <form action="submit" onsubmit="/termsetsubmit" method="Post">
-    <input type="text" name="name" placeholder="Setting Group Name" required>
-    <label>
-      Add-Pull-Commit
-      <input type="checkbox" name="addPullCommit">
-    </label>
-
-    <label>
-     Repeat in Minutes
-     <input type="number" name="apcMin" placeholder="5">
-    </label>
-
-    <label>
-     Notifications
-     <input type="checkbox" name="notifyStatus">
-      <label>
-        Errors Events
-        <input type="checkbox" name="notifyErrors">
-      </label>
-      <label>
-        Commit Events
-        <input type="checkbox" name="notifyCommit">
-      </label>
-      <label>
-        Push Events
-        <input type="checkbox" name="notifyPush">
-      </label>
-    </label>
-
-    <label>
-      Repos
-      <input type="checkbox" name="addPullCommit">
-    </label>
-
-    <input type="submit" name="save" value="Save">
-
-  </form>
-</section>
+  <div class="reposlist">
+    <p>Repos</p>
+    <ul>
+      {{range $key, $v := .User.Repos}}
+      <li><label><input type="checkbox" name='{{$v.Name}}'>{{$v.Name}}</label></li>
+      {{end}}
+    </ul>
+  </div>
+  <div id="buttonSubmit">
+    <button type="submit">Save</button><a id="removeSetting" href="/dashboard/setRemove/">Cancel</a>
+  </div>
+</form>
 {{end}}
