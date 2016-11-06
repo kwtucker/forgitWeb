@@ -1,14 +1,58 @@
 #uuidBar {
+  display: flex;
+  flex: 1;
   background: $gray;
-  padding: 5px 0 5px 40px;
+  padding: 5px 40px 5px 40px;
   color: $white;
   font-size: 1.2em;
   // margin-bottom: 20px;
+  align-items: center;
+  & p {
+    a {
+      flex: 1;
+    }
+    span {
+      flex: 3;
+    }
+  }
   span {
     color: $turq;
     font-weight: 700;
     font-size: 1.2em;
     margin-right: 10px;
+  }
+  a {
+    font:400 1.4em $font-family;
+    text-decoration:none;
+    text-align: center;
+    justify-content:center;
+    align-items: center;
+    display: flex;
+    flex: 1;
+    color: $white;
+
+    &:link {
+      color: $white;
+    }
+    &:visited {
+      color: $white;
+    }
+    &:active {
+      color: $gray;
+    }
+    &:hover {
+      background: #7E878A;
+      -moz-transition: 0.30s;
+      -webkit-transition: 0.30s;
+      transition: 0.30s;
+    }
+    &[href="/logout"] {
+      font: italic 500 1.4em $font-family;
+      color: $turq;
+      &:hover {
+        color: $white;
+      }
+    }
   }
 }
 

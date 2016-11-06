@@ -1,15 +1,24 @@
 {{define "cta" }}
 {{if .Auth}}
+{{ if eq .ContentTemplate "index" }}
+<section id="ctaLanding">
+<section id="landing">
+  <div id="slogan"><img src="/static/img/command.svg" alt="command line symbol" /> Never Forget To Commit</div>
+   <p>Automates Git Workflow</p>
+</section>
+  </section>
+{{else}}
 <section id="ctaAuthed">
   <section id="authed">
     <div id="slogan"><img src="/static/img/commandRev.svg" alt="command line symbol" /> {{.User.Login}}</div>
   </section>
 </section>
+{{end}}
 {{else}}
 <section id="ctaLanding">
   <section id="landing">
     <div id="slogan"><img src="/static/img/command.svg" alt="command line symbol" /> Never Forget To Commit</div>
-	<p>Automates Git Workflow</p>
+	   <p>Automates Git Workflow</p>
     <a href="/auth/">Log In / Register</a>
   </section>
 </section>

@@ -1,23 +1,14 @@
 {{define "nav"}}
 <header>
-	{{if .Auth}}
-	<a href="/dashboard/">
-		<img class="" src="/static/img/logoNoSloganColor.svg" alt="Forgit Logo" />
-	</a>
-	{{else}}
 	<a href="/">
 		<img class="" src="/static/img/logoNoSloganColor.svg" alt="Forgit Logo" />
 	</a>
-	{{end}}
 	<nav>
+		<a href="/#features">Features</a>
+		<a href="/#price">Pricing</a>
 		{{if .Auth}}
-			<a href="/dashboard/">Dashboard</a>
-			<a href="/getting-started/">Getting Started</a>
-			<a href="/logout">Log Out</a>
-			{{else}}
-			<a href="#features">Features</a>
-			<a href="#price">Pricing</a>
-			<a href="/auth/">Log In / Register</a>
+		{{else}}
+		<a href="/auth/">Log In / Register</a>
 		{{end}}
 	</nav>
 </header>
