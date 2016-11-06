@@ -129,8 +129,9 @@ func (c *DashboardController) SettingSubmit(w http.ResponseWriter, r *http.Reque
 	defer dbconnect.DBSession.Close()
 
 	var (
-		nerr, ncom, npush, rval int
-		settingRepos            []models.SettingRepo
+		nerr, ncom, npush, rval    int
+		settingRepos               []models.SettingRepo
+		setExists, setExistsOnEdit bool
 	)
 
 	// Grab most current user info
@@ -180,6 +181,7 @@ func (c *DashboardController) SettingSubmit(w http.ResponseWriter, r *http.Reque
 		npush = 0
 	}
 
+	// Model out setting group with values
 	set := models.Setting{
 		Name:   strings.ToLower(r.Form["settingGroupName"][0]),
 		Status: 1,
@@ -196,17 +198,28 @@ func (c *DashboardController) SettingSubmit(w http.ResponseWriter, r *http.Reque
 		},
 		Repos: settingRepos,
 	}
-	setExists, err := c.db.SettingUserExistsCheck(dbconnect, session.Values["userID"].(int), strings.ToLower(r.Form["settingGroupName"][0]))
+	// Check if group exist for either update or new setting group, but doesn't check if new updated name.
+	setExists, err = c.db.SettingUserExistsCheck(dbconnect, session.Values["userID"].(int), strings.ToLower(r.Form["settingGroupName"][0]))
 	if err != nil {
 		log.Println(err)
 	}
 
+	// If the setNameHide is something and not empty check if that name exists.
+	if len(r.Form["setNameHide"]) != 0 {
+		// If setting group is being updated and the name is changed, checks to see if previous name exitst
+		setExistsOnEdit, err = c.db.SettingUserExistsCheck(dbconnect, session.Values["userID"].(int), strings.ToLower(r.Form["setNameHide"][0]))
+		if err != nil {
+			log.Println(err)
+		}
+	}
+
 	dbUser.LastUpdate = "1"
-	// add setting
-	if setExists {
+
+	if setExists || setExistsOnEdit {
 		// Add setting group to user settings
+		// If settings name equal on in the DB
 		for i := range dbUser.Settings {
-			if dbUser.Settings[i].Name == strings.ToLower(r.Form["settingGroupName"][0]) {
+			if dbUser.Settings[i].Name == strings.ToLower(r.Form["settingGroupName"][0]) || dbUser.Settings[i].Name == strings.ToLower(r.Form["setNameHide"][0]) {
 				dbUser.Settings[i] = set
 				break
 			}
@@ -216,7 +229,8 @@ func (c *DashboardController) SettingSubmit(w http.ResponseWriter, r *http.Reque
 	} else {
 		// Add setting group to user settings
 		dbUser.Settings = append(dbUser.Settings, set)
-		// Update user in db
+
+		// remove the current setting status to 0
 		for i := range dbUser.Settings {
 			if dbUser.Settings[i].Status == 1 {
 				dbUser.Settings[i].Status = 0
@@ -224,7 +238,6 @@ func (c *DashboardController) SettingSubmit(w http.ResponseWriter, r *http.Reque
 			}
 		}
 		c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
-
 	}
 
 	http.Redirect(w, r, "/dashboard/#settingGroups", http.StatusFound)

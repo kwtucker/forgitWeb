@@ -66,6 +66,7 @@
       {{range $key, $value := .User.Settings}}
       {{if $value.Status}}
       <label><p>Setting Name</p><input type="text" name="settingGroupName" value="{{$value.Name}}" placeholder="e.g -> Work" required></label>
+      <input type="hidden" name="setNameHide" value="{{$value.Name}}">
       <label>
         <p>Add, Pull, Commit <span>(Repeat Minutes)</span></p>
         <input type="number" name="apcMin" placeholder="0" min="0" value="{{$value.SettingAddPullCommit.TimeMin}}">
