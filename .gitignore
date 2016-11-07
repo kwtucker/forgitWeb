@@ -9,6 +9,7 @@ Supfile
 # Folders
 _obj
 _test
+bower_components
 
 # Architecture specific extensions/prefixes
 *.[568vq]
