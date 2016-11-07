@@ -1,6 +1,8 @@
 {{define "dashboard" }}
-{{template "subnav" .}}
 {{template "cta" .}}
+{{ if .NofifySubmit }}
+<p id="submitNotify">Submit</p>
+{{end}}
 <section id="dashboard">
   <section id=dashDownloads>
     <h2>1. Downloads</h2>

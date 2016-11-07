@@ -1,5 +1,5 @@
 {{define "newSettingForm"}}
-<form id="newFormBody" class="" action="/dashboard/setValues/" method="post">
+<form id="newFormBody" class="" action="/dashboard/setValues/" method="post" onsubmit="classAdd()">
   <label><p>Setting Name</p><input type="text" name="settingGroupName" required value="" placeholder="e.g -> Work" ></label>
   <label>
     <p>Add, Pull, Commit <span>(Repeat Minutes)</span></p>
