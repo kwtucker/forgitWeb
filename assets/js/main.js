@@ -1,6 +1,6 @@
-var currentArticle = "tab_1"
-var currentTab = 1
-var edit = 0
+var currentArticle = "tab_1",
+  currentTab = 1,
+  edit = 0;
 $(function() {
   // Show hide form when not edit
   $('#newFormBody').hide()
@@ -17,14 +17,15 @@ $(function() {
 
   $('#newForm').on('click', function(){
     $('#formOverview').hide()
+    $('#formBody').hide()
     $('#newFormBody').show()
     $('#newFormBody').css({
       "border": "2px solid #535E62",
       "border-top": 0,
       "padding": "0 20px 20px"
     })
+    $('#newFormBody input[name="settingGroupName"]').focus()
   });
-
 
   if ($(window).width() < 1000) {
     $('#features article').css('display','flex')
@@ -72,3 +73,81 @@ $(window).resize(function() {
     $('#features').css('background', '#5E696D')
   }
 });
+
+// Parse url then notify submit, remove or logout
+(function (window, undefined) {
+    "use strict";
+    var urlParams;
+    // onpopstate requires a function call
+    (window.onpopstate = function () {
+        var match,
+            pl = /\+/g, // Regex for replacing addition symbol with a space
+            // ([^&=]+) First group matches everything literally that is not &. "+" 1 match to unlimited.
+            // ([^&]*)  ignores the & on everything. /g means global.
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) {
+              // Replace any + with space
+              return decodeURIComponent(s.replace(pl, " "));
+            },
+            // ignore the ? and start with 2nd character in string.
+            query = window.location.search.substring(1);
+            // empty obj
+            urlParams = {};
+        // execute regex expression for each match and
+        while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+    })();
+
+    // Style for Form Submit or log out with styling. Notify plugin
+    $.notify.addStyle('SuccessfullySubmit', {
+      html: "<div><span data-notify-text/></div>",
+      classes: {
+        base: {
+          "white-space": "nowrap",
+          "background-color": "#4DC4AD",
+          "padding": "20px",
+          "color": "#393939",
+          "font": "500 1.3em 'Ubuntu', sans-serif",
+          "min-width": "400px",
+          "text-align": "center",
+        },
+      }
+    });
+
+    // Style for Form remove with styling. Notify plugin
+    $.notify.addStyle('RemovedSetting', {
+      html: "<div><span data-notify-text/></div>",
+      classes: {
+        base: {
+          "white-space": "nowrap",
+          "background-color": "#BE5D59",
+          "padding": "20px",
+          "color": "#E5E5E5",
+          "font": "500 1.3em 'Ubuntu', sans-serif",
+          "width": "400px",
+          "text-align": "center",
+        },
+      }
+    });
+
+    // If the url param s is true the display setting submitted
+    if (urlParams.s == "true") {
+      $.notify('Setting Group Submitted', {
+        style: 'SuccessfullySubmit'
+      });
+    }
+    // If the url param r is true the display setting removed
+    if (urlParams.r == "true") {
+      $.notify('Setting Group Removed', {
+        style: 'RemovedSetting'
+      });
+    }
+
+    // Logout notify
+    if (urlParams.lo == "true") {
+      $.notify('Log Out Successful. See you next time.', {
+        style: 'SuccessfullySubmit'
+      });
+    }
+
+}) (window);
