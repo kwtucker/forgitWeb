@@ -240,7 +240,7 @@ func (c *DashboardController) SettingSubmit(w http.ResponseWriter, r *http.Reque
 		c.db.UpdateOneUser(dbconnect, session.Values["userID"].(int), &dbUser)
 	}
 
-	http.Redirect(w, r, "/dashboard/#settingGroups", http.StatusFound)
+	http.Redirect(w, r, "/dashboard/?s=true#settingGroups", http.StatusFound)
 }
 
 // SettingSelect ...
@@ -309,5 +309,5 @@ func (c *DashboardController) SettingRemove(w http.ResponseWriter, r *http.Reque
 		}
 	}
 
-	http.Redirect(w, r, "/dashboard/#settingGroups", http.StatusFound)
+	http.Redirect(w, r, "/dashboard/?r=true#settingGroups", http.StatusFound)
 }

@@ -59,5 +59,5 @@ func (a *Auth) Logout(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 	session.Values["authed"] = 0
 	session.Values["token"] = nil
 	session.Save(r, w)
-	http.Redirect(w, r, "http://"+a.Env.Config.HostString()+"/", http.StatusFound)
+	http.Redirect(w, r, "http://"+a.Env.Config.HostString()+"/?lo=true", http.StatusFound)
 }
