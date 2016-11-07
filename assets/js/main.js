@@ -27,6 +27,12 @@ $(function() {
     $('#newFormBody input[name="settingGroupName"]').focus()
   });
 
+  $('#cancelNewSetting').on('click', function(){
+    $('#newFormBody').hide();
+    $('#formOverview').show();
+    window.scrollTo(0, 750);
+  })
+
   if ($(window).width() < 1000) {
     $('#features article').css('display','flex')
     $('#features article:even').addClass('even')
