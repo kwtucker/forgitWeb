@@ -63,6 +63,38 @@ $(function() {
     $('.tab_'+tab).css('display','flex')
     currentTab = tab
   })
+
+  // When a link on the subnav is selected it will add styling as activePage.
+  var currentPage;
+  switch (window.location.pathname) {
+    case "/getting-started/":
+    $("a[href='"+currentHash+"']").removeClass("activePage");
+      $("a[href='/getting-started/']").addClass("activePage")
+      currentPage = '/getting-started/';
+      break;
+    case "/dashboard/":
+    $("a[href='"+currentHash+"']").removeClass("activePage");
+      $("a[href='/dashboard/']").addClass("activePage")
+      currentPage = '/dashboard/';
+      break;
+    default:
+      $("a[href="+currentPage +"]").removeClass("activePage")
+  }
+
+  // When a link on a current page that does not go to another
+  // page. It will have activePage styling for the current hash.
+  var currentHash = "/";
+  $("a[href='/#features']").on('click', function() {
+    $("a[href='"+currentHash+"']").removeClass("activePage");
+    $("a[href='/#features']").addClass("activePage");
+    currentHash = '/#features';
+  })
+  $("a[href='/#price']").on('click', function() {
+    $("a[href='"+currentHash+"']").removeClass("activePage");
+    $("a[href='/#price']").addClass("activePage");
+    currentHash = '/#price';
+  })
+
 });
 
 $(window).resize(function() {

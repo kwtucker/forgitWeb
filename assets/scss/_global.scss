@@ -15,7 +15,7 @@ body {
   input {
     outline: none
   }
-	
+
 	ul {
 		list-style: none;
 	}
@@ -24,6 +24,11 @@ body {
     font:500 2.5em $font-family;
     margin: 20px 0 0px 0;
   }
+	.activePage {
+		& p {
+			color: $turq;
+		}
+	}
 }
 
 @media all and (max-width: 922px) {
