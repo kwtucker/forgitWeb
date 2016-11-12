@@ -37,12 +37,9 @@
     color: $white;
   }
 
-
   & h3 {
     font:500 2.5em $font-family;
-    // margin: 40px 0 0 0;
-    text-align: center;
-    color: $white;
+    color: $gray;
   }
 
   article {
@@ -56,7 +53,7 @@
         display: flex;
         font: 400 1.8em $font-family;
         line-height: 32px;
-        color: $white;
+        color: $gray;
 
         p, ul{
           flex: 1;
@@ -84,8 +81,14 @@
   }
   .even {
     background: $gray;
-    color: $white;
-
+    h3 {
+      color: $white;
+    }
+    .content {
+      .twoColumn {
+        color: $white;
+      }
+    }
   }
 }
 
