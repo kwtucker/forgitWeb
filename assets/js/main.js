@@ -88,14 +88,21 @@ $(function() {
     $("a[href='"+currentHash+"']").removeClass("activePage");
     $("a[href='/#features']").addClass("activePage");
     currentHash = '/#features';
+    slowScroll("#features")
   })
   $("a[href='/#price']").on('click', function() {
     $("a[href='"+currentHash+"']").removeClass("activePage");
     $("a[href='/#price']").addClass("activePage");
     currentHash = '/#price';
-  })
-
+    slowScroll("#price")
+  });
 });
+
+function slowScroll(id) {
+  $('body').animate({
+      scrollTop: $(id).offset().top
+  }, 350);
+}
 
 $(window).resize(function() {
   if ($(window).width() < 1000) {
