@@ -8,21 +8,8 @@
   align-items: center;
   & > div {
     display: flex;
-    // flex: 4;
     width: 50%;
-    // a {
-    //   flex: 1;
-    // }
-    // span {
-    //   flex: 3;
-    // }
   }
-  // span {
-  //   color: $turq;
-  //   font-weight: 700;
-  //   font-size: 1.2em;
-  //   margin-right: 10px;
-  // }
   a {
     font:400 1.4em $font-family;
     text-decoration:none;
