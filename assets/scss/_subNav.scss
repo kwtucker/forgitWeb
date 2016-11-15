@@ -6,7 +6,10 @@
   color: $white;
   background: $black;
   align-items: center;
-  & > p {
+  & > div {
+    display: flex;
+    // flex: 4;
+    width: 50%;
     // a {
     //   flex: 1;
     // }
