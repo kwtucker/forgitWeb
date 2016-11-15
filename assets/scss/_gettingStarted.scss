@@ -1,7 +1,6 @@
 #gettingStarted {
   font:500 1em $font-family;
   .gstartArt {
-    // min-height: 200px;
     padding: 40px 150px;
     align-content: center;
     .row1{
@@ -11,12 +10,6 @@
         flex:1;
         display: flex;
         align-items: baseline;
-        .getcmd {
-          flex:1;
-          img {
-            height: 50px;
-          }
-        }
         .number {
           flex:1;
           font-weight: 700;
@@ -28,6 +21,9 @@
           font-weight: 500;
           font-size: 3em;
           margin: 0;
+          span {
+            color: $turq;
+          }
         }
 
       }
@@ -63,12 +59,8 @@
             background: rgba(83, 94, 98, 0.7);
             color: #FFFFFF;
             padding: 10px;
-            font-size: 1.4em;
-            font-weight: 500;
-          }
-          img {
-            height: 40px;
-            margin-right: 40px;
+            font-size: 1.2em;
+            font-weight: 400;
           }
         }
       }
@@ -150,4 +142,15 @@
    font-size: .8em;
    padding: 40px 40px;
  }
+}
+
+@media all and (min-width: 1119px) {
+  #gettingStarted .gstartArt .row2 #getdownloadbox {
+    & a {
+
+    }
+    & .getdownload {
+      width: 40%;
+    }
+  }
 }

@@ -7,9 +7,10 @@
     margin-top: 20px;
     flex-direction: column;
     color: $gray;
+
     .downloadsButtonsSection {
       & .download {
-        display: flex;
+        display:flex;
         margin: 0 0 10px 0;
         align-items: center;
         color: $white;
@@ -17,11 +18,14 @@
         text-decoration: none;
         justify-content: center;
         cursor: pointer;
-        padding: 20px;
+        padding: 5px;
         height: 40px;
         p {
           align-self: center;
-          font-size: 2em;
+          font-size: 1.8em;
+          span {
+            font-size: .8em;
+          }
         }
         &:hover {
           background: $gray;
@@ -303,6 +307,8 @@
 }
 
 @media all and (max-width: 740px) {
+
+
   #dashboard {
     padding: 40px 40px;
     .downloadsButtonsSection {
@@ -346,10 +352,9 @@
 }
 
 @media all and (max-width: 1119px) {
-
   #dashDownloads {
     text-align: center;
-    align-items: center;;
+    align-items: center;
   }
 
   #settingGroups > .dashTitle {
@@ -362,6 +367,15 @@
   .reposlist {
     ul {
       font-size: 1em;
+    }
+  }
+}
+
+@media all and (min-width: 1119px) {
+  #dashDownloads .downloadsButtonsSection {
+    .download {
+      width: 40%;
+
     }
   }
 }

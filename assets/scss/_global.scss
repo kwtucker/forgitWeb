@@ -10,6 +10,9 @@ body {
     flex: 1;
     font: 500 2.9em $font-family;
     margin: 20px 0 10px;
+		span {
+			color: $turq;
+		}
   }
 
   input {
