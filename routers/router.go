@@ -77,6 +77,13 @@ func Init(application system.Application, router *httprouter.Router, database *d
 			DataConnect: database,
 		}, "GettingStarted"))
 
+	router.GET("/donate/", application.Route(
+		&controllers.DonateController{
+			Sess:        Store,
+			Env:         application,
+			DataConnect: database,
+		}, "Donate"))
+
 	// API get user.
 	router.GET("/api/users/:fid/:i", application.NoViewRoute(
 		&controllers.APIController{
