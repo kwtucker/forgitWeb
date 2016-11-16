@@ -35,12 +35,12 @@
         padding: 20px;
         text-align: center;
         font: 700 6em $font-family;
-        &:before {
-          content: url('../img/logop.png');
-          position: relative;
-          top: 10px;
-          left: -10px;
-        }
+        // &:before {
+        //   content: url('../img/logop.png');
+        //   position: relative;
+        //   top: 10px;
+        //   left: -10px;
+        // }
       }
     }
     ul {
@@ -62,6 +62,33 @@
       position: relative;
       top: 24px;
       left: -20px;
+    }
+    & a {
+      color: $white;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      &[href="/auth/"],&[href="/donate/"]  {
+        justify-content: center;
+        text-align: center;
+        width: 250px;
+        height: 50px;
+        background: $black;
+        font:400 1.4em $font-family;
+        border-radius: 4px;
+        & img {
+          height: 30px;
+          flex: 1;
+        }
+        & p {
+          flex: 2;
+          color: $white;
+          font: 500 1em $font-family;
+        }
+        &:hover {
+          background: $gray;
+        }
+      }
     }
   }
 }
